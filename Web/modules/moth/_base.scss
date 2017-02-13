@@ -1,0 +1,11 @@
+body {
+  background-color: #eee;
+}
+
+label, input[type='text'] {
+  display: block;
+}
+
+button {
+  @extend .button;
+}

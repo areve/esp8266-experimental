@@ -5,19 +5,23 @@
   "main": "index.js",
   "scripts": {
     "dist": "webpack --optimize-minimize",
+    "dist:watch": "webpack --optimize-minimize --watch",
     "start": "webpack-dev-server --inline --hot"
   },
   "author": "Andrew Challen",
   "license": "ISC",
   "devDependencies": {
     "css-loader": "^0.26.1",
+    "foundation-sites": "^6.3.0",
     "import-glob-loader": "^1.1.0",
+    "jquery-slim": "^3.0.0",
     "node-sass": "^4.5.0",
     "sass-lint": "^1.10.2",
     "sass-loader": "^6.0.0",
     "style-loader": "^0.13.1",
     "ts-loader": "^2.0.0",
     "tslint": "^4.4.2",
+    "tslint-config-standard": "^4.0.0",
     "typescript": "^2.1.6",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0"

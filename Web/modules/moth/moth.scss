@@ -1,33 +1,12 @@
-body {
-  background-color: #eee;
-}
+$foundation-palette: (
+  primary: #55c,
+  secondary: #669,
+  success: #3adb76,
+  warning: #ffae00,
+  alert: #ec5840
+);
 
-label, input[type='text'] {
-  display: block;
-}
+@import 'node_modules/foundation-sites/scss/foundation.scss';
+@include foundation-everything;
 
-nav {
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-
-    li {
-      float: left;
-
-      a {
-        display: block;
-        color: #fff;
-        text-align: center;
-        padding: .5em;
-        text-decoration: none;
-
-        &:hover {
-          background-color: #111;
-        }
-      }
-    }
-  }
-}
+@import '../**/_*.scss';

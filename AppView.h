@@ -13,6 +13,18 @@ public:
 		String script = "/script.js";
 		if (config::devScriptUrl.length() != 0) script = config::devScriptUrl;
 		
+		const String noScriptJsMessage =
+			"<p id=\"no-script-js-message\" style=\"background-color:#f00;color:#fff\;display:none\">"
+			"Without script.js in the root of the filesystem this site will not work very well <a href=\"/fs\">upload it now</a>."
+			"</p>"
+			"<script>"
+			"setTimeout(function(){"
+			"(function(){"
+			"var el=document.getElementById('no-script-js-message');"
+			"if(el)el.style.display='block'"
+			"}())"
+			"},1000)"
+			"</script>";
 		const String html =
 			"<!DOCTYPE html>"
 			"<html>"
@@ -20,7 +32,8 @@ public:
 			"<title>" + htmlEncode(title) + "</title>"
 			"<script src=\"" + htmlEncode(script) + "\"></script>"
 			"</head>"
-			"<body>"
+			"<body>" +
+			noScriptJsMessage +
 			"<nav>"
 			"<ul>"
 			"<li><a href=\"/\">home</a></li>"
@@ -30,7 +43,8 @@ public:
 			"<li><a href=\"/fs\">filesystem</a></li>"
 			"<li><a href=\"/config\">config</a></li>"
 			"</ul>"
-			"</nav>";
+			"</nav>"
+			;
 
 		return html;
 	}
