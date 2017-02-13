@@ -7,6 +7,7 @@
 #include "WebServer.h"
 #include "FileInfo.h"
 #include "FsController.h"
+#include "ErrorView.h"
 
 class FsView : public AppView {
 public:
@@ -21,6 +22,7 @@ public:
 
 private:
 	FsController* fsController;
+	ErrorView* errorView;
 	String getContentType(String filename);
 	String etag = String(random(0xFFFFFFFF));
 };

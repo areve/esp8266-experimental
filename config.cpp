@@ -5,4 +5,5 @@ namespace config {
 	String accessPointPassphrase = "mothpass1!";
 	String wifiSsid = "";
 	String wifiPassphrase = "";
+	String devScriptUrl = "";
 }

@@ -3,6 +3,7 @@
 FsView::FsView(FsController* fsController)
 {
 	this->fsController = fsController;
+	this->errorView = new ErrorView();
 }
 
 String FsView::getContentType(String filename) {
@@ -76,11 +77,17 @@ void FsView::handleRead(const String read)
 		}
 	}
 
-	webServer->sendHeader("Content-Disposition", String("inline; filename=\"") + fileName + "\"", false);
-	webServer->sendHeader("ETag", fileEtag, false);
-	File file = fsController->read(read);
-	size_t sent = webServer->streamFile(file, contentType);
-	file.close();
+	if (fsController->exists(read)) {
+		webServer->sendHeader("Content-Disposition", String("inline; filename=\"") + fileName + "\"", false);
+		webServer->sendHeader("ETag", fileEtag, false);
+		File file = fsController->read(read);
+		size_t sent = webServer->streamFile(file, contentType);
+		file.close();
+		return;
+	}
+
+	errorView->webServer = webServer;
+	this->errorView->handleNotFound();
 }
 
 void FsView::handleList()
@@ -134,6 +141,7 @@ void FsView::handleList()
 	webServer->send(200, "text/html", html);
 }
 
+
 void FsView::handleRequest()
 {
 	if (webServer->method() == HTTP_POST) {
@@ -154,5 +162,7 @@ void FsView::handleRequest()
 	String read = webServer->getArg("read");
 	if (read.length()) return handleRead(read);
 
-	handleList();
+	if (webServer->uri().startsWith("/fs")) return handleList();
+
+	handleRead(webServer->uri().substring(1));
 }

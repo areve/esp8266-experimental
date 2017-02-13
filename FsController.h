@@ -13,6 +13,7 @@ public:
 	FsController();
 	std::vector<FileInfo> list();
 	File read(const String name);
+	bool exists(const String name);
 	void remove(const String name);
 	void rename(const String nameFrom, const String nameTo);
 	void uploadStart();

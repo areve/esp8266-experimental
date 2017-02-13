@@ -2,6 +2,11 @@
 
 void ErrorView::handleRequest()
 {
+	handleNotFound();
+}
+
+void ErrorView::handleNotFound()
+{
 	logger::log(String((webServer->method() == HTTP_GET) ? "GET" : "POST") + " " + webServer->uri());
 
 	String text = "File Not Found\n\n";

@@ -23,6 +23,7 @@ void WebServer::addErrorView(IView * view)
 {
 	errorView = view;
 	errorView->webServer = this;
+
 	this->onNotFound([&]() {
 		logger::log(String(this->method() == HTTP_GET ? "GET" : "POST") +
 			" " + this->uri());

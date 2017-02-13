@@ -1,0 +1,33 @@
+body {
+  background-color: #eee;
+}
+
+label, input[type='text'] {
+  display: block;
+}
+
+nav {
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+
+    li {
+      float: left;
+
+      a {
+        display: block;
+        color: #fff;
+        text-align: center;
+        padding: .5em;
+        text-decoration: none;
+
+        &:hover {
+          background-color: #111;
+        }
+      }
+    }
+  }
+}

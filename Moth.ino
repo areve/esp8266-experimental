@@ -11,7 +11,6 @@
 #include "Connection.h"
 #include "Logger.h"
 
-#include "ScriptView.h"
 #include "StyleView.h"
 #include "ConfigView.h"
 #include "ErrorView.h"
@@ -46,7 +45,6 @@ FsController* fsController = NULL;
 IndexView* indexView = NULL;
 ErrorView* errorView = NULL;
 ConfigView* configView = NULL;
-ScriptView* scriptView = NULL;
 StyleView* styleView = NULL;
 FsView* fsView = NULL;
 
@@ -91,19 +89,15 @@ void setupWebServer() {
 
 	configView = new ConfigView();
 	webServer->addView("/config", HTTP_ANY, configView);
-
-	styleView = new StyleView();
-	webServer->addView("/style.css", HTTP_ANY, styleView);
-
-	webServer->addView("/script.js", HTTP_ANY, new ScriptView());
 	
 	fsController = new FsController();
 	fsView = new FsView(fsController);
 	webServer->addView("/fs", HTTP_ANY, fsView);
 
-	errorView = new ErrorView();
-	webServer->addErrorView(errorView);
-	
+	//errorView = new ErrorView();
+	//webServer->addErrorView(errorView);
+	webServer->addErrorView(fsView);
+
 	setupLedMatrixController();
 	//setupPinController();
 	//setupStepperController();

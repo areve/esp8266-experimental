@@ -1,0 +1,25 @@
+rules:
+  indentation:
+    - 2
+    -
+      size: 2
+  property-sort-order:
+    - 0
+  clean-import-paths:
+    - 0
+  placeholder-in-extend:
+    - 0
+  space-after-colon:
+    - 2
+  leading-zero:
+    - 2
+  force-element-nesting:
+    - 2
+  space-before-brace:
+    - 2
+  nesting-depth:
+    - 2
+    -
+      max-depth: 8
+  final-newline:
+    - 2

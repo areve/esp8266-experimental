@@ -9,6 +9,7 @@
 class ErrorView : public AppView {
 public:
 	virtual void handleRequest();
+	virtual void handleNotFound();
 };
 
 #endif

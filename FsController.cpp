@@ -20,6 +20,11 @@ File FsController::read(const String name)
 	return SPIFFS.open(name, "r");
 }
 
+bool FsController::exists(const String name)
+{
+	return SPIFFS.exists(name);
+}
+
 void FsController::remove(const String name)
 {
 	SPIFFS.remove(name);

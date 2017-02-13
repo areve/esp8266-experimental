@@ -12,6 +12,7 @@ namespace config {
 	extern String accessPointPassphrase;
 	extern String wifiSsid;
 	extern String wifiPassphrase;
+	extern String devScriptUrl;
 
 	static bool load() {
 		if (!SPIFFS.begin()) {
@@ -40,7 +41,9 @@ namespace config {
 		// use configFile.readString instead.
 		configFile.readBytes(buf.get(), size);
 
-		StaticJsonBuffer<200> jsonBuffer;
+		// I think there may be a bug somewhere in the Json library because 
+		// when this was set to 200 I was getting parse-fail 
+		StaticJsonBuffer<1024> jsonBuffer;
 		JsonObject& json = jsonBuffer.parseObject(buf.get());
 
 		if (!json.success()) {
@@ -48,10 +51,18 @@ namespace config {
 			return false;
 		}
 
-		accessPointName = json["accessPointName"].asString();
-		accessPointPassphrase = json["accessPointPassphrase"].asString();
-		wifiSsid = json["wifiSsid"].asString();
-		wifiPassphrase = json["wifiPassphrase"].asString();
+		if (json.containsKey("accessPointName")) 
+			accessPointName = json["accessPointName"].asString();
+		if (json.containsKey("accessPointPassphrase")) 
+			accessPointPassphrase = json["accessPointPassphrase"].asString();
+		if (json.containsKey("wifiSsid")) 
+			wifiSsid = json["wifiSsid"].asString();
+		if (json.containsKey("wifiPassphrase")) 
+			wifiPassphrase = json["wifiPassphrase"].asString();
+		if(json.containsKey("devScriptUrl")) 
+			devScriptUrl = json["devScriptUrl"].asString();
+
+		logger::debug("accessPointName IS " + accessPointName);
 
 		return true;
 	}
@@ -66,6 +77,7 @@ namespace config {
 		json["accessPointPassphrase"] = accessPointPassphrase;
 		json["wifiSsid"] = wifiSsid;
 		json["wifiPassphrase"] = wifiPassphrase;
+		json["devScriptUrl"] = devScriptUrl;
 
 		File configFile = SPIFFS.open("config.json", "w");
 		if (!configFile) {

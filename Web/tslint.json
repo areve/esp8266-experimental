@@ -1,0 +1,11 @@
+{
+    "extends": [
+        "tslint-config-standard"
+    ],
+    "rules": {
+        "variable-name": false,
+        "curly": false
+    },
+    "jsRules": {},
+    "rulesDirectory": []
+}

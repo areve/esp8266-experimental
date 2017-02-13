@@ -10,14 +10,15 @@ class AppView : public IView {
 public:
 	static String htmlHeader(String title)
 	{
+		String script = "/script.js";
+		if (config::devScriptUrl.length() != 0) script = config::devScriptUrl;
+		
 		const String html =
 			"<!DOCTYPE html>"
 			"<html>"
 			"<head>"
 			"<title>" + htmlEncode(title) + "</title>"
-			"<link rel=\"stylesheet\" href=\"/style.css\" />"
-			"<script src=\"/fs?read=jquery-3.1.1.slim.min.js\"></script>"
-			"<script src=\"/script.js\"></script>"
+			"<script src=\"" + htmlEncode(script) + "\"></script>"
 			"</head>"
 			"<body>"
 			"<nav>"
