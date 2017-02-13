@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Views">
+      <UniqueIdentifier>{ef6ab4e3-30c2-4148-b418-0df78bf21cf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controllers">
+      <UniqueIdentifier>{72f6b8cc-3bf9-457f-8e7b-6e5206840561}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{c045bc03-71b1-4c94-bd36-514cb5532e7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules">
+      <UniqueIdentifier>{62864d8f-1581-44f1-a6de-22a95013ad14}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Moth.ino" />
+    <None Include="readme.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="LedMatrixController.cpp">
+      <Filter>Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="PinController.cpp">
+      <Filter>Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="SerialParallelController.cpp">
+      <Filter>Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="StepperController.cpp">
+      <Filter>Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="UltrasonicController.cpp">
+      <Filter>Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="StepperView.cpp">
+      <Filter>Views</Filter>
+    </ClCompile>
+    <ClCompile Include="PinView.cpp">
+      <Filter>Views</Filter>
+    </ClCompile>
+    <ClCompile Include="LedMatrixView.cpp">
+      <Filter>Views</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexView.cpp">
+      <Filter>Views</Filter>
+    </ClCompile>
+    <ClCompile Include="ErrorView.cpp">
+      <Filter>Views</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfigView.cpp">
+      <Filter>Views</Filter>
+    </ClCompile>
+    <ClCompile Include="Connection.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="TextPanel.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="WebServer.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="config.cpp" />
+    <ClCompile Include="SerialLogger.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="StyleView.cpp">
+      <Filter>Views</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptView.cpp">
+      <Filter>Views</Filter>
+    </ClCompile>
+    <ClCompile Include="FsView.cpp">
+      <Filter>Views</Filter>
+    </ClCompile>
+    <ClCompile Include="FsController.cpp">
+      <Filter>Controllers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="UltrasonicController.h">
+      <Filter>Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="StepperController.h">
+      <Filter>Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="SerialParallelController.h">
+      <Filter>Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="LedMatrixController.h">
+      <Filter>Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="StepperView.h">
+      <Filter>Views</Filter>
+    </ClInclude>
+    <ClInclude Include="LedMatrixView.h">
+      <Filter>Views</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexView.h">
+      <Filter>Views</Filter>
+    </ClInclude>
+    <ClInclude Include="ErrorView.h">
+      <Filter>Views</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigView.h">
+      <Filter>Views</Filter>
+    </ClInclude>
+    <ClInclude Include="PinController.h">
+      <Filter>Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="IView.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Connection.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="logger.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="PinView.h">
+      <Filter>Views</Filter>
+    </ClInclude>
+    <ClInclude Include="stringHelper.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="TextPanel.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="WebServer.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="ESP8266_const.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="AppView.h">
+      <Filter>Views</Filter>
+    </ClInclude>
+    <ClInclude Include="config.h" />
+    <ClInclude Include="__vm\.Moth.vsarduino.h" />
+    <ClInclude Include="SerialLogger.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="StyleView.h">
+      <Filter>Views</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptView.h">
+      <Filter>Views</Filter>
+    </ClInclude>
+    <ClInclude Include="FileInfo.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="FsView.h">
+      <Filter>Views</Filter>
+    </ClInclude>
+    <ClInclude Include="FsController.h">
+      <Filter>Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="__vm\.esp8266-experimental.vsarduino.h" />
+  </ItemGroup>
+</Project>
