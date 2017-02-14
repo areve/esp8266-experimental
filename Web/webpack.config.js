@@ -1,3 +1,5 @@
+var webpack = require('webpack')
+
 module.exports = {
     entry: "./entry.ts",
     context: __dirname + "",
@@ -17,5 +19,12 @@ module.exports = {
                 loader: 'ts-loader'
             }
         ]
-    }
+    },
+    plugins: [
+        new webpack.ContextReplacementPlugin(
+            /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+            __dirname + "",
+            {}
+        )
+    ]
 };
