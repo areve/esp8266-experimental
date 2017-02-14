@@ -17,14 +17,14 @@ import { Component, OnInit, Inject } from '@angular/core'
   `
 })
 export class HomeComponent {
-  links: Array<{ url: string, text: string }>
+  links: { url: string, text: string }[]
   constructor () {
-    this.links = this.readLinksFromHiddenHeaderInPage()
+    this.links = this.getFallbackApiLinksFromHiddenHtml()
   }
 
-  readLinksFromHiddenHeaderInPage () {
+  getFallbackApiLinksFromHiddenHtml () {
     const navFallback = $('nav.fallback ul li a')
-    let result = $.map(navFallback, link => {
+    let result: { url: string, text: string }[] = $.map(navFallback, link => {
       let $link = $(link)
       return {
         url: $link.attr('href'),
