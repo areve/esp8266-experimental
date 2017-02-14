@@ -14,22 +14,23 @@ public:
 		if (config::devScriptUrl.length() != 0) script = config::devScriptUrl;
 		
 		const String noScriptJsMessage =
-			"<p id=\"no-script-js-message\" style=\"background-color:#f00;color:#fff\;display:none\">"
+			"<p id=\"no-script-js-message\" class=\"fallback\">"
 			"Without script.js in the root of the filesystem this site will not work very well <a href=\"/fs\">upload it now</a>."
 			"</p>"
 			"<script>"
 			"setTimeout(function(){"
-			"(function(){"
-			"var el=document.getElementById('no-script-js-message');"
-			"if(el)el.style.display='block'"
-			"}())"
-			"},1000)"
+			"if(typeof scriptJs==='undefined'){"
+			"var fallbacks=document.getElementsByClassName('fallback');"
+			"for(var i=0;i<fallbacks.length;i++){"
+			"fallbacks[i].style.display='block'"
+			"}}},0)"
 			"</script>";
 		const String html =
 			"<!DOCTYPE html>"
 			"<html>"
 			"<head>"
 			"<title>" + htmlEncode(title) + "</title>"
+			"<style>.fallback{display:none}</style>"
 			"<script src=\"" + htmlEncode(script) + "\"></script>"
 			"</head>"
 			"<body>" +
@@ -43,8 +44,7 @@ public:
 			"<li><a href=\"/fs\">filesystem</a></li>"
 			"<li><a href=\"/config\">config</a></li>"
 			"</ul>"
-			"</nav>"
-			;
+			"</nav>";
 
 		return html;
 	}
@@ -58,10 +58,12 @@ public:
 	static String htmlInputText(const String name, const String value)
 	{
 		const String html =
+			"<div>" 
 			"<label>" +
-			htmlEncode(name) +
+			htmlEncode(name) + " "
 			"<input type=\"text\" name=\"" + htmlEncode(name) + "\" value=\"" + htmlEncode(value) + "\" />"
-			"</label>";
+			"</label>"
+			"</div>";
 
 		return html;
 	}

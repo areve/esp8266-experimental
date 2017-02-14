@@ -109,14 +109,15 @@ void FsView::handleList()
 
 	String html =
 		htmlHeader("File System < Moth") +
+		"<section class=\"file-system\">"
 		"<h1>MOTH File System</h1>"
 		"<p>A File System browser.</p>" +
 		fileList +
 		"<form method=\"POST\" enctype=\"multipart/form-data\">" +
 		"<input name=\"remove\" type=\"hidden\" />"
-		"<label id=\"upload\">Upload <input type=\"file\" name=\"upload\" onchange=\"uploadChange()\" /></label>"
-		"<label id=\"rename\">Rename <input name=\"rename\" value=\"\" /></label>"
-		"<label id=\"name\">To <input name=\"name\" value=\"\" /></label>"
+		"<div><label id=\"upload\">Upload <input type=\"file\" name=\"upload\" onchange=\"uploadChange()\" /></label></div>"
+		"<div><label id=\"rename\">Rename <input name=\"rename\" value=\"\" /></label></div>"
+		"<div><label id=\"name\">To <input name=\"name\" value=\"\" /></label></div>"
 		"<button>Save</button>"
 		"</form>" +
 		"<script>"
@@ -136,6 +137,7 @@ void FsView::handleList()
 		"document.forms[0].name.focus();"
 		"}"
 		"</script>" +
+		"</section>" +
 		htmlFooter();
 
 	webServer->send(200, "text/html", html);
