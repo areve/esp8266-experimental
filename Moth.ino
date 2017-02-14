@@ -88,11 +88,11 @@ void setupWebServer() {
 	webServer->addView("/", HTTP_ANY, indexView);
 
 	configView = new ConfigView();
-	webServer->addView("/config", HTTP_ANY, configView);
+	webServer->addView("/api/config", HTTP_ANY, configView);
 	
 	fsController = new FsController();
 	fsView = new FsView(fsController);
-	webServer->addView("/fs", HTTP_ANY, fsView);
+	webServer->addView("/api/fs", HTTP_ANY, fsView);
 
 	//errorView = new ErrorView();
 	//webServer->addErrorView(errorView);
@@ -112,19 +112,19 @@ void setupPinController() {
 	pinController->addPin(PIN_D1);
 	pinController->addPin(PIN_D2);
 	pinView = new PinView(pinController);
-	webServer->addView("/pins", HTTP_ANY, pinView);
+	webServer->addView("/api/pins", HTTP_ANY, pinView);
 }
 
 void setupStepperController() {
 	stepperController = new StepperController(PIN_D8, PIN_D7, PIN_D6, PIN_D5);
 	stepperView = new StepperView(stepperController);
-	webServer->addView("/stepper", HTTP_ANY, stepperView);
+	webServer->addView("/api/stepper", HTTP_ANY, stepperView);
 }
 
 void setupLedMatrixController() {
 	ledMatrixController = new LedMatrixController(PIN_D4, PIN_D3, PIN_D2);
 	ledMatrixView = new LedMatrixView(ledMatrixController);
-	webServer->addView("/ledmatrix", HTTP_ANY, ledMatrixView);
+	webServer->addView("/api/ledmatrix", HTTP_ANY, ledMatrixView);
 }
 
 void setupSerialParallelController() {

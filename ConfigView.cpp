@@ -10,7 +10,7 @@ void ConfigView::handleRequest()
 		config::devScriptUrl = webServer->getArg("devScriptUrl");
 
 		if (config::save()) {
-			webServer->sendHeader("Location", "/config?saved=OK", false);
+			webServer->sendHeader("Location", "/api/config?saved=OK", false);
 			webServer->send(302, "text/plain", "OK");
 		}
 		else {
@@ -25,7 +25,7 @@ void ConfigView::handleRequest()
 			htmlHeader("Config < Moth") +
 			"<h1>MOTH Config</h1>"
 			"<p>Settings that can be changed, these are stored in onboard storage.</p>"
-			"<form method=\"POST\" action=\"/config\">" +
+			"<form method=\"POST\" action=\"/api/config\">" +
 			htmlInputText("accessPointName", config::accessPointName) +
 			htmlInputText("accessPointPassphrase", config::accessPointPassphrase) +
 			htmlInputText("wifiSsid", config::wifiSsid) +

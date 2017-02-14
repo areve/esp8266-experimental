@@ -15,7 +15,7 @@ public:
 		
 		const String noScriptJsMessage =
 			"<p id=\"no-script-js-message\" class=\"fallback\">"
-			"Without script.js in the root of the filesystem this site will not work very well <a href=\"/fs\">upload it now</a>."
+			"Without script.js in the root of the filesystem this site will not work very well <a href=\"/api/fs\">upload it now</a>."
 			"</p>"
 			"<script>"
 			"setTimeout(function(){"
@@ -30,19 +30,20 @@ public:
 			"<html>"
 			"<head>"
 			"<title>" + htmlEncode(title) + "</title>"
+			"<base href=\"/\" />"
 			"<style>.fallback{display:none}</style>"
 			"<script src=\"" + htmlEncode(script) + "\"></script>"
 			"</head>"
 			"<body>" +
 			noScriptJsMessage +
-			"<nav>"
+			"<nav class=\"fallback\">"
 			"<ul>"
 			"<li><a href=\"/\">home</a></li>"
-			"<li><a href=\"/pins\">pins</a></li>"
-			"<li><a href=\"/ledmatrix\">ledmatrix</a></li>"
-			"<li><a href=\"/stepper\">stepper</a></li>"
-			"<li><a href=\"/fs\">filesystem</a></li>"
-			"<li><a href=\"/config\">config</a></li>"
+			"<li><a href=\"/api/pins\">pins</a></li>"
+			"<li><a href=\"/api/ledmatrix\">ledmatrix</a></li>"
+			"<li><a href=\"/api/stepper\">stepper</a></li>"
+			"<li><a href=\"/api/fs\">filesystem</a></li>"
+			"<li><a href=\"/api/config\">config</a></li>"
 			"</ul>"
 			"</nav>";
 

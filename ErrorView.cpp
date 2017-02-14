@@ -7,8 +7,8 @@ void ErrorView::handleRequest()
 
 void ErrorView::handleNotFound()
 {
-	logger::log(String((webServer->method() == HTTP_GET) ? "GET" : "POST") + " " + webServer->uri());
-
+	logger::log(String((webServer->method() == HTTP_GET) ? "GET" : "POST?") + " " + webServer->uri());
+	
 	String text = "File Not Found\n\n";
 	text += "URI: ";
 	text += webServer->uri();
@@ -20,5 +20,12 @@ void ErrorView::handleNotFound()
 	for (uint8_t i = 0; i < webServer->args(); i++) {
 		text += " " + webServer->argName(i) + ": " + webServer->ESP8266WebServer::arg(i) + "\n";
 	}
-	webServer->send(404, "text/plain", text);
+
+	String html =
+		htmlHeader("Home < Moth") +
+		"<app></app>" +
+		"<pre class=\"fallback\">" + htmlEncode(text) + "</pre>" +
+		htmlFooter();
+
+	webServer->send(200, "text/html", html);
 }

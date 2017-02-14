@@ -1,11 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core'
 
 @Component({
-  selector: 'app-config',
   template: `
-    <p>This is config</p>
+    <p>This is ConfigComponent</p>
   `
 })
-export class ConfigComponent {
-  
-}
+export class ConfigComponent { }

@@ -4,9 +4,11 @@ void IndexView::handleRequest()
 {
 	String html =
 		htmlHeader("Home < Moth") +
+		"<div class=\"fallback\">" +
 		"<h1>MOTH</h1>" +
 		"<p>A web site on a ESP8266, to control it.</p>" +
-		"<app-moth></app-moth>" +
+		"</div>" +
+		"<app></app>" +
 		htmlFooter();
 
 	webServer->send(200, "text/html", html);

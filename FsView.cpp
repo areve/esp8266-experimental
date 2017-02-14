@@ -41,7 +41,7 @@ void FsView::handleUpload() {
 void FsView::handleRemove(const String remove)
 {
 	fsController->remove(remove);
-	webServer->sendHeader("Location", "/fs?saved=OK", false);
+	webServer->sendHeader("Location", "/api/fs?saved=OK", false);
 	webServer->send(302, "text/plain", "OK");
 	etag = String(random(0xffffffff));
 }
@@ -50,7 +50,7 @@ void FsView::handleRename(const String rename)
 {
 	String name = webServer->getArg("name");
 	fsController->rename(rename, name);
-	webServer->sendHeader("Location", "/fs?saved=OK", false);
+	webServer->sendHeader("Location", "/api/fs?saved=OK", false);
 	webServer->send(302, "text/plain", "OK");
 	etag = String(random(0xffffffff));
 }
@@ -59,7 +59,7 @@ void FsView::handleUpload(HTTPUpload & upload)
 {
 	String name = webServer->getArg("name");
 	fsController->uploadSave(name.length() ? name : upload.filename);
-	webServer->sendHeader("Location", "/fs?saved=OK", false);
+	webServer->sendHeader("Location", "/api/fs?saved=OK", false);
 	webServer->send(302, "text/plain", "OK");
 	etag = String(random(0xffffffff));
 }
@@ -156,7 +156,7 @@ void FsView::handleRequest()
 		HTTPUpload& upload = webServer->upload();
 		if (upload.filename.length()) return handleUpload(upload);
 
-		webServer->sendHeader("Location", "/fs", false);
+		webServer->sendHeader("Location", "/api/fs", false);
 		webServer->send(200, "text/plain", "What?");
 		return;
 	}
@@ -164,7 +164,7 @@ void FsView::handleRequest()
 	String read = webServer->getArg("read");
 	if (read.length()) return handleRead(read);
 
-	if (webServer->uri().startsWith("/fs")) return handleList();
+	if (webServer->uri().startsWith("/api/fs")) return handleList();
 
 	handleRead(webServer->uri().substring(1));
 }
