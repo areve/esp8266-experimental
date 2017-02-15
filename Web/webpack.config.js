@@ -7,7 +7,6 @@ module.exports = {
         path: __dirname + "./../Resource",
         filename: "script.js"
     },
-    devtool: 'inline-source-map',
     resolve: {
         extensions: ['.webpack.js', '.web.js', '.ts', '.js']
     },

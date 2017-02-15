@@ -1,4 +1,3 @@
-import * as $ from 'jquery'
 import { Component, OnInit, Inject } from '@angular/core'
 
 @Component({
@@ -23,15 +22,6 @@ export class HomeComponent {
   }
 
   getFallbackApiLinksFromHiddenHtml () {
-    const navFallback = $('nav.fallback ul li a')
-    let result: { url: string, text: string }[] = $.map(navFallback, link => {
-      let $link = $(link)
-      return {
-        url: $link.attr('href'),
-        text: $link.text()
-      }
-    })
-    result.shift()
-    return result
+    return []
   }
 }

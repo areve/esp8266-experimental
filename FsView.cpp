@@ -40,6 +40,7 @@ void FsView::handleUpload() {
 
 void FsView::handleRemove(const String remove)
 {
+	logger::debug(String("handleRemove ") + remove);
 	fsController->remove(remove);
 	webServer->sendHeader("Location", "/api/fs?saved=OK", false);
 	webServer->send(302, "text/plain", "OK");
@@ -96,7 +97,7 @@ void FsView::handleList()
 	String fileList = "<ul>";
 	for (FileInfo fileInfo : fileInfos) {
 		fileList += "<li data-name=\"" + htmlEncode(fileInfo.name) + "\">"
-			"<a href=\"?read=" + htmlEncode(fileInfo.name) + "\">" +
+			"<a href=\"/api/fs?read=" + htmlEncode(fileInfo.name) + "\">" +
 			htmlEncode(fileInfo.name) +
 			"</a>"
 			" "

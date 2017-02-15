@@ -27,7 +27,8 @@ bool FsController::exists(const String name)
 
 void FsController::remove(const String name)
 {
-	SPIFFS.remove(name);
+	if (!SPIFFS.remove(name))
+		logger::debug(String("remove ") + name + " failed");
 }
 
 void FsController::rename(const String nameFrom, const String nameTo)
