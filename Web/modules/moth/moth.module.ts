@@ -6,6 +6,8 @@ import { MothComponent } from './moth.component'
 import { FileSystemComponent } from '../file-system/file-system.component'
 import { HomeComponent } from '../home/home.component'
 import { RouterModule, Routes } from '@angular/router'
+import { FormsModule }   from '@angular/forms';
+
 
 
 const appRoutes: Routes = [
@@ -40,6 +42,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     HttpModule,
+    FormsModule,
     RouterModule.forRoot(appRoutes)
   ],
   declarations: [

@@ -1,3 +1,4 @@
+#include <ArduinoJson.h>
 #include "FileInfo.h"
 #include "FsController.h"
 #include "FsView.h"

@@ -15,7 +15,7 @@ public:
 		
 		const String noScriptJsMessage =
 			"<p id=\"no-script-js-message\" class=\"fallback\">"
-			"Without script.js in the root of the filesystem this site will not work very well <a href=\"/api/fs\">upload it now</a>."
+			"Without script.js in the root of the filesystem this site will not work so well upload it using the filesystem api '/api/fs'."
 			"</p>"
 			"<script>"
 			"setTimeout(function(){"
@@ -38,12 +38,8 @@ public:
 			noScriptJsMessage +
 			"<nav class=\"fallback\">"
 			"<ul>"
-			"<li><a href=\"/\">home</a></li>"
-			"<li><a href=\"/api/pins\">pins</a></li>"
-			"<li><a href=\"/api/ledmatrix\">ledmatrix</a></li>"
-			"<li><a href=\"/api/stepper\">stepper</a></li>"
-			"<li><a href=\"/api/fs\">filesystem</a></li>"
-			"<li><a href=\"/api/config\">config</a></li>"
+			"<li><a href=\"/api/fs\">/api/fs</a></li>"
+			"<li><a href=\"/api/config\">/api/config</a></li>"
 			"</ul>"
 			"</nav>";
 
@@ -71,4 +67,3 @@ public:
 };
 
 #endif
-

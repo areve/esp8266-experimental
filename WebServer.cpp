@@ -2,8 +2,12 @@
 
 WebServer::WebServer(u16 port) : ESP8266WebServer(port){
 	logger::log("HTTP port:" + String(port));
-	const char *inm = "If-None-Match\0";
-	collectHeaders(&inm, 1);
+	const size_t headerKeysSize = 2;
+	const char* headerKeys[headerKeysSize] = {
+		"If-None-Match\0",
+		"Accept\0"
+	};
+	collectHeaders(headerKeys, headerKeysSize);
 }
 
 void WebServer::addView(char * uri, HTTPMethod method, IView * view)

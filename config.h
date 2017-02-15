@@ -14,6 +14,41 @@ namespace config {
 	extern String wifiPassphrase;
 	extern String devScriptUrl;
 
+	static void _fromJson(JsonObject& json) {
+		if (json.containsKey("accessPointName"))
+			accessPointName = json["accessPointName"].asString();
+		if (json.containsKey("accessPointPassphrase"))
+			accessPointPassphrase = json["accessPointPassphrase"].asString();
+		if (json.containsKey("wifiSsid"))
+			wifiSsid = json["wifiSsid"].asString();
+		if (json.containsKey("wifiPassphrase"))
+			wifiPassphrase = json["wifiPassphrase"].asString();
+		if (json.containsKey("devScriptUrl"))
+			devScriptUrl = json["devScriptUrl"].asString();
+	}
+
+	static void _toJson(JsonObject& json) {
+		json["accessPointName"] = accessPointName;
+		json["accessPointPassphrase"] = accessPointPassphrase;
+		json["wifiSsid"] = wifiSsid;
+		json["wifiPassphrase"] = wifiPassphrase;
+		json["devScriptUrl"] = devScriptUrl;
+	}
+
+	static void toJson(Print& print) {
+		StaticJsonBuffer<1024> jsonBuffer;
+		JsonObject& json = jsonBuffer.createObject();
+		_toJson(json);
+		json.printTo(print);
+	}
+
+	static void toJson(String& string) {
+		StaticJsonBuffer<1024> jsonBuffer;
+		JsonObject& json = jsonBuffer.createObject();
+		_toJson(json);
+		json.printTo(string);
+	}
+
 	static bool load() {
 		if (!SPIFFS.begin()) {
 			logger::debug("fail-fs");
@@ -33,16 +68,9 @@ namespace config {
 		}
 		logger::debug("size" + String(size));
 
-		// Allocate a buffer to store contents of the file.
+		// ArduinoJson library requires the input buffer to be mutable, so not String
 		std::unique_ptr<char[]> buf(new char[size]);
-
-		// We don't use String here because ArduinoJson library requires the input
-		// buffer to be mutable. If you don't use ArduinoJson, you may as well
-		// use configFile.readString instead.
 		configFile.readBytes(buf.get(), size);
-
-		// I think there may be a bug somewhere in the Json library because 
-		// when this was set to 200 I was getting parse-fail 
 		StaticJsonBuffer<1024> jsonBuffer;
 		JsonObject& json = jsonBuffer.parseObject(buf.get());
 
@@ -51,41 +79,24 @@ namespace config {
 			return false;
 		}
 
-		if (json.containsKey("accessPointName")) 
-			accessPointName = json["accessPointName"].asString();
-		if (json.containsKey("accessPointPassphrase")) 
-			accessPointPassphrase = json["accessPointPassphrase"].asString();
-		if (json.containsKey("wifiSsid")) 
-			wifiSsid = json["wifiSsid"].asString();
-		if (json.containsKey("wifiPassphrase")) 
-			wifiPassphrase = json["wifiPassphrase"].asString();
-		if(json.containsKey("devScriptUrl")) 
-			devScriptUrl = json["devScriptUrl"].asString();
-
-		logger::debug("accessPointName IS " + accessPointName);
+		_fromJson(json);
 
 		return true;
 	}
+
 	static bool save() {
 		if (!SPIFFS.begin()) {
 			logger::debug("fail-fs");
 			return false;
 		}
-		StaticJsonBuffer<200> jsonBuffer;
-		JsonObject& json = jsonBuffer.createObject();
-		json["accessPointName"] = accessPointName;
-		json["accessPointPassphrase"] = accessPointPassphrase;
-		json["wifiSsid"] = wifiSsid;
-		json["wifiPassphrase"] = wifiPassphrase;
-		json["devScriptUrl"] = devScriptUrl;
-
+		
 		File configFile = SPIFFS.open("config.json", "w");
 		if (!configFile) {
 			logger::debug("conf-fail-write");
 			return false;
 		}
 
-		json.printTo(configFile);
+		toJson(configFile);
 		return true;
 	}
 }
