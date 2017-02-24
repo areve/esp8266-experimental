@@ -52,17 +52,23 @@ public:
 		return html;
 	}
 
-	static String htmlInputText(const String name, const String value)
+	static String htmlInputText(const String name, const String value, const String help)
 	{
 		const String html =
-			"<div>" 
+			"<div>"
 			"<label>" +
 			htmlEncode(name) + " "
+			"<em>" + htmlEncode(help) + "</em>"
 			"<input type=\"text\" name=\"" + htmlEncode(name) + "\" value=\"" + htmlEncode(value) + "\" />"
 			"</label>"
 			"</div>";
 
 		return html;
+
+	}
+	static String htmlInputText(const String name, const String value)
+	{
+		return htmlInputText(name, value, "");
 	}
 };
 

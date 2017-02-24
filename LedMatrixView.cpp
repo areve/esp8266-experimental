@@ -1,29 +1,44 @@
 #include "LedMatrixView.h"
 
-LedMatrixView::LedMatrixView(LedMatrixController * ledMatrixController)
+LedMatrixView::LedMatrixView(LedMatrixController* controller)
 {
-	this->ledMatrixController = ledMatrixController;
+	this->controller = controller;
 }
 
 void LedMatrixView::handleRequest()
 {
-	String text = webServer->getArg("text");
-	if (text.length()) ledMatrixController->text = text;
+	String enabled = webServer->getArg("enabled");
+	if (enabled == "1" && controller == NULL) {
+		controller = new LedMatrixController(PIN_D4, PIN_D3, PIN_D2);
+	}
+	else if (enabled == "0" && controller != NULL) {
+		delete controller;
+		controller = NULL;
+	}
 
-	String interval = webServer->getArg("interval");
-	if (interval.length()) ledMatrixController->interval = interval.toInt();
+	if (controller != NULL) {
+		String text = webServer->getArg("text");
+		if (text.length()) controller->text = text;
 
-	String position = webServer->getArg("position");
-	if (position.length()) ledMatrixController->position = position.toInt();
+		String interval = webServer->getArg("interval");
+		if (interval.length()) controller->interval = interval.toInt();
+
+		String position = webServer->getArg("position");
+		if (position.length()) controller->position = position.toInt();
+	}
 
 	String html =
 		htmlHeader("LedMatrix < Moth") +
 		"<h1>MOTH LedMatrix</h1>"
 		"<p>Controls scrolling text on an LED matrix.</p>"
 		"<form method=\"GET\">" +
-		htmlInputText("text", String(ledMatrixController->text)) +
-		htmlInputText("interval", String(ledMatrixController->interval)) +
-		htmlInputText("position", String(ledMatrixController->position)) +
+		htmlInputText("enabled", controller == NULL ? "0" : "1", "1 to enable 0 to disable") +
+		((controller != NULL)
+			? htmlInputText("text", String(controller->text)) +
+			htmlInputText("interval", String(controller->interval)) +
+			htmlInputText("position", String(controller->position))
+			: ""
+			) +
 		"<button>Save</button>"
 		"</form>" +
 		htmlFooter();

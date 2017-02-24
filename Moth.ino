@@ -36,7 +36,6 @@ StepperView* stepperView = NULL;
 StepperController* stepperController = NULL;
 
 LedMatrixView* ledMatrixView = NULL;
-LedMatrixController* ledMatrixController = NULL;
 
 SerialParallelController* serialParallelController = NULL;
 UltrasonicController* ultrasonicController = NULL;
@@ -75,7 +74,7 @@ void loop() {
 	//screen.update();
 	if (webServer!= NULL) webServer->loop();
 	if (pinController != NULL) pinController->loop();
-	if (ledMatrixController != NULL) ledMatrixController->loop();
+	if (ledMatrixView->controller != NULL) ledMatrixView->controller->loop();
 	if (stepperController != NULL) stepperController->loop();
 	if (serialParallelController != NULL) serialParallelController->loop();
 	if (ultrasonicController != NULL) ultrasonicController->loop();
@@ -98,7 +97,7 @@ void setupWebServer() {
 	setupLedMatrixController();
 	//setupPinController();
 	//setupStepperController();
-	//setupSerialParallelController();
+	setupSerialParallelController();
 	//setupUltrasonicController();
 
 	webServer->begin();
@@ -119,8 +118,7 @@ void setupStepperController() {
 }
 
 void setupLedMatrixController() {
-	ledMatrixController = new LedMatrixController(PIN_D4, PIN_D3, PIN_D2);
-	ledMatrixView = new LedMatrixView(ledMatrixController);
+	ledMatrixView = new LedMatrixView(NULL);
 	webServer->addView("/api/ledmatrix", HTTP_ANY, ledMatrixView);
 }
 

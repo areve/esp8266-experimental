@@ -11,10 +11,10 @@
 
 class LedMatrixView : public AppView {
 public:
-	LedMatrixView(LedMatrixController* ledMatrixController);
+	LedMatrixView(LedMatrixController* controller);
 	virtual void handleRequest();
+	LedMatrixController* controller = NULL;
 private:
-	LedMatrixController* ledMatrixController = NULL;
 };
 #endif
 
