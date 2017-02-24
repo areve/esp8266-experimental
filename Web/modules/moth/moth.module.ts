@@ -6,8 +6,7 @@ import { MothComponent } from './moth.component'
 import { FileSystemComponent } from '../file-system/file-system.component'
 import { HomeComponent } from '../home/home.component'
 import { RouterModule, Routes } from '@angular/router'
-import { FormsModule }   from '@angular/forms';
-
+import { FormsModule } from '@angular/forms'
 
 
 const appRoutes: Routes = [
@@ -17,18 +16,11 @@ const appRoutes: Routes = [
   },
   {
     path: 'filesystem',
-    component: FileSystemComponent,
-    data: { title: 'filesystem' }
+    component: FileSystemComponent
   },
   {
     path: 'config',
-    component: ConfigComponent,
-    data: { title: 'config' }
-  },
-  {
-    path: 'heroes/:id',
-    component: ConfigComponent,
-    data: { title: 'Heroes List' }
+    component: ConfigComponent
   },
   {
     path: '',

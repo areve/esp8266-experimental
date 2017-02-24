@@ -61,6 +61,6 @@ void Connection::startAccessPoint(const AccessPointSetting accessPointSetting)
 void Connection::check()
 {
 	if (WiFi.status() != WL_CONNECTED) {
-		logger::log("Connection lost");
+	//	logger::log("Connection lost");
 	}
 }

@@ -129,7 +129,6 @@
     <ClInclude Include="Screen.h">
       <FileType>CppCode</FileType>
     </ClInclude>
-    <ClInclude Include="ScriptView.h" />
     <ClInclude Include="SerialLogger.h">
       <FileType>CppCode</FileType>
     </ClInclude>
@@ -145,7 +144,6 @@
     <ClInclude Include="stringHelper.h">
       <FileType>CppCode</FileType>
     </ClInclude>
-    <ClInclude Include="StyleView.h" />
     <ClInclude Include="TextPanel.h">
       <FileType>CppCode</FileType>
     </ClInclude>
@@ -172,12 +170,10 @@
     <ClCompile Include="PinController.cpp" />
     <ClCompile Include="PinView.cpp" />
     <ClCompile Include="Screen.cpp" />
-    <ClCompile Include="ScriptView.cpp" />
     <ClCompile Include="SerialLogger.cpp" />
     <ClCompile Include="SerialParallelController.cpp" />
     <ClCompile Include="StepperController.cpp" />
     <ClCompile Include="StepperView.cpp" />
-    <ClCompile Include="StyleView.cpp" />
     <ClCompile Include="TextPanel.cpp" />
     <ClCompile Include="UltrasonicController.cpp" />
     <ClCompile Include="WebServer.cpp" />

@@ -12,7 +12,6 @@
 #include "Connection.h"
 #include "Logger.h"
 
-#include "StyleView.h"
 #include "ConfigView.h"
 #include "ErrorView.h"
 #include "IndexView.h"
@@ -46,7 +45,6 @@ FsController* fsController = NULL;
 IndexView* indexView = NULL;
 ErrorView* errorView = NULL;
 ConfigView* configView = NULL;
-StyleView* styleView = NULL;
 FsView* fsView = NULL;
 
 WebServer* webServer = NULL;

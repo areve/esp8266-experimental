@@ -4,3 +4,4 @@
 /__vm
 /Debug
 /Web/node_modules/
+**/npm-debug.log.*

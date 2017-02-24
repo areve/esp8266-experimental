@@ -1,0 +1,14 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+  "emmet.syntaxProfiles": {
+    "typescript": "html"
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/node_modules": true,
+    "**/.vscode": true,
+    "**/.hg": true,
+    "**/.DS_Store": true
+  }
+}
