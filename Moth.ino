@@ -21,8 +21,6 @@
 #include "SerialParallelController.h"
 #include "UltrasonicController.h"
 
-// I think to recieve IR on ESP8266 I must use IRremoteESP8266
-
 //Screen screen;
 Connection connection;
 HardwareSerial& usbSerial = Serial;
@@ -31,7 +29,6 @@ SerialLogger* serialLogger = NULL;
 PinView* pinView = NULL;
 
 StepperView* stepperView = NULL;
-StepperController* stepperController = NULL;
 
 LedMatrixView* ledMatrixView = NULL;
 
@@ -70,15 +67,16 @@ void setup() {
 void loop() {
 	connection.check();
 	//screen.update();
+
 	if (webServer!= NULL) webServer->loop();
 	if (pinView->controller != NULL) pinView->controller->loop();
 	if (ledMatrixView->controller != NULL) ledMatrixView->controller->loop();
-	if (stepperController != NULL) stepperController->loop();
+	if (stepperView->controller != NULL) stepperView->controller->loop();
 	if (serialParallelController != NULL) serialParallelController->loop();
 	if (ultrasonicController != NULL) ultrasonicController->loop();
 }
 
-void setupWebServer() {
+inline void setupWebServer() {
 	webServer = new WebServer(80);
 	indexView = new IndexView();
 	webServer->addView("/", HTTP_ANY, indexView);
@@ -94,33 +92,33 @@ void setupWebServer() {
 
 	setupLedMatrixView();
 	setupPinView();
-	//setupStepperController();
+	setupStepperView();
+	
 	setupSerialParallelController();
 	setupUltrasonicController();
 
 	webServer->begin();
 }
 
-void setupPinView() {
+inline void setupPinView() {
 	pinView = new PinView(NULL);
 	webServer->addView("/api/pins", HTTP_ANY, pinView);
 }
 
-void setupStepperController() {
-	stepperController = new StepperController(PIN_D8, PIN_D7, PIN_D6, PIN_D5);
-	stepperView = new StepperView(stepperController);
+inline void setupStepperView() {
+	stepperView = new StepperView(NULL);
 	webServer->addView("/api/stepper", HTTP_ANY, stepperView);
 }
 
-void setupLedMatrixView() {
+inline void setupLedMatrixView() {
 	ledMatrixView = new LedMatrixView(NULL);
 	webServer->addView("/api/ledmatrix", HTTP_ANY, ledMatrixView);
 }
 
-void setupSerialParallelController() {
+inline void setupSerialParallelController() {
 	serialParallelController = new SerialParallelController(PIN_D5, PIN_D0, PIN_D6);
 }
 
-void setupUltrasonicController() {
+inline void setupUltrasonicController() {
 	ultrasonicController = new UltrasonicController(PIN_D7, PIN_D8);
 }

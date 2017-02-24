@@ -11,10 +11,9 @@ class ESP8266WebServer;
 
 class StepperView : public AppView {
 public:
-	StepperView(StepperController* stepperController);
+	StepperView(StepperController* controller);
 	virtual void handleRequest();
-private:
-	StepperController* stepperController = NULL;
+	StepperController* controller = NULL;
 };
 
 #endif

@@ -2,7 +2,10 @@ import { Component, OnInit, Inject } from '@angular/core'
 
 @Component({
   template: `
-    <p>Not working yet, for now use <iframe href="/api/fs">/api/fs</iframe></p>
+    <main class="file-system-main">
+      <p>Not working yet, for now use <a href="/api/fs">/api/fs</a></p>
+      <iframe src="/api/fs">/api/fs</iframe>
+    </main>
   `
 })
 

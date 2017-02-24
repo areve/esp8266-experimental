@@ -37,6 +37,7 @@ public:
 			"<body>" +
 			noScriptJsMessage +
 			"<nav class=\"fallback\">"
+			"<p>Other addresses may also be installed</p>"
 			"<ul>"
 			"<li><a href=\"/api/fs\">/api/fs</a></li>"
 			"<li><a href=\"/api/config\">/api/config</a></li>"
