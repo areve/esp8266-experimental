@@ -15,6 +15,7 @@ public:
 	WebServer(u16 port);
 	void addView(char* uri, HTTPMethod method, IView* view);
 	void addErrorView(IView* view);
+	void loop();
 	int requestCount = 0;
 
 	String getArg(const String name) {

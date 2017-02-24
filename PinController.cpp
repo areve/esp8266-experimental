@@ -18,7 +18,7 @@ ushort PinController::readPin()
 	return analogRead(0);
 }
 
-void PinController::update()
+void PinController::loop()
 {
 }
 

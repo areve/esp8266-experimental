@@ -6,7 +6,7 @@
 class SerialParallelController {
 public:
 	SerialParallelController(int8_t latchPin, int8_t clockPin, int8_t dataPin);
-	void update();
+	void loop();
 	ulong interval = 1500;
 	int position = 0;
 

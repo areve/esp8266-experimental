@@ -21,7 +21,7 @@ UltrasonicController::UltrasonicController(uint8_t pinTrigger, uint8_t pinEcho, 
 }
 
 
-void UltrasonicController::update()
+void UltrasonicController::loop()
 {
 	now = micros();
 	switch (phase) {

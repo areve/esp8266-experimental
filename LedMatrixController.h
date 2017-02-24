@@ -8,7 +8,7 @@
 class LedMatrixController {
 public:
 	LedMatrixController(const uint8_t pin_din, const uint8_t pin_cs, const uint8_t pin_clk);
-	void update();
+	void loop();
 	ulong interval = 80;
 	String text = "I love my ESP8266      ";
 	int position = 0;

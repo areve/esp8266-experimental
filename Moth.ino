@@ -73,12 +73,12 @@ void setup() {
 void loop() {
 	connection.check();
 	//screen.update();
-	if (webServer!= NULL) webServer->handleClient();
-	if (pinController != NULL) pinController->update();
-	if (ledMatrixController != NULL) ledMatrixController->update();
+	if (webServer!= NULL) webServer->loop();
+	if (pinController != NULL) pinController->loop();
+	if (ledMatrixController != NULL) ledMatrixController->loop();
 	if (stepperController != NULL) stepperController->loop();
-	if (serialParallelController != NULL) serialParallelController->update();
-	if (ultrasonicController != NULL) ultrasonicController->update();
+	if (serialParallelController != NULL) serialParallelController->loop();
+	if (ultrasonicController != NULL) ultrasonicController->loop();
 }
 
 void setupWebServer() {
@@ -93,8 +93,6 @@ void setupWebServer() {
 	fsView = new FsView(fsController);
 	webServer->addView("/api/fs", HTTP_ANY, fsView);
 
-	//errorView = new ErrorView();
-	//webServer->addErrorView(errorView);
 	webServer->addErrorView(fsView);
 
 	setupLedMatrixController();

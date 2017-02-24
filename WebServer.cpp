@@ -34,3 +34,8 @@ void WebServer::addErrorView(IView * view)
 		errorView->handleRequest();
 	});
 }
+
+void WebServer::loop()
+{
+	this->handleClient();
+}

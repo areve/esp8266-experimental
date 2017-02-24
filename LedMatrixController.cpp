@@ -122,7 +122,7 @@ LedMatrixController::LedMatrixController(const uint8_t pin_din, const uint8_t pi
 	lastDraw = millis();
 }
 
-void LedMatrixController::update()
+void LedMatrixController::loop()
 {
 	const byte* c = font8x5;
 	now = millis();

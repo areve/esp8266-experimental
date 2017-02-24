@@ -10,7 +10,7 @@ SerialParallelController::SerialParallelController(int8_t latchPin, int8_t clock
 	pinMode(clockPin, OUTPUT);
 }
 
-void SerialParallelController::update()
+void SerialParallelController::loop()
 {
 	const uint patterns[8] = {
 		B00001000,

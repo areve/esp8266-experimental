@@ -10,7 +10,7 @@ public:
 	void addPin(uint8_t pinIn);
 	void writePin(const byte pinId, const ushort value);
 	ushort readPin();
-	void update();
+	void loop();
 	uint8_t pinCount();
 private:
 	std::vector<uint8_t> pins;

@@ -8,7 +8,7 @@
 class UltrasonicController {
 public:
 	UltrasonicController(uint8_t pinTrig, uint8_t pinEcho, ulong maxDistanceMm = 10000);
-	void update();
+	void loop();
 	ulong interval = 50000; //uS
 	ulong position = 0;
 private:
