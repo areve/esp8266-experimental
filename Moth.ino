@@ -21,7 +21,6 @@
 #include "SerialParallelController.h"
 #include "UltrasonicController.h"
 
-
 // I think to recieve IR on ESP8266 I must use IRremoteESP8266
 
 //Screen screen;
@@ -30,7 +29,6 @@ HardwareSerial& usbSerial = Serial;
 SerialLogger* serialLogger = NULL;
 
 PinView* pinView = NULL;
-PinController* pinController = NULL;
 
 StepperView* stepperView = NULL;
 StepperController* stepperController = NULL;
@@ -73,7 +71,7 @@ void loop() {
 	connection.check();
 	//screen.update();
 	if (webServer!= NULL) webServer->loop();
-	if (pinController != NULL) pinController->loop();
+	if (pinView->controller != NULL) pinView->controller->loop();
 	if (ledMatrixView->controller != NULL) ledMatrixView->controller->loop();
 	if (stepperController != NULL) stepperController->loop();
 	if (serialParallelController != NULL) serialParallelController->loop();
@@ -94,20 +92,17 @@ void setupWebServer() {
 
 	webServer->addErrorView(fsView);
 
-	setupLedMatrixController();
-	//setupPinController();
+	setupLedMatrixView();
+	setupPinView();
 	//setupStepperController();
 	setupSerialParallelController();
-	//setupUltrasonicController();
+	setupUltrasonicController();
 
 	webServer->begin();
 }
 
-void setupPinController() {
-	pinController = new PinController();
-	pinController->addPin(PIN_D1);
-	pinController->addPin(PIN_D2);
-	pinView = new PinView(pinController);
+void setupPinView() {
+	pinView = new PinView(NULL);
 	webServer->addView("/api/pins", HTTP_ANY, pinView);
 }
 
@@ -117,7 +112,7 @@ void setupStepperController() {
 	webServer->addView("/api/stepper", HTTP_ANY, stepperView);
 }
 
-void setupLedMatrixController() {
+void setupLedMatrixView() {
 	ledMatrixView = new LedMatrixView(NULL);
 	webServer->addView("/api/ledmatrix", HTTP_ANY, ledMatrixView);
 }

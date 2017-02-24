@@ -19,8 +19,8 @@ export class HomeComponent {
   links: { url: string, text: string }[]
   constructor () {
     this.links = [
-//      { url: '/api/pins', text: '/api/pins' },
-//      { url: '/api/stepper', text: '/api/stepper' },
+     { url: '/api/pins', text: '/api/pins' },
+     { url: '/api/stepper', text: '/api/stepper' },
       { url: '/api/ledmatrix', text: '/api/ledmatrix' },
       { url: '/api/fs', text: '/api/fs' },
       { url: '/api/config', text: '/api/config' }

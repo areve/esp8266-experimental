@@ -52,24 +52,36 @@ public:
 		return html;
 	}
 
-	static String htmlInputText(const String name, const String value, const String help)
+	static String htmlInputText(const String name, const String value, const String help, bool enabled)
 	{
 		const String html =
 			"<div>"
 			"<label>" +
 			htmlEncode(name) + " "
 			"<em>" + htmlEncode(help) + "</em>"
-			"<input type=\"text\" name=\"" + htmlEncode(name) + "\" value=\"" + htmlEncode(value) + "\" />"
+			"<input type=\"text\""
+			" name=\"" + htmlEncode(name) + "\""
+			" value=\"" + htmlEncode(value) + "\"" +
+			(enabled ? "" : "disabled=\"disabled\"") + 
+			" />"
 			"</label>"
 			"</div>";
 
 		return html;
-
 	}
-	static String htmlInputText(const String name, const String value)
+	static inline String htmlInputText(const String name, const String value, const String help)
 	{
-		return htmlInputText(name, value, "");
+		return htmlInputText(name, value, help, true);
 	}
+	static inline String htmlInputText(const String name, const String value)
+	{
+		return htmlInputText(name, value, "", true);
+	}
+	static inline String htmlReadOnly(const String name, const String value)
+	{
+		return htmlInputText(name, value, "", false);
+	}
+	
 };
 
 #endif

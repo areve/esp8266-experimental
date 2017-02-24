@@ -31,14 +31,18 @@ void LedMatrixView::handleRequest()
 		htmlHeader("LedMatrix < Moth") +
 		"<h1>MOTH LedMatrix</h1>"
 		"<p>Controls scrolling text on an LED matrix.</p>"
-		"<form method=\"GET\">" +
-		htmlInputText("enabled", controller == NULL ? "0" : "1", "1 to enable 0 to disable") +
-		((controller != NULL)
-			? htmlInputText("text", String(controller->text)) +
+		"<form method=\"GET\">";
+
+	html += htmlInputText("enabled", controller == NULL ? "0" : "1", "1 to enable 0 to disable");
+
+	if (controller != NULL) {
+		html +=
+			htmlInputText("text", String(controller->text)) +
 			htmlInputText("interval", String(controller->interval)) +
-			htmlInputText("position", String(controller->position))
-			: ""
-			) +
+			htmlInputText("position", String(controller->position));
+	}
+
+	html +=
 		"<button>Save</button>"
 		"</form>" +
 		htmlFooter();

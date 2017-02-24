@@ -9,10 +9,9 @@
 
 class PinView : public AppView {
 public:
-	PinView(PinController* pinController);
+	PinView(PinController* controller);
 	virtual void handleRequest();
-private:
-	PinController* pinController = NULL;
+	PinController* controller = NULL;
 };
 
 #endif
