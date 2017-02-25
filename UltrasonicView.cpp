@@ -7,6 +7,10 @@ UltrasonicView::UltrasonicView(UltrasonicController * controller)
 
 void UltrasonicView::handleRequest()
 {
+	bool isJson = webServer->getArg("type") == "json" ||
+		webServer->getHeader("Accept").indexOf("application/json") != -1;
+
+	logger::debug(String("isJson") + " " + String(isJson));
 	String pinTriggerArg = webServer->getArg("pinTrigger");
 	const uint8_t pinTrigger = pinTriggerArg.length()
 		? atoi(pinTriggerArg.c_str())
@@ -46,38 +50,50 @@ void UltrasonicView::handleRequest()
 	}
 
 	if (webServer->method() == HTTP_POST) {
-		webServer->sendHeader("Location", webServer->uri(), false);
-		webServer->send(302, "text/plain", "OK");
+		if (isJson) {
+			webServer->send(204, "application/json", "");
+		}
+		else {
+			webServer->sendHeader("Location", webServer->uri(), false);
+			webServer->send(302, "text/plain", "OK");
+		}
 	}
 
-	String html =
-		htmlHeader("Ultrasonic < Moth") +
-		"<main>"
-		"<h1>MOTH Ultrasonic</h1>"
-		"<p>Allows control of a Ultrasonic Sensor.</p>"
-		"<form method=\"POST\">" +
-		htmlInputText("enabled", controller == NULL ? "0" : "1", "1 to enable 0 to disable") +
-		htmlInputText("pinTrigger", String(pinTrigger), "port pin number", controller == NULL) +
-		htmlInputText("pinEcho", String(pinEcho), "port pin number", controller == NULL) +
-		htmlInputText("logLevel", String(logLevel), "0 to 3");
-
+	String lastDistances;
 	if (controller != NULL) {
-		String lastDistances;
 		for (byte i = 0; i < controller->lastDistances.size(); i++) {
-			if (i > 0) lastDistances += " ";
+			if (i > 0) lastDistances += ",";
 			lastDistances += String(controller->lastDistances[i]);
+		}
+	}
+
+	if (isJson) {
+		webServer->send(200, "application/json", "[" + lastDistances + "]");
+	}
+	else {
+		String html =
+			htmlHeader("Ultrasonic < Moth") +
+			"<main>"
+			"<h1>MOTH Ultrasonic</h1>"
+			"<p>Allows control of a Ultrasonic Sensor.</p>"
+			"<form method=\"POST\">" +
+			htmlInputText("enabled", controller == NULL ? "0" : "1", "1 to enable 0 to disable") +
+			htmlInputText("pinTrigger", String(pinTrigger), "port pin number", controller == NULL) +
+			htmlInputText("pinEcho", String(pinEcho), "port pin number", controller == NULL) +
+			htmlInputText("logLevel", String(logLevel), "0 to 3");
+
+		if (controller != NULL) {
+			html +=
+				htmlInputText("interval", String(controller->interval)) +
+				htmlReadOnly("lastDistances", lastDistances, "mm");
 		}
 
 		html +=
-			htmlInputText("interval", String(controller->interval)) +
-			htmlReadOnly("lastDistances", lastDistances, "mm");
+			"<button>Save</button>"
+			"</form>"
+			"</main>" +
+			htmlFooter();
+
+		webServer->send(200, "text/html", html);
 	}
-
-	html +=
-		"<button>Save</button>"
-		"</form>"
-		"</main>" +
-		htmlFooter();
-
-	webServer->send(200, "text/html", html);
 }
