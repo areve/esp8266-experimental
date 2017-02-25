@@ -13,14 +13,14 @@ SerialParallelController::SerialParallelController(int8_t latchPin, int8_t clock
 void SerialParallelController::loop()
 {
 	const uint patterns[8] = {
-		B00001000,
-		B00001100,
-		B00000100,
-		B00000110,
-		B00000010,
-		B00000011,
-		B00000001,
-		B00001001
+		B00011000,
+		B00101100,
+		B01000100,
+		B10000110,
+		B10000010,
+		B01000011,
+		B00100001,
+		B00011001
 	};
 
 	now = micros();

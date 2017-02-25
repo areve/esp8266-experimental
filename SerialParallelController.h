@@ -7,7 +7,7 @@ class SerialParallelController {
 public:
 	SerialParallelController(int8_t latchPin, int8_t clockPin, int8_t dataPin);
 	void loop();
-	ulong interval = 250000; // 1500 is a good value for a 28BYJ-48 
+	ulong interval = 100000; // 1500 is a good value for turning a 28BYJ-48 
 	int position = 0;
 
 private:

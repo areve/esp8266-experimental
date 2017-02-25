@@ -18,7 +18,7 @@
 #include "PinView.h"
 #include "LedMatrixView.h"
 #include "StepperView.h"
-#include "SerialParallelController.h"
+#include "SerialParallelView.h"
 #include "UltrasonicView.h"
 
 //Screen screen;
@@ -32,7 +32,7 @@ StepperView* stepperView = NULL;
 
 LedMatrixView* ledMatrixView = NULL;
 
-SerialParallelController* serialParallelController = NULL;
+SerialParallelView* serialParallelView = NULL;
 FsController* fsController = NULL;
 
 IndexView* indexView = NULL;
@@ -72,7 +72,7 @@ void loop() {
 	if (pinView->controller != NULL) pinView->controller->loop();
 	if (ledMatrixView->controller != NULL) ledMatrixView->controller->loop();
 	if (stepperView->controller != NULL) stepperView->controller->loop();
-	if (serialParallelController != NULL) serialParallelController->loop();
+	if (serialParallelView->controller != NULL) serialParallelView->controller->loop();
 	if (ultrasonicView->controller != NULL) ultrasonicView->controller->loop();
 }
 
@@ -94,7 +94,7 @@ inline void setupWebServer() {
 	setupPinView();
 	setupStepperView();
 	
-	setupSerialParallelController();
+	setupSerialParallelView();
 	setupUltrasonicView();
 
 	webServer->begin();
@@ -115,8 +115,9 @@ inline void setupLedMatrixView() {
 	webServer->addView("/api/ledmatrix", HTTP_ANY, ledMatrixView);
 }
 
-inline void setupSerialParallelController() {
-	serialParallelController = new SerialParallelController(PIN_D5, PIN_D0, PIN_D6);
+inline void setupSerialParallelView() {
+	serialParallelView = new SerialParallelView(NULL);
+	webServer->addView("/api/sp", HTTP_ANY, serialParallelView);
 }
 
 inline void setupUltrasonicView() {

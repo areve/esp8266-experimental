@@ -23,6 +23,7 @@ export class HomeComponent {
      { url: '/api/stepper', text: '/api/stepper' },
       { url: '/api/ledmatrix', text: '/api/ledmatrix' },
       { url: '/api/us', text: '/api/us' },
+      { url: '/api/sp', text: '/api/sp' },
       { url: '/api/fs', text: '/api/fs' },
       { url: '/api/config', text: '/api/config' }
     ]
