@@ -50,16 +50,15 @@ void UltrasonicView::handleRequest()
 		webServer->sendJson("[" + lastDistances + "]");
 	}
 	else {
-		const bool enabled = controller != NULL;
 		String html =
 			htmlHeader("Ultrasonic < Moth") +
 			"<main>"
 			"<h1>MOTH Ultrasonic</h1>"
 			"<p>Allows control of a Ultrasonic Sensor.</p>"
 			"<form method=\"POST\">" +
-			htmlChoice("enabled", enabled, { "no", "yes" }) +
-			htmlInputNumber("pinTrigger", pinTrigger, 0, 16, "port pin number", !enabled) +
-			htmlInputNumber("pinEcho", pinEcho, 0, 16, "port pin number", !enabled) +
+			htmlChoice("enabled", controller != NULL, { "no", "yes" }) +
+			htmlInputNumber("pinTrigger", pinTrigger, 0, 16, "port pin number", controller == NULL) +
+			htmlInputNumber("pinEcho", pinEcho, 0, 16, "port pin number", controller == NULL) +
 			htmlChoice("logLevel", logLevel, { "none", "debug", "log", "info" }) +
 			htmlInputNumber("interval", interval, 0, __LONG_MAX__) +
 			htmlReadOnly("lastDistances", lastDistances, "mm") +
