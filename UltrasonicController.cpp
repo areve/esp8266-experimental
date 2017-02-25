@@ -58,8 +58,10 @@ void UltrasonicController::loop()
 		}
 		if (digitalRead(pinEcho) == HIGH) return;
 		ulong duration = now - pingStarted;
-		ulong distance = speedOfSoundMs * duration / 2 / 1000;
-		logger::debug("US " + String(distance) + "mm");
+		ulong lastDistance = speedOfSoundMs * duration / 2 / 1000;
+		logger::to(logLevel, "ultrasonic " + String(lastDistance) + "mm");
+		lastDistances.push_front(lastDistance);
+		if (lastDistances.size() > maxDistances) lastDistances.pop_back();
 		phase = Ready;
 		return;
 	}

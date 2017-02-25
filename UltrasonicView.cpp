@@ -10,16 +10,23 @@ void UltrasonicView::handleRequest()
 	String pinTriggerArg = webServer->getArg("pinTrigger");
 	const uint8_t pinTrigger = pinTriggerArg.length()
 		? atoi(pinTriggerArg.c_str())
-		: controller == NULL 
-			? PIN_D7 
-			: controller->pinTrigger;
+		: controller == NULL
+		? PIN_D7
+		: controller->pinTrigger;
 
 	String pinEchoArg = webServer->getArg("pinEcho");
 	const uint8_t pinEcho = pinEchoArg.length()
 		? atoi(pinEchoArg.c_str())
 		: controller == NULL
-			? PIN_D8
-			: controller->pinEcho;
+		? PIN_D8
+		: controller->pinEcho;
+
+	String logLevelArg = webServer->getArg("logLevel");
+	const logger::Level logLevel = (logger::Level)(logLevelArg.length()
+		? atoi(logLevelArg.c_str())
+		: controller == NULL
+		? logger::Debug
+		: controller->logLevel);
 
 	String enabled = webServer->getArg("enabled");
 	if (enabled == "1" && controller == NULL) {
@@ -33,6 +40,14 @@ void UltrasonicView::handleRequest()
 	if (controller != NULL) {
 		String interval = webServer->getArg("interval");
 		if (interval.length()) controller->interval = interval.toInt();
+		logger::debug(String("set log level ") + String(logLevel));
+
+		controller->logLevel = logLevel;
+	}
+
+	if (webServer->method() == HTTP_POST) {
+		webServer->sendHeader("Location", webServer->uri(), false);
+		webServer->send(302, "text/plain", "OK");
 	}
 
 	String html =
@@ -40,19 +55,27 @@ void UltrasonicView::handleRequest()
 		"<main>"
 		"<h1>MOTH Ultrasonic</h1>"
 		"<p>Allows control of a Ultrasonic Sensor.</p>"
-		"<form method=\"GET\">" +
+		"<form method=\"POST\">" +
 		htmlInputText("enabled", controller == NULL ? "0" : "1", "1 to enable 0 to disable") +
-		htmlInputText("pinTrigger", String(pinTrigger), "port pin number") +
-		htmlInputText("pinEcho", String(pinEcho), "port pin number");
+		htmlInputText("pinTrigger", String(pinTrigger), "port pin number", controller == NULL) +
+		htmlInputText("pinEcho", String(pinEcho), "port pin number", controller == NULL) +
+		htmlInputText("logLevel", String(logLevel), "0 to 3");
 
 	if (controller != NULL) {
+		String lastDistances;
+		for (byte i = 0; i < controller->lastDistances.size(); i++) {
+			if (i > 0) lastDistances += " ";
+			lastDistances += String(controller->lastDistances[i]);
+		}
+
 		html +=
-			htmlInputText("interval", String(controller->interval));
+			htmlInputText("interval", String(controller->interval)) +
+			htmlReadOnly("lastDistances", lastDistances, "mm");
 	}
 
 	html +=
 		"<button>Save</button>"
-		"</form>" 
+		"</form>"
 		"</main>" +
 		htmlFooter();
 

@@ -82,7 +82,11 @@ public:
 	{
 		return htmlInputText(name, value, "", false);
 	}
-	
+	static inline String htmlReadOnly(const String name, const String value, const String help)
+	{
+		return htmlInputText(name, value, help, false);
+	}
+
 };
 
 #endif

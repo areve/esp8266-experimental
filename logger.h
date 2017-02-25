@@ -14,6 +14,15 @@ public:
 namespace logger {
 	extern std::vector<ILogger*> displays;
 
+	enum Level {
+		None = 0,
+		Debug = 1,
+		Log = 2,
+		Info = 3//,
+		//Warn = 4,
+		//Error = 5
+	};
+
 	static void info(const String & text)
 	{
 		for (ILogger* display : displays) {
@@ -35,6 +44,14 @@ namespace logger {
 		}
 	}
 
+	static void to(Level level, const String & text)
+	{
+		switch (level) {
+		case Level::Debug: return debug(text);
+		case Level::Log: return log(text);
+		case Level::Info: return info(text);
+		}
+	}
 	static void addLogger(ILogger & display)
 	{
 		displays.push_back(&display);

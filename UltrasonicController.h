@@ -3,7 +3,7 @@
 
 #include "arduino.h"
 #include "logger.h"
-
+#include <deque>
 
 class UltrasonicController {
 public:
@@ -13,9 +13,11 @@ public:
 	ulong position = 0;
 	uint8_t pinTrigger;
 	uint8_t pinEcho;
+	std::deque<ulong> lastDistances;
+	logger::Level logLevel = logger::Level::Debug;
 private:
 	ulong now = 0;
-
+	byte maxDistances = 10;
 	byte phase = 0;
 	ulong pingStarted;
 	ulong timeout;
@@ -23,7 +25,6 @@ private:
 
 	const ulong speedOfSoundMs = 340;
 	ulong echoTimeout;
-
 };
 
 #endif
