@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http'
 import { ConfigComponent } from '../config/config.component'
 import { MothComponent } from './moth.component'
 import { FileSystemComponent } from '../file-system/file-system.component'
+import { SerialParallelComponent } from '../serial-parallel/serial-parallel.component'
 import { HomeComponent } from '../home/home.component'
 import { RouterModule, Routes } from '@angular/router'
 import { FormsModule } from '@angular/forms'
@@ -23,6 +24,10 @@ const appRoutes: Routes = [
     component: ConfigComponent
   },
   {
+    path: 'serialparallel',
+    component: SerialParallelComponent
+  },
+  {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full'
@@ -40,6 +45,7 @@ const appRoutes: Routes = [
   declarations: [
     MothComponent,
     HomeComponent,
+    SerialParallelComponent,
     FileSystemComponent,
     ConfigComponent
   ],

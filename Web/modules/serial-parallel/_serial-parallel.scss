@@ -1,0 +1,37 @@
+.serial-parallel-main {
+  ul {
+    margin: 0;
+    list-style-type: none;
+
+    li {
+      @extend .column;
+
+      &.latch,
+      &.clock,
+      &.data {
+        @extend .small-4;
+        @extend .column;
+
+        label {
+          @extend .text-right;
+          @extend .middle;
+          @extend .small-4;
+          @extend .column;
+        }
+
+        select {
+          @extend .small-7;
+          @extend .small-offset-1;
+        }
+
+        .help-text {
+          @extend .column;
+        }
+      }
+
+      &.interval {
+        clear: both;
+      }
+    }
+  }
+}

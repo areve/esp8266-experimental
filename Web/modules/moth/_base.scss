@@ -1,5 +1,5 @@
 body {
-  background-color: #eee;
+  background-color: $light-gray;
 }
 
 label, input[type='text'] {
@@ -8,4 +8,23 @@ label, input[type='text'] {
 
 button {
   @extend .button;
+}
+
+select {
+  // hide default dropdown arrow
+  -webkit-appearance: none;
+  appearance: none !important;
+
+  &[aria-invalid='true'] {
+    color: $alert-color;
+  }
+}
+
+.invalid {
+  color: $alert-color;
+}
+
+main {
+  @extend .row;
+  @extend .column;
 }
