@@ -8,7 +8,7 @@ using namespace stringHelper;
 
 class AppView : public IView {
 public:
-	static String htmlHeader(String title)
+	static String htmlHeader(const String& title)
 	{
 		String script = "/script.js";
 		if (config::devScriptUrl.length() != 0) script = config::devScriptUrl;
@@ -53,40 +53,97 @@ public:
 		return html;
 	}
 
-	static String htmlInputText(const String name, const String value, const String help, bool enabled)
+	static String htmlInputText(const String& name, const String& value, const String& help, const bool& enabled)
 	{
 		const String html =
 			"<div>"
-			"<label>" +
+			"<label"
+			" for=\"" + htmlEncode(name) + "\""
+			">" +
 			htmlEncode(name) + " "
 			"<em>" + htmlEncode(help) + "</em>"
+			"</label>"
 			"<input type=\"text\""
+			" id=\"" + htmlEncode(name) + "\""
 			" name=\"" + htmlEncode(name) + "\""
 			" value=\"" + htmlEncode(value) + "\"" +
-			(enabled ? "" : "disabled=\"disabled\"") + 
+			(enabled ? "" : "disabled=\"disabled\"") +
 			" />"
-			"</label>"
 			"</div>";
 
 		return html;
 	}
-	static inline String htmlInputText(const String name, const String value, const String help)
+
+	static String htmlInputNumber(const String& name, const long& value, const long& min, const long& max, const String& help, const bool& enabled)
+	{
+		const String html =
+			"<div>"
+			"<label"
+			" for=\"" + htmlEncode(name) + "\""
+			">" +
+			htmlEncode(name) + " "
+			"<em>" + htmlEncode(help) + "</em>"
+			"</label>"
+			"<input type=\"number\""
+			" id=\"" + htmlEncode(name) + "\""
+			" name=\"" + htmlEncode(name) + "\""
+			" value=\"" + String(value) + "\"" +
+			" min=\"" + String(min) + "\""
+			" max=\"" + String(max) + "\"" +
+			(enabled ? "" : "disabled=\"disabled\"") +
+			" />"
+			"</div>";
+
+		return html;
+	}
+
+	inline static String htmlInputNumber(const String& name, const long& value, const long& min, const long& max)
+	{
+		return htmlInputNumber(name, value, min, max, "", true);
+	}
+
+	static String htmlChoice(const String& name, const byte& option, const std::vector<String> options)
+	{
+		String html =
+			"<fieldset>"
+			"<legend>" +
+			htmlEncode(name) +
+			"</legend>";
+		
+		for (byte i = 0; i < options.size(); i++) {
+			html += 
+				"<input type=\"radio\""
+				" id=\"" + htmlEncode(name + "_" + String(i)) + "\""
+				" name=\"" + htmlEncode(name) + "\""
+				" value=\"" + String(i) + "\"" +
+				(option == i ? "checked=\"checked\"" : "") +
+				" />"
+				"<label"
+				" for=\"" + htmlEncode(name + "_" + String(i)) + "\""
+				">" +
+				htmlEncode(options[i]) + " "
+				"</label>";
+		}
+		html += "</fieldset>";
+		return html;
+	}
+
+	static inline String htmlInputText(const String& name, const String& value, const String& help)
 	{
 		return htmlInputText(name, value, help, true);
 	}
-	static inline String htmlInputText(const String name, const String value)
+	static inline String htmlInputText(const String& name, const String& value)
 	{
 		return htmlInputText(name, value, "", true);
 	}
-	static inline String htmlReadOnly(const String name, const String value)
+	static inline String htmlReadOnly(const String& name, const String& value)
 	{
 		return htmlInputText(name, value, "", false);
 	}
-	static inline String htmlReadOnly(const String name, const String value, const String help)
+	static inline String htmlReadOnly(const String& name, const String& value, const String& help)
 	{
 		return htmlInputText(name, value, help, false);
 	}
-
 };
 
 #endif

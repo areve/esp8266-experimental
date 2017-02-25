@@ -27,6 +27,13 @@ public:
 		}
 	}
 
+	int getIntArg(const String name, int defaultValue) {
+		String value = this->getArg(name);
+		return value.length()
+			? value.toInt()
+			: defaultValue;
+	}
+
 	String getHeader(const String name) {
 		if (!hasHeader(name)) return "";
 		for (uint8_t i = 0; i < headers(); i++) {
@@ -34,6 +41,29 @@ public:
 				return ESP8266WebServer::header(i);
 			}
 		}
+	}
+
+	bool isJson() {
+		return this->getArg("type") == "json" ||
+			this->getHeader("Accept").indexOf("application/json") != -1;
+	}
+
+	void completePost() {
+		if (this->isJson()) {
+			this->send(204, "application/json", "");
+		}
+		else {
+			this->sendHeader("Location", this->uri(), false);
+			this->send(302, "text/plain", "OK");
+		}
+	}
+
+	inline void sendJson(const String& json) {
+		this->send(200, "application/json", json);
+	}
+
+	inline void sendHtml(const String& html) {
+		this->send(200, "text/html", html);
 	}
 
 private:
