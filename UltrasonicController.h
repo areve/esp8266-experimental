@@ -11,9 +11,9 @@ public:
 	void loop();
 	ulong interval = 50000; //uS
 	ulong position = 0;
-private:
 	uint8_t pinTrigger;
 	uint8_t pinEcho;
+private:
 	ulong now = 0;
 
 	byte phase = 0;
