@@ -20,6 +20,7 @@
 #include "StepperView.h"
 #include "SerialParallelView.h"
 #include "UltrasonicView.h"
+#include "FaviconView.h"
 
 //Screen screen;
 Connection connection;
@@ -39,6 +40,7 @@ IndexView* indexView = NULL;
 ErrorView* errorView = NULL;
 ConfigView* configView = NULL;
 UltrasonicView* ultrasonicView = NULL;
+FaviconView* faviconView = NULL;
 FsView* fsView = NULL;
 
 WebServer* webServer = NULL;
@@ -96,6 +98,7 @@ inline void setupWebServer() {
 	
 	setupSerialParallelView();
 	setupUltrasonicView();
+	setupFaviconView();
 
 	webServer->begin();
 }
@@ -123,4 +126,9 @@ inline void setupSerialParallelView() {
 inline void setupUltrasonicView() {
 	ultrasonicView = new UltrasonicView(NULL);
 	webServer->addView("/api/us", HTTP_ANY, ultrasonicView);
+}
+
+inline void setupFaviconView() {
+	faviconView = new FaviconView();
+	webServer->addView("/favicon.ico", HTTP_ANY, faviconView);
 }
