@@ -5,6 +5,28 @@ SerialParallelView::SerialParallelView(SerialParallelController * controller)
 	this->controller = controller;
 }
 
+String patternsToHex(const std::vector<byte>& patterns) {
+	String hex;
+	for (uint i = 0; i < patterns.size(); i++) {
+		hex += patterns[i] < 16
+			? "0" + String(patterns[i], 16)
+			: String(patterns[i], 16);
+	}
+	return hex;
+}
+
+std::vector<byte> hexToPatterns(const String& hex) {
+	std::vector<byte> patterns;
+	String value;
+	uint end = hex.length() - 1;
+	for (uint i = 0; i < end; i += 2) {
+		value = "0x" + hex.substring(i, i + 2);
+		patterns.push_back(strtoul(value.c_str(), NULL, 16));
+	}
+	if (patterns.size() == 0) patterns.push_back(0);
+	return patterns;
+}
+
 void SerialParallelView::handleRequest()
 {
 	const uint8_t defaultLatchPin = controller == NULL ? PIN_D5 : controller->latchPin;
@@ -16,6 +38,9 @@ void SerialParallelView::handleRequest()
 	const uint8_t defaultDataPin = controller == NULL ? PIN_D6 : controller->dataPin;
 	const uint8_t dataPin = webServer->getIntArg("pinData", defaultDataPin);
 
+	const String patternsArg = webServer->getArg("patterns");
+	std::vector<byte> patterns = patternsArg.length() ? hexToPatterns(patternsArg) : controller == NULL ? hexToPatterns("182c448682432119") : controller->patterns;
+	
 	String enabled = webServer->getArg("enabled");
 	if (enabled == "1" && controller == NULL) {
 		controller = new SerialParallelController(latchPin, clockPin, dataPin);
@@ -31,6 +56,7 @@ void SerialParallelView::handleRequest()
 	if (controller != NULL) {
 		String interval = webServer->getArg("interval");
 		if (interval.length()) controller->interval = interval.toInt();
+		controller->patterns = patterns;
 	}
 
 	if (webServer->method() == HTTP_POST) return webServer->completePost();
@@ -50,6 +76,7 @@ void SerialParallelView::handleRequest()
 			htmlInputNumber("clockPin", clockPin, 0, 16, "port pin number", controller == NULL) +
 			htmlInputNumber("dataPin", dataPin, 0, 16, "port pin number", controller == NULL) +
 			htmlInputNumber("interval", interval, 0, __LONG_MAX__) +
+			htmlInputText("patterns", patternsToHex(patterns), "hex string two bytes per pattern e.g. 182c448682432119") +
 			"<button>Save</button>"
 			"</form>"
 			"</main>" +

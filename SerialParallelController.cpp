@@ -12,23 +12,12 @@ SerialParallelController::SerialParallelController(int8_t latchPin, int8_t clock
 
 void SerialParallelController::loop()
 {
-	const uint patterns[8] = {
-		B00011000,
-		B00101100,
-		B01000100,
-		B10000110,
-		B10000010,
-		B01000011,
-		B00100001,
-		B00011001
-	};
-
 	now = micros();
 	if (now - lastDraw > interval) {
 
 		byte leds = 0;
 		digitalWrite(latchPin, LOW);
-		leds = patterns[position % 8];
+		leds = patterns[position % patterns.size()];
 
 		shiftOut(dataPin, clockPin, MSBFIRST, leds);
 		digitalWrite(latchPin, HIGH);

@@ -2,6 +2,7 @@
 #define _SERIALPARALLELCONTROLLER_h
 
 #include "arduino.h"
+#include <vector>
 
 class SerialParallelController {
 public:
@@ -12,7 +13,16 @@ public:
 	int8_t latchPin;
 	int8_t dataPin;
 	int8_t clockPin;
-
+	std::vector<byte> patterns = {
+		B00011000,
+		B00101100,
+		B01000100,
+		B10000110,
+		B10000010,
+		B01000011,
+		B00100001,
+		B00011001
+	};
 private:
 	ulong lastDraw = 0;
 	ulong now = 0;
