@@ -1,9 +1,8 @@
 #include "DualMotorView.h"
 
-DualMotorView::DualMotorView(DualMotorController * controller, const byte motors)
+DualMotorView::DualMotorView(DualMotorController * controller)
 {
 	this->controller = controller;
-	this->motors = motors;
 }
 
 
@@ -17,6 +16,9 @@ void DualMotorView::handleRequest()
 
 	const uint8_t defaultDataPin = controller == NULL ? PIN_D6 : controller->dataPin;
 	const uint8_t dataPin = webServer->getIntArg("pinData", defaultDataPin);
+
+	const uint8_t defaultMotors = controller == NULL ? 1 : controller->motorPatterns.size();
+	const uint8_t motors = webServer->getIntArg("motors", defaultMotors);
 
 	String enabled = webServer->getArg("enabled");
 	if (enabled == "1" && controller == NULL) {
@@ -65,7 +67,8 @@ void DualMotorView::handleRequest()
 			htmlChoice("enabled", controller != NULL, { "no", "yes" }) +
 			htmlInputNumber("latchPin", latchPin, 0, 16, "port pin number", controller == NULL) +
 			htmlInputNumber("clockPin", clockPin, 0, 16, "port pin number", controller == NULL) +
-			htmlInputNumber("dataPin", dataPin, 0, 16, "port pin number", controller == NULL);
+			htmlInputNumber("dataPin", dataPin, 0, 16, "port pin number", controller == NULL) +
+			htmlInputNumber("motors", motors, 1, 100, "number of motors", controller == NULL);
 
 		for (byte i = 0; i < motors; i++) {
 			html +=
