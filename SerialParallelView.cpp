@@ -23,7 +23,7 @@ void SerialParallelView::handleRequest()
 	const uint8_t defaultStartPattern = controller == NULL ? 0 : controller->startPattern;
 	const uint8_t startPattern = webServer->getIntArg("startPattern", defaultStartPattern);
 
-	const uint8_t defaultEndPattern = controller == NULL ? 0 : controller->endPattern;
+	const uint8_t defaultEndPattern = controller == NULL ? __LONG_MAX__ : controller->endPattern;
 	const uint8_t endPattern = webServer->getIntArg("endPattern", defaultEndPattern);
 
 	String enabled = webServer->getArg("enabled");

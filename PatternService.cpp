@@ -11,14 +11,18 @@ byte* PatternService::getPattern()
 	if (now - lastDraw > interval) {
 		if (steps != 0 && position >= steps) return NULL;
 
-		const ulong clampedStartPattern = _max(startPattern, 0);
-		const ulong clampedEndPattern = _min(endPattern, patterns.size() - 1);
-		const ulong rangeSize = 
-			clampedEndPattern == 0
-			? patterns.size() - clampedStartPattern
-			: clampedEndPattern - clampedStartPattern + 1;
-		const ulong pattern = position % rangeSize + clampedStartPattern;
-
+		const ulong clampedStartPattern = _min(_max(startPattern, 0), patterns.size() - 1);
+		const ulong clampedEndPattern = _min(_max(endPattern, 0), patterns.size() - 1);
+		const bool forward = clampedStartPattern <= clampedEndPattern;
+		const ulong rangeSize = forward 
+			? clampedEndPattern - clampedStartPattern + 1
+			: clampedStartPattern - clampedEndPattern + 1;
+		const ulong pattern = forward
+			? clampedStartPattern + position % rangeSize
+			: clampedStartPattern - position % rangeSize;
+		
+		logger::debug("pattern:" + String(pattern));
+		
 		position++;
 		lastDraw = now;
 
