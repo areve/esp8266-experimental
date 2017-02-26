@@ -1,4 +1,5 @@
 body {
+  @extend .row;
   background-color: $light-gray;
 }
 
@@ -25,6 +26,5 @@ select {
 }
 
 main {
-  @extend .row;
   @extend .column;
 }
