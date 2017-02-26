@@ -18,7 +18,7 @@ void SerialParallelView::handleRequest()
 	const uint8_t dataPin = webServer->getIntArg("pinData", defaultDataPin);
 
 	const String patternsArg = webServer->getArg("patterns");
-	std::vector<byte> patterns = patternsArg.length() ? PatternService::hexToPatterns(patternsArg) : controller == NULL ? PatternService::hexToPatterns("182c448682432119") : controller->patterns;
+	patterns = patternsArg.length() ? PatternService::hexToPatterns(patternsArg) : controller == NULL ? PatternService::hexToPatterns("182c448682432119") : *controller->patterns;
 
 	const uint8_t defaultStartPattern = controller == NULL ? 0 : controller->startPattern;
 	const uint8_t startPattern = webServer->getIntArg("startPattern", defaultStartPattern);
@@ -44,7 +44,7 @@ void SerialParallelView::handleRequest()
 		String steps = webServer->getArg("steps");
 		if (steps.length()) controller->steps = steps.toInt();
 		if (webServer->getArg("resetPosition") == "1") controller->reset();
-		controller->patterns = patterns;
+		controller->patterns = &patterns;
 		controller->startPattern = startPattern;
 		controller->endPattern = endPattern;
 	}

@@ -17,8 +17,8 @@ bool PatternService::updatePattern()
 	if (now - lastDraw > interval) {
 		if (steps != 0 && position >= steps) return NULL;
 
-		const ulong clampedStartPattern = _min(_max(startPattern, 0), patterns.size() - 1);
-		const ulong clampedEndPattern = _min(_max(endPattern, 0), patterns.size() - 1);
+		const ulong clampedStartPattern = _min(_max(startPattern, 0), (*patterns).size() - 1);
+		const ulong clampedEndPattern = _min(_max(endPattern, 0), (*patterns).size() - 1);
 		const bool forward = clampedStartPattern <= clampedEndPattern;
 		const ulong rangeSize = forward 
 			? clampedEndPattern - clampedStartPattern + 1
@@ -30,7 +30,7 @@ bool PatternService::updatePattern()
 		position++;
 		lastDraw = now;
 
-		currentPattern = patterns[pattern];
+		currentPattern = (*patterns)[pattern];
 		return true;
 	}
 

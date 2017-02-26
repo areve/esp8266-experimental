@@ -13,7 +13,7 @@ public:
 	ulong startPattern = 0;
 	ulong endPattern = 0;
 	ulong steps = 0;
-	std::vector<byte> patterns;
+	std::vector<byte>* patterns;
 	void reset();
 	byte currentPattern = 0;
 

@@ -14,6 +14,8 @@ public:
 	SerialParallelView(SerialParallelController* controller);
 	virtual void handleRequest();
 	SerialParallelController* controller = NULL;
+private:
+	std::vector<byte> patterns;
 };
 
 #endif
