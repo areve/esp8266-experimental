@@ -43,7 +43,7 @@ void SerialParallelView::handleRequest()
 		if (interval.length()) controller->interval = interval.toInt();
 		String steps = webServer->getArg("steps");
 		if (steps.length()) controller->steps = steps.toInt();
-		if (webServer->getArg("resetPosition") == "1") controller->position = 0;
+		if (webServer->getArg("resetPosition") == "1") controller->reset();
 		controller->patterns = patterns;
 		controller->startPattern = startPattern;
 		controller->endPattern = endPattern;

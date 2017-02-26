@@ -14,7 +14,7 @@ public:
 	ulong endPattern = 0;
 	ulong steps = 0;
 	std::vector<byte> patterns;
-
+	void reset();
 
 	static String patternsToHex(const std::vector<byte>& patterns) {
 		String hex;

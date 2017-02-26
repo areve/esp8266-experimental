@@ -50,10 +50,10 @@ void DualMotorView::handleRequest()
 		if (steps1.length()) controller->motorPattern1.steps = steps1.toInt();
 		String steps2 = webServer->getArg("steps2");
 		if (steps2.length()) controller->motorPattern2.steps = steps2.toInt();
-		if (webServer->getArg("resetPosition1") == "1") controller->motorPattern1.position = 0;
+		if (webServer->getArg("resetPosition1") == "1") controller->motorPattern1.reset();
 		controller->motorPattern1.startPattern = startPattern1;
 		controller->motorPattern1.endPattern = endPattern1;
-		if (webServer->getArg("resetPosition2") == "1") controller->motorPattern2.position = 0;
+		if (webServer->getArg("resetPosition2") == "1") controller->motorPattern2.reset();
 		controller->motorPattern2.startPattern = startPattern2;
 		controller->motorPattern2.endPattern = endPattern2;
 	}

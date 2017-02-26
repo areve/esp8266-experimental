@@ -5,6 +5,12 @@ PatternService::PatternService()
 {
 }
 
+void PatternService::reset()
+{
+	lastDraw = 0;
+	position = 0;
+}
+
 byte* PatternService::getPattern()
 {
 	now = micros();
@@ -20,9 +26,7 @@ byte* PatternService::getPattern()
 		const ulong pattern = forward
 			? clampedStartPattern + position % rangeSize
 			: clampedStartPattern - position % rangeSize;
-		
-		logger::debug("pattern:" + String(pattern));
-		
+				
 		position++;
 		lastDraw = now;
 
@@ -31,3 +35,4 @@ byte* PatternService::getPattern()
 
 	return NULL;
 }
+
