@@ -19,7 +19,7 @@
 #include "LedMatrixView.h"
 #include "StepperView.h"
 #include "SerialParallelView.h"
-#include "DualMotorView.h"
+#include "MultiMotorView.h"
 #include "UltrasonicView.h"
 #include "FaviconView.h"
 
@@ -35,7 +35,7 @@ StepperView* stepperView = NULL;
 LedMatrixView* ledMatrixView = NULL;
 
 SerialParallelView* serialParallelView = NULL;
-DualMotorView* dualMotorView = NULL;
+MultiMotorView* multiMotorView = NULL;
 FsController* fsController = NULL;
 
 IndexView* indexView = NULL;
@@ -77,7 +77,7 @@ void loop() {
 	if (ledMatrixView->controller != NULL) ledMatrixView->controller->loop();
 	if (stepperView->controller != NULL) stepperView->controller->loop();
 	if (serialParallelView->controller != NULL) serialParallelView->controller->loop();
-	if (dualMotorView->controller != NULL) dualMotorView->controller->loop();
+	if (multiMotorView->controller != NULL) multiMotorView->controller->loop();
 	if (ultrasonicView->controller != NULL) ultrasonicView->controller->loop();
 }
 
@@ -100,7 +100,7 @@ inline void setupWebServer() {
 	setupStepperView();
 	
 	setupSerialParallelView();
-	setupDualMotorView();
+	setupMultiMotorView();
 	setupUltrasonicView();
 	setupFaviconView();
 
@@ -127,9 +127,9 @@ inline void setupSerialParallelView() {
 	webServer->addView("/api/sp", HTTP_ANY, serialParallelView);
 }
 
-inline void setupDualMotorView() {
-	dualMotorView = new DualMotorView(NULL);
-	webServer->addView("/api/motor", HTTP_ANY, dualMotorView);
+inline void setupMultiMotorView() {
+	multiMotorView = new MultiMotorView(NULL);
+	webServer->addView("/api/motor", HTTP_ANY, multiMotorView);
 }
 
 inline void setupUltrasonicView() {

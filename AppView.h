@@ -67,7 +67,7 @@ public:
 			" id=\"" + htmlEncode(name) + "\""
 			" name=\"" + htmlEncode(name) + "\""
 			" value=\"" + htmlEncode(value) + "\"" +
-			(enabled ? "" : "disabled=\"disabled\"") +
+			(enabled ? "" : "readonly=\"readonly\"") +
 			" />"
 			"</div>";
 
@@ -90,7 +90,7 @@ public:
 			" value=\"" + String(value) + "\"" +
 			" min=\"" + String(min) + "\""
 			" max=\"" + String(max) + "\"" +
-			(enabled ? "" : "disabled=\"disabled\"") +
+			(enabled ? "" : "readonly=\"readonly\"") +
 			" />"
 			"</div>";
 

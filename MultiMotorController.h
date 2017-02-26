@@ -1,13 +1,13 @@
-#ifndef _DUALMOTORCONTROLLER_h
-#define _DUALMOTORCONTROLLER_h
+#ifndef _MULTIMOTORCONTROLLER_h
+#define _MULTIMOTORCONTROLLER_h
 
 #include "arduino.h"
 #include <vector>
 #include "PatternService.h"
 
-class DualMotorController {
+class MultiMotorController {
 public:
-	DualMotorController(const int8_t latchPin, const int8_t clockPin, const int8_t dataPin, const byte motors);
+	MultiMotorController(const int8_t latchPin, const int8_t clockPin, const int8_t dataPin, const byte motors);
 	void loop();
 	int8_t latchPin;
 	int8_t dataPin;

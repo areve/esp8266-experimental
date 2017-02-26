@@ -1,12 +1,12 @@
-#include "DualMotorView.h"
+#include "MultiMotorView.h"
 
-DualMotorView::DualMotorView(DualMotorController * controller)
+MultiMotorView::MultiMotorView(MultiMotorController * controller)
 {
 	this->controller = controller;
 }
 
 
-void DualMotorView::handleRequest()
+void MultiMotorView::handleRequest()
 {
 	const uint8_t defaultLatchPin = controller == NULL ? PIN_D5 : controller->latchPin;
 	const uint8_t latchPin = webServer->getIntArg("latchPin", defaultLatchPin);
@@ -22,7 +22,7 @@ void DualMotorView::handleRequest()
 
 	String enabled = webServer->getArg("enabled");
 	if (enabled == "1" && controller == NULL) {
-		controller = new DualMotorController(latchPin, clockPin, dataPin, motors);
+		controller = new MultiMotorController(latchPin, clockPin, dataPin, motors);
 	}
 	else if (enabled == "0" && controller != NULL) {
 		delete controller;
@@ -59,10 +59,10 @@ void DualMotorView::handleRequest()
 	}
 	else {
 		String html =
-			htmlHeader("DualMotor < Moth") +
+			htmlHeader("MultiMotor < Moth") +
 			"<main>"
-			"<h1>MOTH DualMotor</h1>"
-			"<p>Allows control of a Serial Parallel chip to control two stepper motors.</p>"
+			"<h1>MOTH MultiMotor</h1>"
+			"<p>Allows control of Serial Parallel chips to control multiple stepper motors.</p>"
 			"<form method=\"POST\">" +
 			htmlChoice("enabled", controller != NULL, { "no", "yes" }) +
 			htmlInputNumber("latchPin", latchPin, 0, 16, "port pin number", controller == NULL) +

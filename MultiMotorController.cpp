@@ -1,7 +1,7 @@
-#include "DualMotorController.h"
+#include "MultiMotorController.h"
 #include "logger.h"
 
-DualMotorController::DualMotorController(const int8_t latchPin, const int8_t clockPin, const int8_t dataPin, const byte motors)
+MultiMotorController::MultiMotorController(const int8_t latchPin, const int8_t clockPin, const int8_t dataPin, const byte motors)
 {
 	this->latchPin = latchPin;
 	this->clockPin = clockPin;
@@ -17,7 +17,7 @@ DualMotorController::DualMotorController(const int8_t latchPin, const int8_t clo
 	}
 }
 
-void DualMotorController::loop()
+void MultiMotorController::loop()
 {
 	bool updated = false;
 	for (byte i = 0; i < patternServices.size(); i++) {
