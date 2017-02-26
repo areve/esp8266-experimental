@@ -14,7 +14,7 @@ public:
 	uint8_t pinTrigger;
 	uint8_t pinEcho;
 	std::deque<ulong> lastDistances;
-	ulong medianDistance;
+	ulong medianDistance = 0;
 	logger::Level logLevel = logger::Level::Debug;
 private:
 	ulong now = 0;

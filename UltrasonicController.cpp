@@ -48,7 +48,7 @@ void quickSort(std::deque<ulong>& arr, int left, int right) {
 ulong median(const std::deque<ulong> values) {
 	if (values.empty()) return 0;
 
-	std::deque<ulong> sortedValues = std::deque<ulong>(values.begin(), values.end());
+	std::deque<ulong> sortedValues = std::deque<ulong>(values);
 	quickSort(sortedValues, 0, values.size());
 
 	if (sortedValues.size() % 2 == 0)
@@ -95,10 +95,10 @@ void UltrasonicController::loop()
 		if (digitalRead(pinEcho) == HIGH) return;
 		ulong duration = now - pingStarted;
 		ulong lastDistance = speedOfSoundMs * duration / 2 / 1000;
-		logger::to(logLevel, "ultrasonic " + String(lastDistance) + "mm");
 		lastDistances.push_front(lastDistance);
 		if (lastDistances.size() > maxDistances) lastDistances.pop_back();
 		medianDistance = median(lastDistances);
+		logger::to(logLevel, "ultrasonic " + String(medianDistance) + "mm");
 		phase = Ready;
 		return;
 	}
