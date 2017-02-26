@@ -56,6 +56,9 @@ void SerialParallelView::handleRequest()
 	if (controller != NULL) {
 		String interval = webServer->getArg("interval");
 		if (interval.length()) controller->interval = interval.toInt();
+		String steps = webServer->getArg("steps");
+		if (steps.length()) controller->steps = steps.toInt();
+		if (webServer->getArg("resetPosition") == "1") controller->position = 0;
 		controller->patterns = patterns;
 	}
 
@@ -77,6 +80,9 @@ void SerialParallelView::handleRequest()
 			htmlInputNumber("dataPin", dataPin, 0, 16, "port pin number", controller == NULL) +
 			htmlInputNumber("interval", interval, 0, __LONG_MAX__) +
 			htmlInputText("patterns", patternsToHex(patterns), "hex string two bytes per pattern e.g. 182c448682432119") +
+			htmlInputNumber("steps", controller == NULL ? 0 : controller->steps, 0, __LONG_MAX__) +
+			htmlChoice("resetPosition", 0, { "no", "yes" }) +
+			htmlReadOnly("position", controller == NULL ? "" : String(controller->position)) +
 			"<button>Save</button>"
 			"</form>"
 			"</main>" +

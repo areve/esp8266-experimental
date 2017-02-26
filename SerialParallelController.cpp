@@ -14,6 +14,7 @@ void SerialParallelController::loop()
 {
 	now = micros();
 	if (now - lastDraw > interval) {
+		if (steps != 0 && position >= steps) return;
 
 		byte leds = 0;
 		digitalWrite(latchPin, LOW);
