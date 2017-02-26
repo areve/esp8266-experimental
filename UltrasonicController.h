@@ -14,10 +14,11 @@ public:
 	uint8_t pinTrigger;
 	uint8_t pinEcho;
 	std::deque<ulong> lastDistances;
+	ulong medianDistance;
 	logger::Level logLevel = logger::Level::Debug;
 private:
 	ulong now = 0;
-	byte maxDistances = 10;
+	byte maxDistances = 9;
 	byte phase = 0;
 	ulong pingStarted;
 	ulong timeout;

@@ -45,9 +45,10 @@ void UltrasonicView::handleRequest()
 	if (webServer->method() == HTTP_POST) return webServer->completePost();
 
 	String lastDistances = controller == NULL ? "" : join(controller->lastDistances);
+	String medianDistance = controller == NULL ? "" : String(controller->medianDistance);
 
 	if (webServer->isJson()) {
-		webServer->sendJson("[" + lastDistances + "]");
+		webServer->sendJson("{\"lastDistances\":[" + lastDistances + "],\"medianDistance\":" + medianDistance + "}");
 	}
 	else {
 		String html =
@@ -62,6 +63,7 @@ void UltrasonicView::handleRequest()
 			htmlChoice("logLevel", logLevel, { "none", "debug", "log", "info" }) +
 			htmlInputNumber("interval", interval, 0, __LONG_MAX__) +
 			htmlReadOnly("lastDistances", lastDistances, "mm") +
+			htmlReadOnly("medianDistance", medianDistance, "mm") +
 			"<button>Save</button>"
 			"</form>"
 			"</main>" +
