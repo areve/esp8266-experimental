@@ -10,6 +10,8 @@ public:
 	void loop();
 	ulong interval = 100000; // 1500 is a good value for turning a 28BYJ-48 
 	ulong position = 0;
+	ulong startPattern = 0;
+	ulong endPattern = 0;
 	ulong steps = 0;
 	int8_t latchPin;
 	int8_t dataPin;

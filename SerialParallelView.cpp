@@ -40,7 +40,13 @@ void SerialParallelView::handleRequest()
 
 	const String patternsArg = webServer->getArg("patterns");
 	std::vector<byte> patterns = patternsArg.length() ? hexToPatterns(patternsArg) : controller == NULL ? hexToPatterns("182c448682432119") : controller->patterns;
-	
+
+	const uint8_t defaultStartPattern = controller == NULL ? 0 : controller->startPattern;
+	const uint8_t startPattern = webServer->getIntArg("startPattern", defaultStartPattern);
+
+	const uint8_t defaultEndPattern = controller == NULL ? 0 : controller->endPattern;
+	const uint8_t endPattern = webServer->getIntArg("endPattern", defaultEndPattern);
+
 	String enabled = webServer->getArg("enabled");
 	if (enabled == "1" && controller == NULL) {
 		controller = new SerialParallelController(latchPin, clockPin, dataPin);
@@ -60,6 +66,8 @@ void SerialParallelView::handleRequest()
 		if (steps.length()) controller->steps = steps.toInt();
 		if (webServer->getArg("resetPosition") == "1") controller->position = 0;
 		controller->patterns = patterns;
+		controller->startPattern = startPattern;
+		controller->endPattern = endPattern;
 	}
 
 	if (webServer->method() == HTTP_POST) return webServer->completePost();
@@ -78,8 +86,10 @@ void SerialParallelView::handleRequest()
 			htmlInputNumber("latchPin", latchPin, 0, 16, "port pin number", controller == NULL) +
 			htmlInputNumber("clockPin", clockPin, 0, 16, "port pin number", controller == NULL) +
 			htmlInputNumber("dataPin", dataPin, 0, 16, "port pin number", controller == NULL) +
-			htmlInputNumber("interval", interval, 0, __LONG_MAX__) +
 			htmlInputText("patterns", patternsToHex(patterns), "hex string two bytes per pattern e.g. 182c448682432119") +
+			htmlInputNumber("startPattern", startPattern, 0, __LONG_MAX__) +
+			htmlInputNumber("endPattern", endPattern, 0, __LONG_MAX__) +
+			htmlInputNumber("interval", interval, 0, __LONG_MAX__) +
 			htmlInputNumber("steps", controller == NULL ? 0 : controller->steps, 0, __LONG_MAX__) +
 			htmlChoice("resetPosition", 0, { "no", "yes" }) +
 			htmlReadOnly("position", controller == NULL ? "" : String(controller->position)) +
