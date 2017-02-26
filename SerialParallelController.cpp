@@ -13,10 +13,10 @@ SerialParallelController::SerialParallelController(int8_t latchPin, int8_t clock
 
 void SerialParallelController::loop()
 {
-	byte* pattern = getPattern();
-	if (pattern != NULL) {
+	const bool patternUpdated = updatePattern();
+	if (patternUpdated) {
 		digitalWrite(latchPin, LOW);
-		shiftOut(dataPin, clockPin, MSBFIRST, *pattern);
+		shiftOut(dataPin, clockPin, MSBFIRST, currentPattern);
 		digitalWrite(latchPin, HIGH);
 	}
 }

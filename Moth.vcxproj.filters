@@ -90,6 +90,15 @@
     <ClCompile Include="FaviconView.cpp">
       <Filter>Views</Filter>
     </ClCompile>
+    <ClCompile Include="PatternService.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="DualMotorController.cpp">
+      <Filter>Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="DualMotorView.cpp">
+      <Filter>Views</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UltrasonicController.h">
@@ -174,6 +183,15 @@
       <Filter>Views</Filter>
     </ClInclude>
     <ClInclude Include="FaviconView.h">
+      <Filter>Views</Filter>
+    </ClInclude>
+    <ClInclude Include="PatternService.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="DualMotorController.h">
+      <Filter>Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="DualMotorView.h">
       <Filter>Views</Filter>
     </ClInclude>
   </ItemGroup>

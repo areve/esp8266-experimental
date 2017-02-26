@@ -11,9 +11,11 @@ class ESP8266WebServer;
 
 class DualMotorView : public AppView {
 public:
-	DualMotorView(DualMotorController* controller);
+	DualMotorView(DualMotorController * controller, const byte motors);
 	virtual void handleRequest();
 	DualMotorController* controller = NULL;
+private:
+	byte motors;
 };
 
 #endif

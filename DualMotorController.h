@@ -7,17 +7,13 @@
 
 class DualMotorController {
 public:
-	DualMotorController(int8_t latchPin, int8_t clockPin, int8_t dataPin);
+	DualMotorController(const int8_t latchPin, const int8_t clockPin, const int8_t dataPin, const byte motors);
 	void loop();
 	int8_t latchPin;
 	int8_t dataPin;
 	int8_t clockPin;
 
-	PatternService motorPattern1;
-	PatternService motorPattern2;
-private:
-	byte currentPattern1 = 0;
-	byte currentPattern2 = 0;
+	std::vector<PatternService> motorPatterns;
 };
 
 #endif

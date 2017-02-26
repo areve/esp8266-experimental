@@ -7,7 +7,7 @@
 class PatternService {
 public:
 	PatternService();
-	byte* getPattern();
+	bool updatePattern();
 	ulong interval = 100000; // 1500 is a good value for turning a 28BYJ-48 
 	ulong position = 0;
 	ulong startPattern = 0;
@@ -15,6 +15,7 @@ public:
 	ulong steps = 0;
 	std::vector<byte> patterns;
 	void reset();
+	byte currentPattern = 0;
 
 	static String patternsToHex(const std::vector<byte>& patterns) {
 		String hex;

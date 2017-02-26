@@ -128,7 +128,7 @@ inline void setupSerialParallelView() {
 }
 
 inline void setupDualMotorView() {
-	dualMotorView = new DualMotorView(NULL);
+	dualMotorView = new DualMotorView(NULL, 4);
 	webServer->addView("/api/motor", HTTP_ANY, dualMotorView);
 }
 

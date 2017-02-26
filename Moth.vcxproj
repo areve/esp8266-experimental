@@ -93,6 +93,8 @@
     <ClInclude Include="Connection.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="DualMotorController.h" />
+    <ClInclude Include="DualMotorView.h" />
     <ClInclude Include="ErrorView.h">
       <FileType>CppCode</FileType>
     </ClInclude>
@@ -121,6 +123,7 @@
     <ClInclude Include="logger.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="PatternService.h" />
     <ClInclude Include="PinController.h">
       <FileType>CppCode</FileType>
     </ClInclude>
@@ -163,6 +166,8 @@
     <ClCompile Include="config.cpp" />
     <ClCompile Include="ConfigView.cpp" />
     <ClCompile Include="Connection.cpp" />
+    <ClCompile Include="DualMotorController.cpp" />
+    <ClCompile Include="DualMotorView.cpp" />
     <ClCompile Include="ErrorView.cpp" />
     <ClCompile Include="FaviconView.cpp" />
     <ClCompile Include="FsController.cpp" />
@@ -171,6 +176,7 @@
     <ClCompile Include="LedMatrixController.cpp" />
     <ClCompile Include="LedMatrixView.cpp" />
     <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="PatternService.cpp" />
     <ClCompile Include="PinController.cpp" />
     <ClCompile Include="PinView.cpp" />
     <ClCompile Include="Screen.cpp" />

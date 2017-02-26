@@ -11,7 +11,7 @@ void PatternService::reset()
 	position = 0;
 }
 
-byte* PatternService::getPattern()
+bool PatternService::updatePattern()
 {
 	now = micros();
 	if (now - lastDraw > interval) {
@@ -30,9 +30,10 @@ byte* PatternService::getPattern()
 		position++;
 		lastDraw = now;
 
-		return &patterns[pattern];
+		currentPattern = patterns[pattern];
+		return true;
 	}
 
-	return NULL;
+	return false;
 }
 
