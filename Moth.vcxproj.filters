@@ -75,17 +75,20 @@
     <ClCompile Include="SerialLogger.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="StyleView.cpp">
-      <Filter>Views</Filter>
-    </ClCompile>
-    <ClCompile Include="ScriptView.cpp">
-      <Filter>Views</Filter>
-    </ClCompile>
     <ClCompile Include="FsView.cpp">
       <Filter>Views</Filter>
     </ClCompile>
     <ClCompile Include="FsController.cpp">
       <Filter>Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="UltrasonicView.cpp">
+      <Filter>Views</Filter>
+    </ClCompile>
+    <ClCompile Include="SerialParallelView.cpp">
+      <Filter>Views</Filter>
+    </ClCompile>
+    <ClCompile Include="FaviconView.cpp">
+      <Filter>Views</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -154,12 +157,6 @@
     <ClInclude Include="SerialLogger.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="StyleView.h">
-      <Filter>Views</Filter>
-    </ClInclude>
-    <ClInclude Include="ScriptView.h">
-      <Filter>Views</Filter>
-    </ClInclude>
     <ClInclude Include="FileInfo.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -170,5 +167,14 @@
       <Filter>Controllers</Filter>
     </ClInclude>
     <ClInclude Include="__vm\.esp8266-experimental.vsarduino.h" />
+    <ClInclude Include="UltrasonicView.h">
+      <Filter>Views</Filter>
+    </ClInclude>
+    <ClInclude Include="SerialParallelView.h">
+      <Filter>Views</Filter>
+    </ClInclude>
+    <ClInclude Include="FaviconView.h">
+      <Filter>Views</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

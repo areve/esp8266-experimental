@@ -102,6 +102,7 @@
     <ClInclude Include="AppView.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="FaviconView.h" />
     <ClInclude Include="FileInfo.h" />
     <ClInclude Include="FsController.h" />
     <ClInclude Include="FsView.h" />
@@ -135,6 +136,7 @@
     <ClInclude Include="SerialParallelController.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="SerialParallelView.h" />
     <ClInclude Include="StepperController.h">
       <FileType>CppCode</FileType>
     </ClInclude>
@@ -150,6 +152,7 @@
     <ClInclude Include="UltrasonicController.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="UltrasonicView.h" />
     <ClInclude Include="WebServer.h">
       <FileType>CppCode</FileType>
     </ClInclude>
@@ -161,6 +164,7 @@
     <ClCompile Include="ConfigView.cpp" />
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="ErrorView.cpp" />
+    <ClCompile Include="FaviconView.cpp" />
     <ClCompile Include="FsController.cpp" />
     <ClCompile Include="FsView.cpp" />
     <ClCompile Include="IndexView.cpp" />
@@ -172,10 +176,12 @@
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="SerialLogger.cpp" />
     <ClCompile Include="SerialParallelController.cpp" />
+    <ClCompile Include="SerialParallelView.cpp" />
     <ClCompile Include="StepperController.cpp" />
     <ClCompile Include="StepperView.cpp" />
     <ClCompile Include="TextPanel.cpp" />
     <ClCompile Include="UltrasonicController.cpp" />
+    <ClCompile Include="UltrasonicView.cpp" />
     <ClCompile Include="WebServer.cpp" />
   </ItemGroup>
   <PropertyGroup>
