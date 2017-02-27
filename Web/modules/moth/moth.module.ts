@@ -24,7 +24,7 @@ const appRoutes: Routes = [
     component: ConfigComponent
   },
   {
-    path: 'serialparallel',
+    path: 'bot',
     component: SerialParallelComponent
   },
   {

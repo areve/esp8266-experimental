@@ -8,7 +8,7 @@ import { Component, OnInit, Inject } from '@angular/core'
       <li><a routerLink="/home" routerLinkActive="active">home</a></li>
       <li><a routerLink="/config" routerLinkActive="active">config</a></li>
       <li><a routerLink="/filesystem" routerLinkActive="active">filesystem</a></li>
-      <li><a routerLink="/serialparallel" routerLinkActive="active">serialparallel</a></li>
+      <li><a routerLink="/bot" routerLinkActive="active">bot</a></li>
     </ul>
   </nav>
   <router-outlet></router-outlet>
