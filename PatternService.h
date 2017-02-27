@@ -12,7 +12,7 @@ public:
 	ulong position = 0;
 	uint option = 0;
 	std::vector<PatternOption> patternOptions;
-	std::vector<byte>* patterns;
+	std::vector<byte>* patterns = nullptr;
 	void reset();
 	byte currentPattern = 0;
 
