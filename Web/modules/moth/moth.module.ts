@@ -4,7 +4,7 @@ import { HttpModule } from '@angular/http'
 import { ConfigComponent } from '../config/config.component'
 import { MothComponent } from './moth.component'
 import { FileSystemComponent } from '../file-system/file-system.component'
-import { SerialParallelComponent } from '../serial-parallel/serial-parallel.component'
+import { BotComponent } from '../bot/bot.component'
 import { HomeComponent } from '../home/home.component'
 import { RouterModule, Routes } from '@angular/router'
 import { FormsModule } from '@angular/forms'
@@ -25,7 +25,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'bot',
-    component: SerialParallelComponent
+    component: BotComponent
   },
   {
     path: '',
@@ -45,7 +45,7 @@ const appRoutes: Routes = [
   declarations: [
     MothComponent,
     HomeComponent,
-    SerialParallelComponent,
+    BotComponent,
     FileSystemComponent,
     ConfigComponent
   ],

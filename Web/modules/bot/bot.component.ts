@@ -4,7 +4,7 @@ import { BotService } from './bot.service'
 @Component({
   providers: [BotService],
   template: `
-    <main class="serial-parallel-main">
+    <main class="bot-main">
       <h1>Bot</h1>
       <p>Control a bot</p>
       <form>
@@ -18,7 +18,7 @@ import { BotService } from './bot.service'
   `
 })
 
-export class SerialParallelComponent {
+export class BotComponent {
   public latchPin: string = 'D5'
   public clockPin: string = 'D0'
   public dataPin: string = 'D6'

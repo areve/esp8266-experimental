@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core'
-import { Http, RequestOptions, URLSearchParams, Response } from '@angular/http'
-// import 'rxjs/add/operator/map'
-// import 'rxjs/add/operator/toPromise'
+import { Http, RequestOptions, URLSearchParams } from '@angular/http'
+
+const stop:string = '24,24,1,100000000'
 
 @Injectable()
 export class BotService {
@@ -11,26 +11,26 @@ export class BotService {
   }
 
   forwards () {
-    return this.motor('0,7,160,50000', '0,7,160,50000')
+    return this.motor('0,7,80,50000,' + stop, '0,7,80,50000,' + stop)
   }
 
   backwards () {
-    return this.motor('8,15,160,50000', '8,15,160,50000')
+    return this.motor('8,15,80,50000,' + stop, '8,15,80,50000,' + stop)
   }
 
   left () {
-    return this.motor('8,15,160,50000', '0,7,160,50000')
+    return this.motor('8,15,80,50000,' + stop, '0,7,80,50000,' + stop)
   }
 
   right () {
-    return this.motor('0,7,160,50000', '8,15,160,50000')
+    return this.motor('0,7,80,50000,' + stop, '8,15,80,50000,' + stop)
   }
 
   stop () {
-    return this.motor('24,24,1,100000000', '24,24,1,100000000')
+    return this.motor(stop, stop)
   }
 
-  private motor (pattern1, pattern2) {
+  private motor (pattern1:string, pattern2:string) {
     return this._http.post('/api/motor', this.toParams({
       enabled: 1,
       latchPin: 14,
