@@ -13,9 +13,9 @@ public:
 	Screen();
 	void update();
 	std::vector<TextPanel*> textPanels;
-	virtual void log(String text);
-	virtual void debug(String text);
-	virtual void info(String text);
+	void log(String text) override;
+	void debug(String text) override;
+	void info(String text) override;
 	void setText(const String text);
 	String getText();
 private:

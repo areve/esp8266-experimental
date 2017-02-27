@@ -2,6 +2,7 @@
 #define _STRINGHELPER_h
 
 #include "arduino.h"
+#include <vector>
 
 namespace stringHelper {
 	static String htmlEncode(const String text) {

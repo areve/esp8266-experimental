@@ -8,7 +8,7 @@ class IView {
 public:
 	virtual void handleRequest() {}
 	virtual void handleUpload() {}
-	WebServer* webServer = NULL;
+	WebServer* webServer = nullptr;
 };
 
 #endif

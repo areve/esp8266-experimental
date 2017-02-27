@@ -9,14 +9,14 @@ PinView::PinView(PinController * controller)
 void PinView::handleRequest()
 {
 	String enabled = webServer->getArg("enabled");
-	if (enabled == "1" && controller == NULL) {
+	if (enabled == "1" && controller == nullptr) {
 		controller = new PinController();
 		controller->addPin(PIN_D1);
 		controller->addPin(PIN_D2);
 	}
-	else if (enabled == "0" && controller != NULL) {
+	else if (enabled == "0" && controller != nullptr) {
 		delete controller;
-		controller = NULL;
+		controller = nullptr;
 	}
 
 	String html =
@@ -27,9 +27,9 @@ void PinView::handleRequest()
 
 	html +=
 		"<form method=\"GET\">" +
-		htmlInputText("enabled", controller == NULL ? "0" : "1", "1 to enable 0 to disable");
+		htmlInputText("enabled", controller == nullptr ? "0" : "1", "1 to enable 0 to disable");
 
-	if (controller != NULL) {
+	if (controller != nullptr) {
 		html += htmlReadOnly("pin_in", String(controller->readPin()));
 		for (uint8_t i = 0; i < controller->pinCount(); i++) {
 			String name = "pin_" + String(i);

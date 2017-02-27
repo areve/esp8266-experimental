@@ -6,6 +6,7 @@
 
 class ILogger {
 public:
+	virtual ~ILogger() = default;
 	virtual void debug(String text) = 0;
 	virtual void log(String text) = 0;
 	virtual void info(String text) = 0;

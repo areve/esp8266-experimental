@@ -18,7 +18,7 @@ void Connection::start()
 		if (connect(*wifiClient)) return;
 	}
 
-	if (accessPoint != NULL) 
+	if (accessPoint != nullptr) 
 		startAccessPoint(*accessPoint);
 }
 
@@ -34,7 +34,7 @@ bool Connection::connect(const ClientSetting wifiClient)
 		logger::log(String("Connecting") + dots.substring(0, (elapsedMs / 250) % dots.length()));
 		if (elapsedMs > connectionTimeout) {
 			logger::log("Fail:" + wifiClient.ssid);
-			client = NULL;
+			client = nullptr;
 			WiFi.disconnect();
 			return false;
 		}

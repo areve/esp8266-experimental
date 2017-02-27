@@ -8,7 +8,7 @@
 
 class ConfigView : public AppView {
 public:
-	virtual void handleRequest();
+	void handleRequest() override;
 };
 
 #endif

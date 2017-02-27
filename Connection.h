@@ -35,8 +35,8 @@ public:
 	void check();
 	int connectionTimeout = 10000;
 private:
-	ClientSetting* client = NULL;
-	AccessPointSetting* accessPoint = NULL;
+	ClientSetting* client = nullptr;
+	AccessPointSetting* accessPoint = nullptr;
 	std::vector<ClientSetting*> clientSettings;
 	bool connect(const ClientSetting clientSetting);
 	void startAccessPoint(const AccessPointSetting accessPointSetting);

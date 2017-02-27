@@ -67,8 +67,8 @@ public:
 	}
 
 private:
-	ILogger* display = NULL;
-	IView* errorView = NULL;
+	ILogger* display = nullptr;
+	IView* errorView = nullptr;
 };
 
 #include "IView.h"

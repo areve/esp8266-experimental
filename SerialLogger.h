@@ -7,9 +7,9 @@
 class SerialLogger : public ILogger {
 public:
 	SerialLogger(HardwareSerial &hardwareSerial);
-	virtual void log(String text);
-	virtual void debug(String text);
-	virtual void info(String text);
+	void log(String text) override;
+	void debug(String text) override;
+	void info(String text) override;
 private:
 	HardwareSerial* hardwareSerial;
 };

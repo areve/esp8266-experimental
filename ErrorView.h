@@ -8,7 +8,7 @@
 
 class ErrorView : public AppView {
 public:
-	virtual void handleRequest();
+	void handleRequest() override;
 	virtual void handleNotFound();
 };
 

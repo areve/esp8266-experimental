@@ -32,7 +32,7 @@ public:
 		uint end = hex.length() - 1;
 		for (uint i = 0; i < end; i += 2) {
 			value = "0x" + hex.substring(i, i + 2);
-			patterns.push_back(strtoul(value.c_str(), NULL, 16));
+			patterns.push_back(strtoul(value.c_str(), nullptr, 16));
 		}
 		if (patterns.size() == 0) patterns.push_back(0);
 		return patterns;

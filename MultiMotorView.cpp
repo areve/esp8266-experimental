@@ -7,25 +7,25 @@ MultiMotorView::MultiMotorView(MultiMotorController * controller)
 
 void MultiMotorView::handleRequest()
 {
-	const uint8_t defaultLatchPin = controller == NULL ? PIN_D5 : controller->latchPin;
+	const uint8_t defaultLatchPin = controller == nullptr ? PIN_D5 : controller->latchPin;
 	const uint8_t latchPin = webServer->getIntArg("latchPin", defaultLatchPin);
 
-	const uint8_t defaultClockPin = controller == NULL ? PIN_D0 : controller->clockPin;
+	const uint8_t defaultClockPin = controller == nullptr ? PIN_D0 : controller->clockPin;
 	const uint8_t clockPin = webServer->getIntArg("clockPin", defaultClockPin);
 
-	const uint8_t defaultDataPin = controller == NULL ? PIN_D6 : controller->dataPin;
+	const uint8_t defaultDataPin = controller == nullptr ? PIN_D6 : controller->dataPin;
 	const uint8_t dataPin = webServer->getIntArg("pinData", defaultDataPin);
 
-	const uint8_t defaultMotors = controller == NULL ? 1 : controller->patternServices.size();
+	const uint8_t defaultMotors = controller == nullptr ? 1 : controller->patternServices.size();
 	const uint8_t motors = webServer->getIntArg("motors", defaultMotors);
 
 	String enabled = webServer->getArg("enabled");
-	if (enabled == "1" && controller == NULL) {
+	if (enabled == "1" && controller == nullptr) {
 		controller = new MultiMotorController(latchPin, clockPin, dataPin, motors);
 	}
-	else if (enabled == "0" && controller != NULL) {
+	else if (enabled == "0" && controller != nullptr) {
 		delete controller;
-		controller = NULL;
+		controller = nullptr;
 	}
 
 	std::vector<ulong> intervals(motors);
@@ -34,7 +34,7 @@ void MultiMotorView::handleRequest()
 
 	for (byte i = 0; i < motors; i++) {
 
-		if (controller != NULL) {
+		if (controller != nullptr) {
 			const String patternOptionsArg = webServer->getArg("patternOptions" + String(i));
 			if (patternOptionsArg.length()) 
 				controller->patternServices[i].patternOptions = PatternOption::deserialize(patternOptionsArg);
@@ -55,19 +55,19 @@ void MultiMotorView::handleRequest()
 			"<h1>MOTH MultiMotor</h1>"
 			"<p>Allows control of Serial Parallel chips to control multiple stepper motors.</p>"
 			"<form method=\"POST\">" +
-			htmlChoice("enabled", controller != NULL, { "no", "yes" }) +
-			htmlInputNumber("latchPin", latchPin, 0, 16, "port pin number", controller == NULL) +
-			htmlInputNumber("clockPin", clockPin, 0, 16, "port pin number", controller == NULL) +
-			htmlInputNumber("dataPin", dataPin, 0, 16, "port pin number", controller == NULL) +
-			htmlInputNumber("motors", motors, 1, 100, "number of motors", controller == NULL);
+			htmlChoice("enabled", controller != nullptr, { "no", "yes" }) +
+			htmlInputNumber("latchPin", latchPin, 0, 16, "port pin number", controller == nullptr) +
+			htmlInputNumber("clockPin", clockPin, 0, 16, "port pin number", controller == nullptr) +
+			htmlInputNumber("dataPin", dataPin, 0, 16, "port pin number", controller == nullptr) +
+			htmlInputNumber("motors", motors, 1, 100, "number of motors", controller == nullptr);
 
 		for (byte i = 0; i < motors; i++) {
 			html +=
 				"<fieldset>"
 				"<legend>motor" + String(i) + "</legend>" +
-				htmlInputText("patternOptions" + String(i), controller == NULL ? "0,7,0,50000" : PatternOption::serialize(controller->patternServices[i].patternOptions), "startPattern,endPattern,steps,interval") +
+				htmlInputText("patternOptions" + String(i), controller == nullptr ? "0,7,0,50000" : PatternOption::serialize(controller->patternServices[i].patternOptions), "startPattern,endPattern,steps,interval") +
 				htmlChoice("resetPosition" + String(i), 0, { "no", "yes" }) +
-				htmlReadOnly("position" + String(i), controller == NULL ? "" : String(controller->patternServices[i].position)) +
+				htmlReadOnly("position" + String(i), controller == nullptr ? "" : String(controller->patternServices[i].position)) +
 				"</fieldset>";
 		}
 

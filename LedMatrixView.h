@@ -12,8 +12,8 @@
 class LedMatrixView : public AppView {
 public:
 	LedMatrixView(LedMatrixController* controller);
-	virtual void handleRequest();
-	LedMatrixController* controller = NULL;
+	void handleRequest() override;
+	LedMatrixController* controller = nullptr;
 private:
 };
 #endif

@@ -25,25 +25,25 @@
 //Screen screen;
 Connection connection;
 HardwareSerial& usbSerial = Serial;
-SerialLogger* serialLogger = NULL;
+SerialLogger* serialLogger = nullptr;
 
-PinView* pinView = NULL;
+PinView* pinView = nullptr;
 
-StepperView* stepperView = NULL;
+StepperView* stepperView = nullptr;
 
-LedMatrixView* ledMatrixView = NULL;
+LedMatrixView* ledMatrixView = nullptr;
 
-MultiMotorView* multiMotorView = NULL;
-FsController* fsController = NULL;
+MultiMotorView* multiMotorView = nullptr;
+FsController* fsController = nullptr;
 
-IndexView* indexView = NULL;
-ErrorView* errorView = NULL;
-ConfigView* configView = NULL;
-UltrasonicView* ultrasonicView = NULL;
-FaviconView* faviconView = NULL;
-FsView* fsView = NULL;
+IndexView* indexView = nullptr;
+ErrorView* errorView = nullptr;
+ConfigView* configView = nullptr;
+UltrasonicView* ultrasonicView = nullptr;
+FaviconView* faviconView = nullptr;
+FsView* fsView = nullptr;
 
-WebServer* webServer = NULL;
+WebServer* webServer = nullptr;
 
 void setup() {
 	usbSerial.begin(115200);
@@ -70,12 +70,12 @@ void loop() {
 	connection.check();
 	//screen.update();
 
-	if (webServer!= NULL) webServer->loop();
-	if (pinView->controller != NULL) pinView->controller->loop();
-	if (ledMatrixView->controller != NULL) ledMatrixView->controller->loop();
-	if (stepperView->controller != NULL) stepperView->controller->loop();
-	if (multiMotorView->controller != NULL) multiMotorView->controller->loop();
-	if (ultrasonicView->controller != NULL) ultrasonicView->controller->loop();
+	if (webServer!= nullptr) webServer->loop();
+	if (pinView->controller != nullptr) pinView->controller->loop();
+	if (ledMatrixView->controller != nullptr) ledMatrixView->controller->loop();
+	if (stepperView->controller != nullptr) stepperView->controller->loop();
+	if (multiMotorView->controller != nullptr) multiMotorView->controller->loop();
+	if (ultrasonicView->controller != nullptr) ultrasonicView->controller->loop();
 }
 
 inline void setupWebServer() {
@@ -104,27 +104,27 @@ inline void setupWebServer() {
 }
 
 inline void setupPinView() {
-	pinView = new PinView(NULL);
+	pinView = new PinView(nullptr);
 	webServer->addView("/api/pins", HTTP_ANY, pinView);
 }
 
 inline void setupStepperView() {
-	stepperView = new StepperView(NULL);
+	stepperView = new StepperView(nullptr);
 	webServer->addView("/api/stepper", HTTP_ANY, stepperView);
 }
 
 inline void setupLedMatrixView() {
-	ledMatrixView = new LedMatrixView(NULL);
+	ledMatrixView = new LedMatrixView(nullptr);
 	webServer->addView("/api/ledmatrix", HTTP_ANY, ledMatrixView);
 }
 
 inline void setupMultiMotorView() {
-	multiMotorView = new MultiMotorView(NULL);
+	multiMotorView = new MultiMotorView(nullptr);
 	webServer->addView("/api/motor", HTTP_ANY, multiMotorView);
 }
 
 inline void setupUltrasonicView() {
-	ultrasonicView = new UltrasonicView(NULL);
+	ultrasonicView = new UltrasonicView(nullptr);
 	webServer->addView("/api/us", HTTP_ANY, ultrasonicView);
 }
 

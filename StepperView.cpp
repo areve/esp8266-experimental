@@ -8,15 +8,15 @@ StepperView::StepperView(StepperController * controller)
 void StepperView::handleRequest()
 {
 	String enabled = webServer->getArg("enabled");
-	if (enabled == "1" && controller == NULL) {
+	if (enabled == "1" && controller == nullptr) {
 		controller = new StepperController(PIN_D8, PIN_D7, PIN_D6, PIN_D5);
 	}
-	else if (enabled == "0" && controller != NULL) {
+	else if (enabled == "0" && controller != nullptr) {
 		delete controller;
-		controller = NULL;
+		controller = nullptr;
 	}
 
-	if (controller != NULL) {
+	if (controller != nullptr) {
 		String stepperInterval = webServer->getArg("stepperInterval");
 		if (stepperInterval.length()) controller->interval = stepperInterval.toInt();
 
@@ -32,9 +32,9 @@ void StepperView::handleRequest()
 		"<h1>MOTH Stepper</h1>"
 		"<p>Allows control of a stepper motor.</p>"
 		"<form method=\"GET\">" +
-			htmlInputText("enabled", controller == NULL ? "0" : "1", "1 to enable 0 to disable");
+			htmlInputText("enabled", controller == nullptr ? "0" : "1", "1 to enable 0 to disable");
 
-	if (controller != NULL) {
+	if (controller != nullptr) {
 		html +=
 			htmlInputText("stepperInterval", String(controller->interval)) +
 			htmlInputText("steps", String(controller->steps)) +

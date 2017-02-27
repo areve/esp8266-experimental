@@ -19,7 +19,7 @@ bool PatternService::updatePattern()
 		if (patternOptions[option].steps != 0 && position >= patternOptions[option].steps) {
 			option++;
 			position = 0;
-			if (option >= patternOptions.size()) return NULL;
+			if (option >= patternOptions.size()) return false;
 		}
 
 		const ulong clampedStartPattern = _min(_max(patternOptions[option].startPattern, 0), (*patterns).size() - 1);

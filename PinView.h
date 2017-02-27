@@ -10,8 +10,8 @@
 class PinView : public AppView {
 public:
 	PinView(PinController* controller);
-	virtual void handleRequest();
-	PinController* controller = NULL;
+	void handleRequest() override;
+	PinController* controller = nullptr;
 };
 
 #endif

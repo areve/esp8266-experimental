@@ -12,8 +12,8 @@
 class FsView : public AppView {
 public:
 	FsView(FsController* fsController);
-	virtual void handleRequest();
-	virtual void handleUpload();
+	void handleRequest() override;
+	void handleUpload() override;
 	virtual void handleRemove(const String remove);
 	virtual void handleRename(const String rename);
 	virtual void handleUpload(HTTPUpload& upload);
