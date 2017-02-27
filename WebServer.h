@@ -25,6 +25,7 @@ public:
 				return ESP8266WebServer::arg(i);
 			}
 		}
+		return {};
 	}
 
 	int getIntArg(const String name, int defaultValue) {
@@ -41,6 +42,7 @@ public:
 				return ESP8266WebServer::header(i);
 			}
 		}
+		return {};
 	}
 
 	bool isJson() {

@@ -48,9 +48,10 @@ namespace logger {
 	static void to(Level level, const String & text)
 	{
 		switch (level) {
-		case Level::Debug: return debug(text);
-		case Level::Log: return log(text);
-		case Level::Info: return info(text);
+		case Debug: return debug(text);
+		case Log: return log(text);
+		case Info: return info(text);
+		case None: break;
 		}
 	}
 	static void addLogger(ILogger & display)

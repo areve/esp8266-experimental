@@ -16,15 +16,15 @@ namespace config {
 
 	static void _fromJson(JsonObject& json) {
 		if (json.containsKey("accessPointName"))
-			accessPointName = json["accessPointName"].asString();
+			accessPointName = json["accessPointName"].as<char*>();
 		if (json.containsKey("accessPointPassphrase"))
-			accessPointPassphrase = json["accessPointPassphrase"].asString();
+			accessPointPassphrase = json["accessPointPassphrase"].as<char*>();
 		if (json.containsKey("wifiSsid"))
-			wifiSsid = json["wifiSsid"].asString();
+			wifiSsid = json["wifiSsid"].as<char*>();
 		if (json.containsKey("wifiPassphrase"))
-			wifiPassphrase = json["wifiPassphrase"].asString();
+			wifiPassphrase = json["wifiPassphrase"].as<char*>();
 		if (json.containsKey("devScriptUrl"))
-			devScriptUrl = json["devScriptUrl"].asString();
+			devScriptUrl = json["devScriptUrl"].as<char*>();
 	}
 
 	static void _toJson(JsonObject& json) {

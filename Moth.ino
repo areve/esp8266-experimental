@@ -45,6 +45,63 @@ FsView* fsView = nullptr;
 
 WebServer* webServer = nullptr;
 
+
+inline void setupPinView() {
+	pinView = new PinView(nullptr);
+	webServer->addView("/api/pins", HTTP_ANY, pinView);
+}
+
+inline void setupStepperView() {
+	stepperView = new StepperView(nullptr);
+	webServer->addView("/api/stepper", HTTP_ANY, stepperView);
+}
+
+inline void setupLedMatrixView() {
+	ledMatrixView = new LedMatrixView(nullptr);
+	webServer->addView("/api/ledmatrix", HTTP_ANY, ledMatrixView);
+}
+
+inline void setupMultiMotorView() {
+	multiMotorView = new MultiMotorView(nullptr);
+	webServer->addView("/api/motor", HTTP_ANY, multiMotorView);
+}
+
+inline void setupUltrasonicView() {
+	ultrasonicView = new UltrasonicView(nullptr);
+	webServer->addView("/api/us", HTTP_ANY, ultrasonicView);
+}
+
+inline void setupFaviconView() {
+	faviconView = new FaviconView();
+	webServer->addView("/favicon.ico", HTTP_ANY, faviconView);
+}
+
+
+inline void setupWebServer() {
+	webServer = new WebServer(80);
+	indexView = new IndexView();
+	webServer->addView("/", HTTP_ANY, indexView);
+
+	configView = new ConfigView();
+	webServer->addView("/api/config", HTTP_ANY, configView);
+
+	fsController = new FsController();
+	fsView = new FsView(fsController);
+	webServer->addView("/api/fs", HTTP_ANY, fsView);
+
+	webServer->addErrorView(fsView);
+
+	setupLedMatrixView();
+	setupPinView();
+	setupStepperView();
+
+	setupMultiMotorView();
+	setupUltrasonicView();
+	setupFaviconView();
+
+	webServer->begin();
+}
+
 void setup() {
 	usbSerial.begin(115200);
 	
@@ -76,59 +133,4 @@ void loop() {
 	if (stepperView->controller != nullptr) stepperView->controller->loop();
 	if (multiMotorView->controller != nullptr) multiMotorView->controller->loop();
 	if (ultrasonicView->controller != nullptr) ultrasonicView->controller->loop();
-}
-
-inline void setupWebServer() {
-	webServer = new WebServer(80);
-	indexView = new IndexView();
-	webServer->addView("/", HTTP_ANY, indexView);
-
-	configView = new ConfigView();
-	webServer->addView("/api/config", HTTP_ANY, configView);
-	
-	fsController = new FsController();
-	fsView = new FsView(fsController);
-	webServer->addView("/api/fs", HTTP_ANY, fsView);
-
-	webServer->addErrorView(fsView);
-
-	setupLedMatrixView();
-	setupPinView();
-	setupStepperView();
-	
-	setupMultiMotorView();
-	setupUltrasonicView();
-	setupFaviconView();
-
-	webServer->begin();
-}
-
-inline void setupPinView() {
-	pinView = new PinView(nullptr);
-	webServer->addView("/api/pins", HTTP_ANY, pinView);
-}
-
-inline void setupStepperView() {
-	stepperView = new StepperView(nullptr);
-	webServer->addView("/api/stepper", HTTP_ANY, stepperView);
-}
-
-inline void setupLedMatrixView() {
-	ledMatrixView = new LedMatrixView(nullptr);
-	webServer->addView("/api/ledmatrix", HTTP_ANY, ledMatrixView);
-}
-
-inline void setupMultiMotorView() {
-	multiMotorView = new MultiMotorView(nullptr);
-	webServer->addView("/api/motor", HTTP_ANY, multiMotorView);
-}
-
-inline void setupUltrasonicView() {
-	ultrasonicView = new UltrasonicView(nullptr);
-	webServer->addView("/api/us", HTTP_ANY, ultrasonicView);
-}
-
-inline void setupFaviconView() {
-	faviconView = new FaviconView();
-	webServer->addView("/favicon.ico", HTTP_ANY, faviconView);
 }

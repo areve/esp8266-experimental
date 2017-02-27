@@ -6,6 +6,7 @@
 
 class IView {
 public:
+	virtual ~IView() = default;
 	virtual void handleRequest() {}
 	virtual void handleUpload() {}
 	WebServer* webServer = nullptr;

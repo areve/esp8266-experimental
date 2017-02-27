@@ -20,9 +20,9 @@ private:
 	ulong now = 0;
 	byte maxDistances = 9;
 	byte phase = 0;
-	ulong pingStarted;
-	ulong timeout;
-	ulong last;
+	ulong pingStarted = 0;
+	ulong timeout = 0;
+	ulong last = 0;
 
 	const ulong speedOfSoundMs = 340;
 	ulong echoTimeout;

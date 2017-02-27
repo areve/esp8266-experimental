@@ -21,8 +21,8 @@ private:
 	uint8_t pin_in3;
 	uint8_t pin_in4;
 
-	ulong lastMoved;
-	ulong now;
+	ulong lastMoved = 0;
+	ulong now = 0;
 	ulong position = 0;
 
 #define STEPPER_PATTERN_FULL
