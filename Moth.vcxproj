@@ -123,6 +123,7 @@
     <ClInclude Include="logger.h">
       <FileType>CppCode</FileType>
     </ClInclude>
+    <ClInclude Include="PatternOption.h" />
     <ClInclude Include="PatternService.h" />
     <ClInclude Include="PinController.h">
       <FileType>CppCode</FileType>
@@ -139,7 +140,6 @@
     <ClInclude Include="SerialParallelController.h">
       <FileType>CppCode</FileType>
     </ClInclude>
-    <ClInclude Include="SerialParallelView.h" />
     <ClInclude Include="StepperController.h">
       <FileType>CppCode</FileType>
     </ClInclude>
@@ -176,13 +176,13 @@
     <ClCompile Include="LedMatrixController.cpp" />
     <ClCompile Include="LedMatrixView.cpp" />
     <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="PatternOption.cpp" />
     <ClCompile Include="PatternService.cpp" />
     <ClCompile Include="PinController.cpp" />
     <ClCompile Include="PinView.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="SerialLogger.cpp" />
     <ClCompile Include="SerialParallelController.cpp" />
-    <ClCompile Include="SerialParallelView.cpp" />
     <ClCompile Include="StepperController.cpp" />
     <ClCompile Include="StepperView.cpp" />
     <ClCompile Include="TextPanel.cpp" />

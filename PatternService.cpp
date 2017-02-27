@@ -15,7 +15,7 @@ void PatternService::reset()
 bool PatternService::updatePattern()
 {
 	now = micros();
-	if (now - lastDraw > patternOptions[option].interval) {
+	if (option < patternOptions.size() && now - lastDraw > patternOptions[option].interval) {
 		if (patternOptions[option].steps != 0 && position >= patternOptions[option].steps) {
 			option++;
 			position = 0;
