@@ -93,8 +93,8 @@
     <ClInclude Include="Connection.h">
       <FileType>CppCode</FileType>
     </ClInclude>
-    <ClInclude Include="DualMotorController.h" />
-    <ClInclude Include="DualMotorView.h" />
+    <ClInclude Include="MultiMotorController.h" />
+    <ClInclude Include="MultiMotorView.h" />
     <ClInclude Include="ErrorView.h">
       <FileType>CppCode</FileType>
     </ClInclude>
@@ -166,8 +166,8 @@
     <ClCompile Include="config.cpp" />
     <ClCompile Include="ConfigView.cpp" />
     <ClCompile Include="Connection.cpp" />
-    <ClCompile Include="DualMotorController.cpp" />
-    <ClCompile Include="DualMotorView.cpp" />
+    <ClCompile Include="MultiMotorController.cpp" />
+    <ClCompile Include="MultiMotorView.cpp" />
     <ClCompile Include="ErrorView.cpp" />
     <ClCompile Include="FaviconView.cpp" />
     <ClCompile Include="FsController.cpp" />

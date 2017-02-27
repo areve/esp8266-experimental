@@ -93,10 +93,10 @@
     <ClCompile Include="PatternService.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="DualMotorController.cpp">
+    <ClCompile Include="MultiMotorController.cpp">
       <Filter>Controllers</Filter>
     </ClCompile>
-    <ClCompile Include="DualMotorView.cpp">
+    <ClCompile Include="MultiMotorView.cpp">
       <Filter>Views</Filter>
     </ClCompile>
   </ItemGroup>
@@ -188,10 +188,10 @@
     <ClInclude Include="PatternService.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="DualMotorController.h">
+    <ClInclude Include="MultiMotorController.h">
       <Filter>Controllers</Filter>
     </ClInclude>
-    <ClInclude Include="DualMotorView.h">
+    <ClInclude Include="MultiMotorView.h">
       <Filter>Views</Filter>
     </ClInclude>
   </ItemGroup>

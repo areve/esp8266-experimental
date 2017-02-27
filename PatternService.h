@@ -3,16 +3,15 @@
 
 #include "arduino.h"
 #include <vector>
+#include "PatternOption.h"
 
 class PatternService {
 public:
 	PatternService();
 	bool updatePattern();
-	ulong interval = 100000; // 1500 is a good value for turning a 28BYJ-48 
 	ulong position = 0;
-	ulong startPattern = 0;
-	ulong endPattern = 0;
-	ulong steps = 0;
+	uint option = 0;
+	std::vector<PatternOption> patternOptions;
 	std::vector<byte>* patterns;
 	void reset();
 	byte currentPattern = 0;

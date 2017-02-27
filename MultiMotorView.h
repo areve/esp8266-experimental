@@ -6,6 +6,7 @@
 #include "AppView.h"
 #include "MultiMotorController.h"
 #include "WebServer.h"
+#include "PatternOption.h"
 
 class ESP8266WebServer;
 

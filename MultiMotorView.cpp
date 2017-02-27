@@ -5,7 +5,6 @@ MultiMotorView::MultiMotorView(MultiMotorController * controller)
 	this->controller = controller;
 }
 
-
 void MultiMotorView::handleRequest()
 {
 	const uint8_t defaultLatchPin = controller == NULL ? PIN_D5 : controller->latchPin;
@@ -34,21 +33,13 @@ void MultiMotorView::handleRequest()
 	std::vector<uint8_t> endPatterns(motors);
 
 	for (byte i = 0; i < motors; i++) {
-		const ulong defaultInterval = controller == NULL ? 50000 : controller->patternServices[i].interval;
-		intervals[i] = webServer->getIntArg("interval" + String(i), defaultInterval);
-		const uint8_t defaultStartPattern = controller == NULL ? 0 : controller->patternServices[i].startPattern;
-		startPatterns[i] = webServer->getIntArg("startPattern" + String(i), defaultStartPattern);
-		const uint8_t defaultEndPattern = controller == NULL ? 7 : controller->patternServices[i].endPattern;
-		endPatterns[i] = webServer->getIntArg("endPattern" + String(i), defaultEndPattern);
 
 		if (controller != NULL) {
-			const String interval = webServer->getArg("interval" + String(i));
-			if (interval.length()) controller->patternServices[i].interval = interval.toInt();
-			String steps = webServer->getArg("steps" + String(i));
-			if (steps.length()) controller->patternServices[i].steps = steps.toInt();
-			if (webServer->getArg("resetPosition" + String(i)) == "1") controller->patternServices[i].reset();
-			controller->patternServices[i].startPattern = startPatterns[i];
-			controller->patternServices[i].endPattern = endPatterns[i];
+			const String patternOptionsArg = webServer->getArg("patternOptions" + String(i));
+			if (patternOptionsArg.length()) 
+				controller->patternServices[i].patternOptions = PatternOption::deserialize(patternOptionsArg);
+			if (webServer->getArg("resetPosition" + String(i)) == "1") 
+				controller->patternServices[i].reset();
 		}
 	}
 
@@ -74,10 +65,7 @@ void MultiMotorView::handleRequest()
 			html +=
 				"<fieldset>"
 				"<legend>motor" + String(i) + "</legend>" +
-				htmlInputNumber("startPattern" + String(i), startPatterns[i], 0, __LONG_MAX__) +
-				htmlInputNumber("endPattern" + String(i), endPatterns[i], 0, __LONG_MAX__) +
-				htmlInputNumber("interval" + String(i), intervals[i], 0, __LONG_MAX__) +
-				htmlInputNumber("steps" + String(i), controller == NULL ? 0 : controller->patternServices[i].steps, 0, __LONG_MAX__) +
+				htmlInputText("patternOptions" + String(i), controller == NULL ? "0,7,0,50000" : PatternOption::serialize(controller->patternServices[i].patternOptions), "startPattern,endPattern,steps,interval") +
 				htmlChoice("resetPosition" + String(i), 0, { "no", "yes" }) +
 				htmlReadOnly("position" + String(i), controller == NULL ? "" : String(controller->patternServices[i].position)) +
 				"</fieldset>";

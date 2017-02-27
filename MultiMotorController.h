@@ -16,7 +16,6 @@ public:
 	std::vector<PatternService> patternServices;
 
 private:
-
 	std::vector<byte> motorPatterns = {
 		// forward half step sequence
 		B00001000,
@@ -49,7 +48,7 @@ private:
 		B00000110,
 		B00000011,
 		B00001001
-};
+	};
 };
 
 #endif

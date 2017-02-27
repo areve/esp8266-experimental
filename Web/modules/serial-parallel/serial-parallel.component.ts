@@ -5,7 +5,7 @@ import { Component, OnInit, Inject } from '@angular/core'
     <main class="serial-parallel-main">
       <h1>Serial Parallel</h1>
       <p>Control a serial-parallel chip from here</p>
-      <p class="invalid">This page does not work, it may never, use <a href="/api/sp">/api/sp</a></p>
+      <p class="invalid">This page does not work, it may never...</p>
       <form>
         <ul>
           <li class="enabled"><label><input type="checkbox" name="enabled"> Enabled</label></li>
