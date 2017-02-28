@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core'
 import { Http, RequestOptions, URLSearchParams } from '@angular/http'
 
-const stop:string = '24,24,1,100000000'
+const stop:string = '0,0,1,100000000'
 
 @Injectable()
 export class BotService {
@@ -11,19 +11,19 @@ export class BotService {
   }
 
   forwards () {
-    return this.motor('0,7,80,50000,' + stop, '0,7,80,50000,' + stop)
+    return this.motor('1,8,80,200000,' + stop, '1,8,80,200000,' + stop)
   }
 
   backwards () {
-    return this.motor('8,15,80,50000,' + stop, '8,15,80,50000,' + stop)
+    return this.motor('9,16,80,200000,' + stop, '9,16,80,200000,' + stop)
   }
 
   left () {
-    return this.motor('8,15,80,50000,' + stop, '0,7,80,50000,' + stop)
+    return this.motor('9,16,80,200000,' + stop, '1,8,80,200000,' + stop)
   }
 
   right () {
-    return this.motor('0,7,80,50000,' + stop, '8,15,80,50000,' + stop)
+    return this.motor('1,8,80,200000,' + stop, '9,16,80,200000,' + stop)
   }
 
   stop () {
@@ -36,11 +36,15 @@ export class BotService {
       latchPin: 14,
       clockPin: 16,
       dataPin: 12,
-      motors: 2,
+      motors: 4,
       patternOptions0: pattern1,
       resetPosition0: 1,
       patternOptions1: pattern2,
-      resetPosition1: 1
+      resetPosition1: 1,
+      patternOptions2: stop,
+      resetPosition2: 1,
+      patternOptions3: stop,
+      resetPosition3: 1
     }))
       .map(response => response.json() || {})
   }
