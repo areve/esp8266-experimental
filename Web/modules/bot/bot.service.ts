@@ -30,6 +30,22 @@ export class BotService {
     return this.motor(stop, stop)
   }
 
+  startUltraSound () {
+    return this._http.post('/api/us', this.toParams({
+      enabled: 1,
+      pinTrigger: 13,
+      pinEcho: 15,
+      logLevel: 0,
+      interval: 50000
+    }))
+      .map(response => response.json() || {})
+  }
+
+  readUltraSound () {
+    return this._http.get('/api/us')
+      .map(response => response.json() || {})
+  }
+
   private motor (pattern1:string, pattern2:string) {
     return this._http.post('/api/motor', this.toParams({
       enabled: 1,
