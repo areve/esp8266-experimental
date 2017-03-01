@@ -15,7 +15,7 @@ export class BotService {
   }
 
   backwards () {
-    return this.motor('9,16,80,200000,' + stop, '9,16,80,200000,' + stop)
+    return this.motor('9,16,0,5000,' + stop, '9,16,0,5000,' + stop)
   }
 
   left () {

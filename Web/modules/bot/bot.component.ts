@@ -20,6 +20,9 @@ import { Observable } from 'rxjs/Rx'
         </div>
         <ul>
           <li><span>ultraSoundDistance:</span> <strong>{{ultraSoundDistance}}mm</strong></li>
+          <li><span>x:</span> <strong>{{bot.x}}</strong></li>
+          <li><span>y:</span> <strong>{{bot.y}}</strong></li>
+          <li><span>angle:</span> <strong>{{bot.angle | number : '1.3-3'}}</strong></li>
         </ul>
         <canvas #canvas width="500" height="300"></canvas>
       </form>
@@ -38,7 +41,7 @@ export class BotComponent {
   public scale: number = 0.1
   public dotSize: number = 2
   public ultraSoundDistance: number = 0
-  public bot: { x: number, y: number } = { x: 0, y: 0 }
+  public bot: { x: number, y: number, angle: number } = { x: 0, y: 0, angle: 0 }
   @ViewChild('canvas') canvas: ElementRef
   private botService: BotService
   private ctx: CanvasRenderingContext2D
@@ -59,12 +62,13 @@ export class BotComponent {
     this.ctx.strokeStyle = 'none'
     this.update()
 
-    Observable.interval(100).subscribe(() => {
+    Observable.interval(500).subscribe(() => {
+      this.bot.angle += 0.136
       this.botService
         .readUltraSound()
         .subscribe(({medianDistance, lastDistances}) => {
-          this.ultraSoundDistance = medianDistance;
-          this.drawPoint(0, -medianDistance)
+          this.ultraSoundDistance = medianDistance
+          this.drawUltraSound()
         }, console.error)
     })
   }
@@ -74,11 +78,18 @@ export class BotComponent {
     this.drawBot()
   }
 
+  drawUltraSound() {
+    let x = this.bot.x + Math.sin(this.bot.angle) * this.ultraSoundDistance;
+    let y = this.bot.y + Math.cos(this.bot.angle) * this.ultraSoundDistance;
+
+    this.drawPoint(x, y)
+  }
+
   drawPoint (x: number, y: number) {
     this.ctx.fillStyle = '#000'
     this.ctx.fillRect(
       this.bot.x + x * this.scale - this.dotSize / 2 + this.canvasWidth / 2,
-      this.bot.y + y * this.scale - this.dotSize / 2 + this.canvasHeight / 2,
+      -this.bot.y + y * this.scale - this.dotSize / 2 + this.canvasHeight / 2,
       this.dotSize, this.dotSize)
   }
 
