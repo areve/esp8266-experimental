@@ -99,6 +99,9 @@
     <ClCompile Include="PatternOption.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="SocketsServer.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UltrasonicController.h">
@@ -193,6 +196,12 @@
     </ClInclude>
     <ClInclude Include="PatternOption.h">
       <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketsServer.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="IServer.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

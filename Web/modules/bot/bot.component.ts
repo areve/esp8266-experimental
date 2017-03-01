@@ -61,16 +61,34 @@ export class BotComponent {
 
     this.ctx.strokeStyle = 'none'
     this.update()
+    this.webSocketDemo()
 
-    Observable.interval(500).subscribe(() => {
-      this.bot.angle += 0.136
-      this.botService
-        .readUltraSound()
-        .subscribe(({medianDistance, lastDistances}) => {
-          this.ultraSoundDistance = medianDistance
-          this.drawUltraSound()
-        }, console.error)
-    })
+    // Observable.interval(500).subscribe(() => {
+    //   this.bot.angle += 0.136
+    //   this.botService
+    //     .readUltraSound()
+    //     .subscribe(({medianDistance, lastDistances}) => {
+    //       this.ultraSoundDistance = medianDistance
+    //       this.drawUltraSound()
+    //     }, console.error)
+    // })
+  }
+
+  webSocketDemo (){
+    console.log(document.location)
+    let connection = new WebSocket('ws://' +
+      document.location.hostname + ':81/', ['arduino'])
+    connection.onopen = function () {
+      connection.send('Message from Browser to ESP8266 yay its Working!! ' + new Date())
+      connection.send('Time: ' + new Date())
+      connection.send('tick=tock&foo=bar')
+    }
+    connection.onerror = function (error) {
+      console.log('WebSocket error: ', error)
+    }
+    connection.onmessage = function (e) {
+      console.log('Server said: ', e.data)
+    }
   }
 
   update () {
@@ -78,9 +96,9 @@ export class BotComponent {
     this.drawBot()
   }
 
-  drawUltraSound() {
-    let x = this.bot.x + Math.sin(this.bot.angle) * this.ultraSoundDistance;
-    let y = this.bot.y + Math.cos(this.bot.angle) * this.ultraSoundDistance;
+  drawUltraSound () {
+    let x = this.bot.x + Math.sin(this.bot.angle) * this.ultraSoundDistance
+    let y = this.bot.y + Math.cos(this.bot.angle) * this.ultraSoundDistance
 
     this.drawPoint(x, y)
   }

@@ -8,16 +8,18 @@
 #include "Logger.h"
 #include <ESP8266WiFi.h>
 #include "Config.h"
+#include "IServer.h"
 
 class IView;
-class WebServer : public ESP8266WebServer {
+class WebServer : public ESP8266WebServer, IServer {
 public:
 	WebServer(u16 port);
-	void addView(char* uri, HTTPMethod method, IView* view);
+	virtual void addView(char* uri, IView* view) override;
 	void addErrorView(IView* view);
 	void loop();
 	int requestCount = 0;
 
+	// TODO: ESP8266WebServer::arg appears to already do this!?
 	String getArg(const String name) {
 		if (!hasArg(name)) return "";
 		for (uint8_t i = 0; i < args(); i++) {
@@ -45,9 +47,13 @@ public:
 		return {};
 	}
 
-	bool isJson() {
+	bool isJson() override {
 		return this->getArg("type") == "json" ||
 			this->getHeader("Accept").indexOf("application/json") != -1;
+	};
+
+	bool isCommand() override {
+		return this->method() == HTTP_POST;
 	}
 
 	void completePost() {

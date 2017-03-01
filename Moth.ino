@@ -1,3 +1,4 @@
+#include "SocketsServer.h"
 #include <ArduinoJson.h>
 #include "FileInfo.h"
 #include "FsController.h"
@@ -45,49 +46,53 @@ FsView* fsView = nullptr;
 
 WebServer* webServer = nullptr;
 
+SocketServer* socketServer = nullptr;
 
 inline void setupPinView() {
 	pinView = new PinView(nullptr);
-	webServer->addView("/api/pins", HTTP_ANY, pinView);
+	webServer->addView("/api/pins", pinView);
 }
 
 inline void setupStepperView() {
 	stepperView = new StepperView(nullptr);
-	webServer->addView("/api/stepper", HTTP_ANY, stepperView);
+	webServer->addView("/api/stepper", stepperView);
 }
 
 inline void setupLedMatrixView() {
 	ledMatrixView = new LedMatrixView(nullptr);
-	webServer->addView("/api/ledmatrix", HTTP_ANY, ledMatrixView);
+	webServer->addView("/api/ledmatrix", ledMatrixView);
 }
 
 inline void setupMultiMotorView() {
 	multiMotorView = new MultiMotorView(nullptr);
-	webServer->addView("/api/motor", HTTP_ANY, multiMotorView);
+	webServer->addView("/api/motor", multiMotorView);
 }
 
 inline void setupUltrasonicView() {
 	ultrasonicView = new UltrasonicView(nullptr);
-	webServer->addView("/api/us", HTTP_ANY, ultrasonicView);
+	webServer->addView("/api/us", ultrasonicView);
+	socketServer->addView("/api/us", ultrasonicView);
 }
 
 inline void setupFaviconView() {
 	faviconView = new FaviconView();
-	webServer->addView("/favicon.ico", HTTP_ANY, faviconView);
+	webServer->addView("/favicon.ico", faviconView);
 }
 
 
 inline void setupWebServer() {
+	socketServer = new SocketServer(81);
+
 	webServer = new WebServer(80);
 	indexView = new IndexView();
-	webServer->addView("/", HTTP_ANY, indexView);
+	webServer->addView("/", indexView);
 
 	configView = new ConfigView();
-	webServer->addView("/api/config", HTTP_ANY, configView);
+	webServer->addView("/api/config", configView);
 
 	fsController = new FsController();
 	fsView = new FsView(fsController);
-	webServer->addView("/api/fs", HTTP_ANY, fsView);
+	webServer->addView("/api/fs", fsView);
 
 	webServer->addErrorView(fsView);
 
@@ -133,4 +138,6 @@ void loop() {
 	if (stepperView->controller != nullptr) stepperView->controller->loop();
 	if (multiMotorView->controller != nullptr) multiMotorView->controller->loop();
 	if (ultrasonicView->controller != nullptr) ultrasonicView->controller->loop();
+
+	socketServer->loop();
 }

@@ -3,6 +3,7 @@
 #include "arduino.h"
 #include "StringHelper.h"
 #include "IView.h"
+#include "config.h"
 
 using namespace stringHelper;
 

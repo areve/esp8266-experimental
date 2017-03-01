@@ -10,10 +10,10 @@ WebServer::WebServer(u16 port) : ESP8266WebServer(port){
 	collectHeaders(headerKeys, headerKeysSize);
 }
 
-void WebServer::addView(char * uri, HTTPMethod method, IView * view)
+void WebServer::addView(char * uri, IView * view)
 {
 	view->webServer = this;
-	this->on(uri, method, [this, view]() {
+	this->on(uri, HTTP_ANY, [this, view]() {
 		logger::log(String(this->method() == HTTP_GET ? "GET" : "POST") + 
 			" " + this->uri());
 		view->handleRequest();
