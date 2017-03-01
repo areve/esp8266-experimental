@@ -42,7 +42,7 @@ void UltrasonicView::handleRequest()
 		controller->logLevel = logLevel;
 	}
 
-	if (webServer->method() == HTTP_POST) return webServer->completePost();
+	if (webServer->isCommand()) return webServer->completeCommand();
 
 	String lastDistances = controller == nullptr ? "" : join(controller->lastDistances);
 	String medianDistance = controller == nullptr ? "" : String(controller->medianDistance);

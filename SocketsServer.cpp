@@ -26,7 +26,7 @@ SocketServer::SocketServer(uint16_t port)
 			logger::debug("Text from " + String(num) + ": " + String(length) + " " + String(payload));
 
 			this->_parseArguments(payload);
-			logger::debug(arg("foo"));
+			logger::debug(getArg("foo"));
 			// use a copy of... to parse args
 			//void ESP8266WebServer::_parseArguments(String data) {
 
@@ -122,7 +122,7 @@ String SocketServer::urlDecode(const String& text)
 	return decoded;
 }
 
-String SocketServer::arg(String name) {
+String SocketServer::getArg(String name) {
 	for (int i = 0; i < _currentArgCount; ++i) {
 		if (_currentArgs[i].key == name)
 			return _currentArgs[i].value;

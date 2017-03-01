@@ -20,7 +20,6 @@ void WebServer::addView(char * uri, IView * view)
 	}, [this, view]() {
 		view->handleUpload();
 	});
-
 }
 
 void WebServer::addErrorView(IView * view)

@@ -19,7 +19,14 @@ public:
 		return true;
 	}
 
-	String arg(String name) override;
+	String getArg(String name) override;
+	int getIntArg(const String name, int defaultValue) override {}
+
+	void completeCommand() override {};
+	void error() override {};
+	void sendJson(const String& json) override {};
+	void sendHtml(const String& html) override {};
+	void sendBinary(const char* data) override {};
 
 private:
 	WebSocketsServer* webSocketServer = nullptr;

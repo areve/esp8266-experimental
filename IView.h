@@ -2,14 +2,14 @@
 #define _IView_h
 
 #include "arduino.h"
-#include "WebServer.h"
+#include "IServer.h"
 
 class IView {
 public:
 	virtual ~IView() = default;
 	virtual void handleRequest() {}
 	virtual void handleUpload() {}
-	WebServer* webServer = nullptr;
+	IServer* webServer = nullptr;
 };
 
 #endif

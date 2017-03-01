@@ -2,10 +2,9 @@
 
 void ConfigView::handleRequest()
 {
-	bool isJson = webServer->getArg("type") == "json" || 
-		webServer->getHeader("Accept").indexOf("application/json") != -1;
+	bool isJson = webServer->isJson();
 
-	if (webServer->method() == HTTP_POST) {
+	if (webServer->isCommand()) {
 		config::accessPointName = webServer->getArg("accessPointName");
 		config::accessPointPassphrase = webServer->getArg("accessPointPassphrase");
 		config::wifiSsid = webServer->getArg("wifiSsid");
@@ -13,23 +12,17 @@ void ConfigView::handleRequest()
 		config::devScriptUrl = webServer->getArg("devScriptUrl");
 
 		if (config::save()) {
-			if (isJson) {
-				webServer->send(204, "application/json", "");
-			}
-			else {
-				webServer->sendHeader("Location", "/api/config?saved=OK", false);
-				webServer->send(302, "text/plain", "OK");
-			}
+			webServer->completeCommand();
 		}
 		else {
-			webServer->send(500, "text/plain", "Error");
+			webServer->error();
 		}
 	}
 	else {
 		if (isJson) {
 			String json;
 			config::toJson(json);
-			webServer->send(200, "application/json", json);
+			webServer->sendJson(json);
 		}
 		else {
 			String html =
@@ -46,7 +39,7 @@ void ConfigView::handleRequest()
 				"</form>" +
 				htmlFooter();
 
-			webServer->send(200, "text/html", html);
+			webServer->sendHtml(html);
 		}
 	}
 }

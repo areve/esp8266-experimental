@@ -27,10 +27,10 @@ public:
 				return ESP8266WebServer::arg(i);
 			}
 		}
-		return {};
+		return{};
 	}
 
-	int getIntArg(const String name, int defaultValue) {
+	int getIntArg(const String name, int defaultValue) override {
 		String value = this->getArg(name);
 		return value.length()
 			? value.toInt()
@@ -44,7 +44,7 @@ public:
 				return ESP8266WebServer::header(i);
 			}
 		}
-		return {};
+		return{};
 	}
 
 	bool isJson() override {
@@ -56,7 +56,7 @@ public:
 		return this->method() == HTTP_POST;
 	}
 
-	void completePost() {
+	void completeCommand() override {
 		if (this->isJson()) {
 			this->send(204, "application/json", "");
 		}
@@ -66,11 +66,20 @@ public:
 		}
 	}
 
-	inline void sendJson(const String& json) {
+	void error() override {
+		this->send(500, "text/plain", "Error");
+	}
+
+	void sendBinary(const char* data) override {
+		this->sendHeader("Cache-Control", "max-age=84600, private", true);
+		this->send_P(200, "image/x-icon", data, sizeof(data));
+	}
+
+	void sendJson(const String& json) override {
 		this->send(200, "application/json", json);
 	}
 
-	inline void sendHtml(const String& html) {
+	void sendHtml(const String& html) override {
 		this->send(200, "text/html", html);
 	}
 

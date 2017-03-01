@@ -25,7 +25,7 @@ String FsView::getContentType(String filename) {
 }
 
 void FsView::handleUpload() {
-	HTTPUpload& upload = webServer->upload();
+	HTTPUpload& upload = ((WebServer*)webServer)->upload();
 	if (upload.status == UPLOAD_FILE_START) {
 		fsController->uploadStart();
 	}
@@ -42,8 +42,7 @@ void FsView::handleRemove(const String remove)
 {
 	logger::debug(String("handleRemove ") + remove);
 	fsController->remove(remove);
-	webServer->sendHeader("Location", "/api/fs?saved=OK", false);
-	webServer->send(302, "text/plain", "OK");
+	webServer->completeCommand();
 	etag = String(random(0xffffffff));
 }
 
@@ -51,8 +50,7 @@ void FsView::handleRename(const String rename)
 {
 	String name = webServer->getArg("name");
 	fsController->rename(rename, name);
-	webServer->sendHeader("Location", "/api/fs?saved=OK", false);
-	webServer->send(302, "text/plain", "OK");
+	webServer->completeCommand();
 	etag = String(random(0xffffffff));
 }
 
@@ -60,8 +58,7 @@ void FsView::handleUpload(HTTPUpload & upload)
 {
 	String name = webServer->getArg("name");
 	fsController->uploadSave(name.length() ? name : upload.filename);
-	webServer->sendHeader("Location", "/api/fs?saved=OK", false);
-	webServer->send(302, "text/plain", "OK");
+	webServer->completeCommand();
 	etag = String(random(0xffffffff));
 }
 
@@ -69,20 +66,20 @@ void FsView::handleRead(const String read)
 {
 	String fileName = read.substring(read.lastIndexOf("/") + 1);
 	String contentType = getContentType(read);
-	String ifNoneMatch = webServer->getHeader(String("If-None-Match"));
+	String ifNoneMatch = ((WebServer*)webServer)->getHeader(String("If-None-Match"));
 	String fileEtag = "\"" + etag + fileName + "\"";
 	if (ifNoneMatch.length()) {
 		if (ifNoneMatch == fileEtag) {
-			webServer->send(304, "text/plain", "Not modified");
+			((WebServer*)webServer)->send(304, "text/plain", "Not modified");
 			return;
 		}
 	}
 
 	if (fsController->exists(read)) {
-		webServer->sendHeader("Content-Disposition", String("inline; filename=\"") + fileName + "\"", false);
-		webServer->sendHeader("ETag", fileEtag, false);
+		((WebServer*)webServer)->sendHeader("Content-Disposition", String("inline; filename=\"") + fileName + "\"", false);
+		((WebServer*)webServer)->sendHeader("ETag", fileEtag, false);
 		File file = fsController->read(read);
-		size_t sent = webServer->streamFile(file, contentType);
+		size_t sent = ((WebServer*)webServer)->streamFile(file, contentType);
 		file.close();
 		return;
 	}
@@ -141,31 +138,30 @@ void FsView::handleList()
 		"</section>" +
 		htmlFooter();
 
-	webServer->send(200, "text/html", html);
+	webServer->sendHtml(html);
 }
 
 
 void FsView::handleRequest()
 {
-	if (webServer->method() == HTTP_POST) {
+	if (webServer->isCommand()) {
 		String remove = webServer->getArg("remove");
 		if (remove.length()) return handleRemove(remove);
 
 		String rename = webServer->getArg("rename");
 		if (rename.length()) return handleRename(rename);
 
-		HTTPUpload& upload = webServer->upload();
+		HTTPUpload& upload = ((WebServer*)webServer)->upload();
 		if (upload.filename.length()) return handleUpload(upload);
 
-		webServer->sendHeader("Location", "/api/fs", false);
-		webServer->send(200, "text/plain", "What?");
+		webServer->error();
 		return;
 	}
 
 	String read = webServer->getArg("read");
 	if (read.length()) return handleRead(read);
 
-	if (webServer->uri().startsWith("/api/fs")) return handleList();
+	if (((WebServer*)webServer)->uri().startsWith("/api/fs")) return handleList();
 
-	handleRead(webServer->uri().substring(1));
+	handleRead(((WebServer*)webServer)->uri().substring(1));
 }

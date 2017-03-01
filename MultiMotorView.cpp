@@ -19,7 +19,9 @@ void MultiMotorView::handleRequest()
 	const uint8_t defaultMotors = controller == nullptr ? 1 : controller->patternServices.size();
 	const uint8_t motors = webServer->getIntArg("motors", defaultMotors);
 
+
 	String enabled = webServer->getArg("enabled");
+	
 	if (enabled == "1" && controller == nullptr) {
 		controller = new MultiMotorController(latchPin, clockPin, dataPin, motors);
 	}
@@ -38,12 +40,12 @@ void MultiMotorView::handleRequest()
 			const String patternOptionsArg = webServer->getArg("patternOptions" + String(i));
 			if (patternOptionsArg.length()) 
 				controller->patternServices[i].patternOptions = PatternOption::deserialize(patternOptionsArg);
-			if (webServer->getArg("resetPosition" + String(i)) == "1") 
+			if (webServer->getArg("resetPosition" + String(i)) == "1")
 				controller->patternServices[i].reset();
 		}
 	}
 
-	if (webServer->method() == HTTP_POST) return webServer->completePost();
+	if (webServer->isCommand()) return webServer->completeCommand();
 
 	if (webServer->isJson()) {
 		webServer->sendJson("");

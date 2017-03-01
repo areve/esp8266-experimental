@@ -11,5 +11,5 @@ void IndexView::handleRequest()
 		"<app></app>" +
 		htmlFooter();
 
-	webServer->send(200, "text/html", html);
+	webServer->sendHtml(html);
 }
