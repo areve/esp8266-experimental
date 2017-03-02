@@ -7,7 +7,7 @@ StepperView::StepperView(StepperController * controller)
 
 void StepperView::handleRequest()
 {
-	String enabled = webServer->getArg("enabled");
+	String enabled = server->getArg("enabled");
 	if (enabled == "1" && controller == nullptr) {
 		controller = new StepperController(PIN_D8, PIN_D7, PIN_D6, PIN_D5);
 	}
@@ -17,13 +17,13 @@ void StepperView::handleRequest()
 	}
 
 	if (controller != nullptr) {
-		String stepperInterval = webServer->getArg("stepperInterval");
+		String stepperInterval = server->getArg("stepperInterval");
 		if (stepperInterval.length()) controller->interval = stepperInterval.toInt();
 
-		String steps = webServer->getArg("steps");
+		String steps = server->getArg("steps");
 		if (steps.length()) controller->steps = steps.toInt();
 
-		String forward = webServer->getArg("forward");
+		String forward = server->getArg("forward");
 		if (forward.length()) controller->forward = forward.toInt();
 	}
 
@@ -46,5 +46,5 @@ void StepperView::handleRequest()
 		"</form>" +
 		htmlFooter();
 
-	webServer->sendHtml(html);
+	server->replyHtml(html);
 }

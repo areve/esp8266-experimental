@@ -23,13 +23,21 @@ SocketServer::SocketServer(uint16_t port)
 		}
 		break;
 		case WStype_TEXT:
-			logger::debug("Text from " + String(num) + ": " + String(length) + " " + String(payload));
+		{
+			String payloadString(payload);
+			logger::debug("Text from " + String(num) + ": " + String(length) + " " + payloadString);
 
-			this->_parseArguments(payload);
-			logger::debug(getArg("foo"));
-			// use a copy of... to parse args
-			//void ESP8266WebServer::_parseArguments(String data) {
+			//TODO _parseArguments crashes
+			//			this->_parseArguments(payloadString);
+			//			logger::debug(getArg("foo"));
+						// use a copy of... to parse args
+						//void ESP8266WebServer::_parseArguments(String data) {
 
+						/*	String payload((char*)uint8Payload);
+						this->_parseArguments(payload);
+
+						logger::debug(getArg(payload));*/
+		}
 			break;
 		case WStype_BIN:
 			logger::debug("Binary from " + String(num) + ": " + String(length) + " " + String(payload));
@@ -130,14 +138,22 @@ String SocketServer::getArg(String name) {
 	return String();
 }
 
-void SocketServer::addView(char * uri, IView * view)
+int SocketServer::getIntArg(const String name, int defaultValue) {
+	String value = this->getArg(name);
+	return value.length()
+		? value.toInt()
+		: defaultValue;
+}
+
+void SocketServer::addView(char* uri, IView * view)
 {
-	/*view->webServer = this;
-	this->on(uri, HTTP_ANY, [this, view]() {
-		logger::log(String(this->method() == HTTP_GET ? "GET" : "POST") +
-			" " + this->uri());
-		view->handleRequest();
-	}, [this, view]() {
-		view->handleUpload();
-	});*/
+	view->server = this;
+	
+	//this->on(uri, HTTP_ANY, [this, view]() {
+	//	logger::log(String(this->method() == HTTP_GET ? "GET" : "POST") +
+	//		" " + this->uri());
+	//	view->handleRequest();
+	//}, [this, view]() {
+	//	view->handleUpload();
+	//});
 }

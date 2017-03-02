@@ -17,18 +17,18 @@ String join(const std::deque<ulong>& values) {
 void UltrasonicView::handleRequest()
 {
 	const uint8_t defaultPinTrigger = controller == nullptr ? PIN_D7 : controller->pinTrigger;
-	const uint8_t pinTrigger = webServer->getIntArg("pinTrigger", defaultPinTrigger);
+	const uint8_t pinTrigger = server->getIntArg("pinTrigger", defaultPinTrigger);
 
 	const uint8_t defaultPinEcho = controller == nullptr ? PIN_D8 : controller->pinEcho;
-	const uint8_t pinEcho = webServer->getIntArg("pinEcho", defaultPinEcho);
+	const uint8_t pinEcho = server->getIntArg("pinEcho", defaultPinEcho);
 
 	const logger::Level defaultLogLevel = controller == nullptr ? logger::None : controller->logLevel;
-	const logger::Level logLevel = (logger::Level)webServer->getIntArg("logLevel", defaultLogLevel);
+	const logger::Level logLevel = (logger::Level)server->getIntArg("logLevel", defaultLogLevel);
 
 	const ulong defaultInterval = controller == nullptr ? 50000 : controller->interval;
-	const ulong interval = webServer->getIntArg("interval", defaultInterval);
+	const ulong interval = server->getIntArg("interval", defaultInterval);
 
-	String enabled = webServer->getArg("enabled");
+	String enabled = server->getArg("enabled");
 	if (enabled == "1" && controller == nullptr) {
 		controller = new UltrasonicController(pinTrigger, pinEcho);
 	}
@@ -42,13 +42,13 @@ void UltrasonicView::handleRequest()
 		controller->logLevel = logLevel;
 	}
 
-	if (webServer->isCommand()) return webServer->completeCommand();
+	if (server->isCommand()) return server->replyCommand();
 
 	String lastDistances = controller == nullptr ? "" : join(controller->lastDistances);
 	String medianDistance = controller == nullptr ? "" : String(controller->medianDistance);
 
-	if (webServer->isJson()) {
-		webServer->sendJson("{\"lastDistances\":[" + lastDistances + "],\"medianDistance\":" + medianDistance + "}");
+	if (server->isJson()) {
+		server->replyJson("{\"lastDistances\":[" + lastDistances + "],\"medianDistance\":" + medianDistance + "}");
 	}
 	else {
 		String html =
@@ -68,6 +68,6 @@ void UltrasonicView::handleRequest()
 			"</form>"
 			"</main>" +
 			htmlFooter();
-		webServer->sendHtml(html);
+		server->replyHtml(html);
 	}
 }

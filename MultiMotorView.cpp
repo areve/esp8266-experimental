@@ -8,19 +8,18 @@ MultiMotorView::MultiMotorView(MultiMotorController * controller)
 void MultiMotorView::handleRequest()
 {
 	const uint8_t defaultLatchPin = controller == nullptr ? PIN_D5 : controller->latchPin;
-	const uint8_t latchPin = webServer->getIntArg("latchPin", defaultLatchPin);
+	const uint8_t latchPin = server->getIntArg("latchPin", defaultLatchPin);
 
 	const uint8_t defaultClockPin = controller == nullptr ? PIN_D0 : controller->clockPin;
-	const uint8_t clockPin = webServer->getIntArg("clockPin", defaultClockPin);
+	const uint8_t clockPin = server->getIntArg("clockPin", defaultClockPin);
 
 	const uint8_t defaultDataPin = controller == nullptr ? PIN_D6 : controller->dataPin;
-	const uint8_t dataPin = webServer->getIntArg("pinData", defaultDataPin);
+	const uint8_t dataPin = server->getIntArg("pinData", defaultDataPin);
 
 	const uint8_t defaultMotors = controller == nullptr ? 1 : controller->patternServices.size();
-	const uint8_t motors = webServer->getIntArg("motors", defaultMotors);
+	const uint8_t motors = server->getIntArg("motors", defaultMotors);
 
-
-	String enabled = webServer->getArg("enabled");
+	String enabled = server->getArg("enabled");
 	
 	if (enabled == "1" && controller == nullptr) {
 		controller = new MultiMotorController(latchPin, clockPin, dataPin, motors);
@@ -37,18 +36,18 @@ void MultiMotorView::handleRequest()
 	for (byte i = 0; i < motors; i++) {
 
 		if (controller != nullptr) {
-			const String patternOptionsArg = webServer->getArg("patternOptions" + String(i));
+			const String patternOptionsArg = server->getArg("patternOptions" + String(i));
 			if (patternOptionsArg.length()) 
 				controller->patternServices[i].patternOptions = PatternOption::deserialize(patternOptionsArg);
-			if (webServer->getArg("resetPosition" + String(i)) == "1")
+			if (server->getArg("resetPosition" + String(i)) == "1")
 				controller->patternServices[i].reset();
 		}
 	}
 
-	if (webServer->isCommand()) return webServer->completeCommand();
+	if (server->isCommand()) return server->replyCommand();
 
-	if (webServer->isJson()) {
-		webServer->sendJson("");
+	if (server->isJson()) {
+		server->replyJson("");
 	}
 	else {
 		String html =
@@ -78,6 +77,6 @@ void MultiMotorView::handleRequest()
 			"</form>"
 			"</main>" +
 			htmlFooter();
-		webServer->sendHtml(html);
+		server->replyHtml(html);
 	}
 }

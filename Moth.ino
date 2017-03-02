@@ -71,7 +71,7 @@ inline void setupMultiMotorView() {
 inline void setupUltrasonicView() {
 	ultrasonicView = new UltrasonicView(nullptr);
 	webServer->addView("/api/us", ultrasonicView);
-	socketServer->addView("/api/us", ultrasonicView);
+	//socketServer->addView("/api/us", ultrasonicView);
 }
 
 inline void setupFaviconView() {

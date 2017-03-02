@@ -2,27 +2,27 @@
 
 void ConfigView::handleRequest()
 {
-	bool isJson = webServer->isJson();
+	bool isJson = server->isJson();
 
-	if (webServer->isCommand()) {
-		config::accessPointName = webServer->getArg("accessPointName");
-		config::accessPointPassphrase = webServer->getArg("accessPointPassphrase");
-		config::wifiSsid = webServer->getArg("wifiSsid");
-		config::wifiPassphrase = webServer->getArg("wifiPassphrase");
-		config::devScriptUrl = webServer->getArg("devScriptUrl");
+	if (server->isCommand()) {
+		config::accessPointName = server->getArg("accessPointName");
+		config::accessPointPassphrase = server->getArg("accessPointPassphrase");
+		config::wifiSsid = server->getArg("wifiSsid");
+		config::wifiPassphrase = server->getArg("wifiPassphrase");
+		config::devScriptUrl = server->getArg("devScriptUrl");
 
 		if (config::save()) {
-			webServer->completeCommand();
+			server->replyCommand();
 		}
 		else {
-			webServer->error();
+			server->replyError();
 		}
 	}
 	else {
 		if (isJson) {
 			String json;
 			config::toJson(json);
-			webServer->sendJson(json);
+			server->replyJson(json);
 		}
 		else {
 			String html =
@@ -39,7 +39,7 @@ void ConfigView::handleRequest()
 				"</form>" +
 				htmlFooter();
 
-			webServer->sendHtml(html);
+			server->replyHtml(html);
 		}
 	}
 }

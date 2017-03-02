@@ -7,7 +7,7 @@ LedMatrixView::LedMatrixView(LedMatrixController* controller)
 
 void LedMatrixView::handleRequest()
 {
-	String enabled = webServer->getArg("enabled");
+	String enabled = server->getArg("enabled");
 	if (enabled == "1" && controller == nullptr) {
 		controller = new LedMatrixController(PIN_D4, PIN_D3, PIN_D2);
 	}
@@ -17,13 +17,13 @@ void LedMatrixView::handleRequest()
 	}
 
 	if (controller != nullptr) {
-		String text = webServer->getArg("text");
+		String text = server->getArg("text");
 		if (text.length()) controller->text = text;
 
-		String interval = webServer->getArg("interval");
+		String interval = server->getArg("interval");
 		if (interval.length()) controller->interval = interval.toInt();
 
-		String position = webServer->getArg("position");
+		String position = server->getArg("position");
 		if (position.length()) controller->position = position.toInt();
 	}
 
@@ -47,5 +47,5 @@ void LedMatrixView::handleRequest()
 		"</form>" +
 		htmlFooter();
 
-	webServer->sendHtml(html);
+	server->replyHtml(html);
 }

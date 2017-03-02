@@ -56,30 +56,30 @@ public:
 		return this->method() == HTTP_POST;
 	}
 
-	void completeCommand() override {
+	void replyCommand() override {
 		if (this->isJson()) {
 			this->send(204, "application/json", "");
 		}
 		else {
 			this->sendHeader("Location", this->uri(), false);
-			this->send(302, "text/plain", "OK");
+			this->send(302, "text/plain", "");
 		}
 	}
 
-	void error() override {
+	void replyError() override {
 		this->send(500, "text/plain", "Error");
 	}
 
-	void sendBinary(const char* data) override {
+	void replyBinary(const char* data, size_t size) override {
 		this->sendHeader("Cache-Control", "max-age=84600, private", true);
-		this->send_P(200, "image/x-icon", data, sizeof(data));
+		this->send_P(200, "image/x-icon", data, size);
 	}
 
-	void sendJson(const String& json) override {
+	void replyJson(const String& json) override {
 		this->send(200, "application/json", json);
 	}
 
-	void sendHtml(const String& html) override {
+	void replyHtml(const String& html) override {
 		this->send(200, "text/html", html);
 	}
 

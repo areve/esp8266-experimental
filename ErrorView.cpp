@@ -27,5 +27,5 @@ void ErrorView::handleNotFound()
 //		"<pre class=\"fallback\">" + htmlEncode(text) + "</pre>" +
 		htmlFooter();
 
-	webServer->sendHtml(html);
+	server->replyHtml(html);
 }

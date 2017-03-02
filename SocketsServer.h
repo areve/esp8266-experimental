@@ -20,13 +20,13 @@ public:
 	}
 
 	String getArg(String name) override;
-	int getIntArg(const String name, int defaultValue) override {}
+	int getIntArg(const String name, int defaultValue) override;
 
-	void completeCommand() override {};
-	void error() override {};
-	void sendJson(const String& json) override {};
-	void sendHtml(const String& html) override {};
-	void sendBinary(const char* data) override {};
+	void replyCommand() override {};
+	void replyError() override {};
+	void replyJson(const String& json) override {};
+	void replyHtml(const String& html) override {};
+	void replyBinary(const char* data, size_t size) override {};
 
 private:
 	WebSocketsServer* webSocketServer = nullptr;

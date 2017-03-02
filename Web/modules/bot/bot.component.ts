@@ -81,7 +81,7 @@ export class BotComponent {
     connection.onopen = function () {
       connection.send('Message from Browser to ESP8266 yay its Working!! ' + new Date())
       connection.send('Time: ' + new Date())
-      connection.send('tick=tock&foo=bar')
+      connection.send('/api/motor?tick=tock&foo=bar')
     }
     connection.onerror = function (error) {
       console.log('WebSocket error: ', error)

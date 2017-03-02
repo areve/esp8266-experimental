@@ -8,7 +8,7 @@ PinView::PinView(PinController * controller)
 
 void PinView::handleRequest()
 {
-	String enabled = webServer->getArg("enabled");
+	String enabled = server->getArg("enabled");
 	if (enabled == "1" && controller == nullptr) {
 		controller = new PinController();
 		controller->addPin(PIN_D1);
@@ -33,7 +33,7 @@ void PinView::handleRequest()
 		html += htmlReadOnly("pin_in", String(controller->readPin()));
 		for (uint8_t i = 0; i < controller->pinCount(); i++) {
 			String name = "pin_" + String(i);
-			String value = webServer->getArg(name);
+			String value = server->getArg(name);
 			if (value.length()) {
 				controller->writePin(i, value.toInt());
 			}
@@ -46,5 +46,5 @@ void PinView::handleRequest()
 		"</form>" +
 		htmlFooter();
 
-	webServer->sendHtml(html);
+	server->replyHtml(html);
 }
