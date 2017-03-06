@@ -17,10 +17,10 @@ public:
 
 private:
 	std::vector<byte> motorPatterns = {
-		// stop
-		B00000000,
+		// stop (0)
+		B00000000, 
 
-		// forward half step sequence
+		// forward half step sequence (1-8)
 		B00001000,
 		B00001100,
 		B00000100,
@@ -30,7 +30,7 @@ private:
 		B00000001,
 		B00001001,
 
-		// reverse half step sequence
+		// reverse half step sequence (9-16)
 		B00000001,
 		B00000011,
 		B00000010,
@@ -40,13 +40,13 @@ private:
 		B00001000,
 		B00001001,
 
-		// one phase on forward full step sequence
+		// one phase on forward full step sequence (17-20)
 		B00001000,
 		B00000100,
 		B00000010,
 		B00000001,
 
-		// two phase on forward full step sequence
+		// two phase on forward full step sequence (21-24)
 		B00001100,
 		B00000110,
 		B00000011,

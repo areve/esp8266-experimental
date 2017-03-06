@@ -14,9 +14,9 @@ void MultiMotorView::handleRequest()
 	const uint8_t clockPin = server->getIntArg("clockPin", defaultClockPin);
 
 	const uint8_t defaultDataPin = controller == nullptr ? PIN_D6 : controller->dataPin;
-	const uint8_t dataPin = server->getIntArg("pinData", defaultDataPin);
+	const uint8_t dataPin = server->getIntArg("dataPin", defaultDataPin);
 
-	const uint8_t defaultMotors = controller == nullptr ? 1 : controller->patternServices.size();
+	const uint8_t defaultMotors = controller == nullptr ? 2 : controller->patternServices.size();
 	const uint8_t motors = server->getIntArg("motors", defaultMotors);
 
 	String enabled = server->getArg("enabled");
@@ -66,7 +66,7 @@ void MultiMotorView::handleRequest()
 			html +=
 				"<fieldset>"
 				"<legend>motor" + String(i) + "</legend>" +
-				htmlInputText("patternOptions" + String(i), controller == nullptr ? "0,7,0,50000" : PatternOption::serialize(controller->patternServices[i].patternOptions), "startPattern,endPattern,steps,interval") +
+				htmlInputText("patternOptions" + String(i), controller == nullptr ? "1,8,0,50000" : PatternOption::serialize(controller->patternServices[i].patternOptions), "startPattern,endPattern,steps,interval") +
 				htmlChoice("resetPosition" + String(i), 0, { "no", "yes" }) +
 				htmlReadOnly("position" + String(i), controller == nullptr ? "" : String(controller->patternServices[i].position)) +
 				"</fieldset>";

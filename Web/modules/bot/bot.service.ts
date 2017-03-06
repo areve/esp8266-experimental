@@ -11,19 +11,19 @@ export class BotService {
   }
 
   forwards () {
-    return this.motor('1,8,80,200000,' + stop, '1,8,80,200000,' + stop)
+    return this.motor('1,8,0,1700,' + stop, '1,8,0,1700,' + stop)
   }
 
   backwards () {
-    return this.motor('9,16,0,5000,' + stop, '9,16,0,5000,' + stop)
+    return this.motor('8,1,0,1700,' + stop, '8,1,0,1700,' + stop)
   }
 
   left () {
-    return this.motor('9,16,80,200000,' + stop, '1,8,80,200000,' + stop)
+    return this.motor('8,1,0,1700,' + stop, '1,8,0,1700,' + stop)
   }
 
   right () {
-    return this.motor('1,8,80,200000,' + stop, '9,16,80,200000,' + stop)
+    return this.motor('1,8,0,1700,' + stop, '8,1,0,1700,' + stop)
   }
 
   stop () {
@@ -52,15 +52,11 @@ export class BotService {
       latchPin: 14,
       clockPin: 16,
       dataPin: 12,
-      motors: 4,
+      motors: 2,
       patternOptions0: pattern1,
       resetPosition0: 1,
       patternOptions1: pattern2,
-      resetPosition1: 1,
-      patternOptions2: stop,
-      resetPosition2: 1,
-      patternOptions3: stop,
-      resetPosition3: 1
+      resetPosition1: 1
     }))
       .map(response => response.json() || {})
   }

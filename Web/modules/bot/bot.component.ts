@@ -63,15 +63,15 @@ export class BotComponent {
     this.update()
     this.webSocketDemo()
 
-    // Observable.interval(500).subscribe(() => {
-    //   this.bot.angle += 0.136
-    //   this.botService
-    //     .readUltraSound()
-    //     .subscribe(({medianDistance, lastDistances}) => {
-    //       this.ultraSoundDistance = medianDistance
-    //       this.drawUltraSound()
-    //     }, console.error)
-    // })
+    Observable.interval(5000000).subscribe(() => {
+      this.bot.angle += 0.136
+      this.botService
+        .readUltraSound()
+        .subscribe(({medianDistance, lastDistances}) => {
+          this.ultraSoundDistance = medianDistance
+          this.drawUltraSound()
+        }, console.error)
+    })
   }
 
   webSocketDemo (){
