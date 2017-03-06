@@ -8,15 +8,15 @@
 
 namespace config {
 
-	extern String accessPointName;
+	extern String machineName;
 	extern String accessPointPassphrase;
 	extern String wifiSsid;
 	extern String wifiPassphrase;
 	extern String devScriptUrl;
 
 	static void _fromJson(JsonObject& json) {
-		if (json.containsKey("accessPointName"))
-			accessPointName = json["accessPointName"].as<char*>();
+		if (json.containsKey("machineName"))
+			machineName = json["machineName"].as<char*>();
 		if (json.containsKey("accessPointPassphrase"))
 			accessPointPassphrase = json["accessPointPassphrase"].as<char*>();
 		if (json.containsKey("wifiSsid"))
@@ -28,7 +28,7 @@ namespace config {
 	}
 
 	static void _toJson(JsonObject& json) {
-		json["accessPointName"] = accessPointName;
+		json["machineName"] = machineName;
 		json["accessPointPassphrase"] = accessPointPassphrase;
 		json["wifiSsid"] = wifiSsid;
 		json["wifiPassphrase"] = wifiPassphrase;

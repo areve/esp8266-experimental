@@ -45,7 +45,6 @@ FaviconView* faviconView = nullptr;
 FsView* fsView = nullptr;
 
 WebServer* webServer = nullptr;
-
 SocketServer* socketServer = nullptr;
 
 inline void setupPinView() {
@@ -121,10 +120,11 @@ void setup() {
 	setupWebServer();
 
 	ClientSetting clientSetting(config::wifiSsid, config::wifiPassphrase);
-	AccessPointSetting accessPointSetting(config::accessPointName, config::accessPointPassphrase);
-
+	AccessPointSetting accessPointSetting(config::machineName, config::accessPointPassphrase);
+	MdnsSetting mdnsSetting(config::machineName);
 	connection.addClient(clientSetting);
 	connection.setAccessPoint(accessPointSetting);
+	connection.addMdns(mdnsSetting);
 	connection.start();
 }
 

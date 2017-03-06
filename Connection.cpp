@@ -12,14 +12,31 @@ void Connection::addClient(ClientSetting &wifiClient)
 	clientSettings.push_back(&wifiClient);
 }
 
+void Connection::addMdns(MdnsSetting& mdnsSetting)
+{
+	mdnsSettings.push_back(&mdnsSetting);
+}
+
 void Connection::start()
 {
+	bool connected = false;
 	for (ClientSetting* wifiClient : clientSettings) {
-		if (connect(*wifiClient)) return;
+		if (connect(*wifiClient)) {
+			connected = true;
+			break;
+		}
 	}
 
-	if (accessPoint != nullptr) 
+	if (!connected && accessPoint != nullptr)
 		startAccessPoint(*accessPoint);
+
+	if (mdnsSettings.size()) {
+		for (MdnsSetting* mdnsSetting : mdnsSettings) {
+			if (!MDNS.begin(mdnsSetting->hostName.c_str()))
+				logger::log("Error starting mDNS");
+			logger::log("Started mDNS: " + mdnsSetting->hostName + ".local");
+		}
+	}
 }
 
 bool Connection::connect(const ClientSetting wifiClient)
@@ -44,6 +61,7 @@ bool Connection::connect(const ClientSetting wifiClient)
 
 	logger::info(String("IP:") + WiFi.localIP().toString());
 	logger::log(String("Connected:") + wifiClient.ssid.c_str());
+
 	client = new ClientSetting(wifiClient);
 	return true;
 }

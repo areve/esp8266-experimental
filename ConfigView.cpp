@@ -5,7 +5,7 @@ void ConfigView::handleRequest()
 	bool isJson = server->isJson();
 
 	if (server->isCommand()) {
-		config::accessPointName = server->getArg("accessPointName");
+		config::machineName = server->getArg("machineName");
 		config::accessPointPassphrase = server->getArg("accessPointPassphrase");
 		config::wifiSsid = server->getArg("wifiSsid");
 		config::wifiPassphrase = server->getArg("wifiPassphrase");
@@ -30,7 +30,7 @@ void ConfigView::handleRequest()
 				"<h1>MOTH Config</h1>"
 				"<p>Settings that can be changed, these are stored in onboard storage.</p>"
 				"<form method=\"POST\" action=\"/api/config\">" +
-				htmlInputText("accessPointName", config::accessPointName) +
+				htmlInputText("machineName", config::machineName) +
 				htmlInputText("accessPointPassphrase", config::accessPointPassphrase) +
 				htmlInputText("wifiSsid", config::wifiSsid) +
 				htmlInputText("wifiPassphrase", config::wifiPassphrase) +
