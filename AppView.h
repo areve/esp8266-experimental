@@ -1,7 +1,7 @@
 #ifndef _APPVIEW_h
 #define _APPVIEW_h
 #include "arduino.h"
-#include "StringHelper.h"
+#include "stringHelper.h"
 #include "IView.h"
 #include "config.h"
 

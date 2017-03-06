@@ -5,7 +5,7 @@ StepperView::StepperView(StepperController * controller)
 	this->controller = controller;
 }
 
-void StepperView::handleRequest()
+void StepperView::handleRequest(IServer* server)
 {
 	String enabled = server->getArg("enabled");
 	if (enabled == "1" && controller == nullptr) {

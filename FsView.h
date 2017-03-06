@@ -12,13 +12,13 @@
 class FsView : public AppView {
 public:
 	FsView(FsController* fsController);
-	void handleRequest() override;
-	void handleUpload() override;
-	virtual void handleRemove(const String remove);
-	virtual void handleRename(const String rename);
-	virtual void handleUpload(HTTPUpload& upload);
-	virtual void handleRead(const String read);
-	virtual void handleList();
+	void handleRequest(IServer* server) override;
+	void handleUpload(IServer* server) override;
+	virtual void handleRemove(IServer* server, const String remove);
+	virtual void handleRename(IServer* server, const String rename);
+	virtual void handleUpload(IServer* server, HTTPUpload& upload);
+	virtual void handleRead(IServer* server, const String read);
+	virtual void handleList(IServer* server);
 
 private:
 	FsController* fsController;

@@ -12,7 +12,7 @@
 class LedMatrixView : public AppView {
 public:
 	LedMatrixView(LedMatrixController* controller);
-	void handleRequest() override;
+	void handleRequest(IServer* server) override;
 	LedMatrixController* controller = nullptr;
 private:
 };

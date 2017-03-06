@@ -1,6 +1,6 @@
 #include "ConfigView.h"
 
-void ConfigView::handleRequest()
+void ConfigView::handleRequest(IServer* server)
 {
 	bool isJson = server->isJson();
 
@@ -25,8 +25,11 @@ void ConfigView::handleRequest()
 			server->replyJson(json);
 		}
 		else {
+
+
 			String html =
 				htmlHeader("Config < Moth") +
+				
 				"<h1>MOTH Config</h1>"
 				"<p>Settings that can be changed, these are stored in onboard storage.</p>"
 				"<form method=\"POST\" action=\"/api/config\">" +

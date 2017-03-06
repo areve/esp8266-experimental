@@ -12,25 +12,23 @@ WebServer::WebServer(u16 port) : ESP8266WebServer(port){
 
 void WebServer::addView(char * uri, IView * view)
 {
-	view->server = this;
 	this->on(uri, HTTP_ANY, [this, view]() {
 		logger::log(String(this->method() == HTTP_GET ? "GET" : "POST") + 
 			" " + this->uri());
-		view->handleRequest();
+		view->handleRequest(this);
 	}, [this, view]() {
-		view->handleUpload();
+		view->handleUpload(this);
 	});
 }
 
 void WebServer::addErrorView(IView * view)
 {
 	errorView = view;
-	errorView->server = this;
-
+	
 	this->onNotFound([&]() {
 		logger::log(String(this->method() == HTTP_GET ? "GET" : "POST") +
 			" " + this->uri());
-		errorView->handleRequest();
+		errorView->handleRequest(this);
 	});
 }
 

@@ -10,7 +10,7 @@
 class PinView : public AppView {
 public:
 	PinView(PinController* controller);
-	void handleRequest() override;
+	void handleRequest(IServer* server) override;
 	PinController* controller = nullptr;
 };
 

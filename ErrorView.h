@@ -8,8 +8,8 @@
 
 class ErrorView : public AppView {
 public:
-	void handleRequest() override;
-	virtual void handleNotFound();
+	void handleRequest(IServer* server) override;
+	virtual void handleNotFound(IServer* server);
 };
 
 #endif

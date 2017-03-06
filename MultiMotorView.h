@@ -13,7 +13,7 @@ class ESP8266WebServer;
 class MultiMotorView : public AppView {
 public:
 	MultiMotorView(MultiMotorController * controller);
-	void handleRequest() override;
+	void handleRequest(IServer* server) override;
 	MultiMotorController* controller = nullptr;
 };
 

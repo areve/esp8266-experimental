@@ -5,15 +5,8 @@
 #include <vector>
 
 namespace stringHelper {
-	static String htmlEncode(const String text) {
-		String result = text;
-		result.replace("&", "&amp;");
-		result.replace("'", "&apos;");
-		result.replace("\"", "&quot;");
-		result.replace("<", "&lt;");
-		result.replace(">", "&gt;");
-		return result;
-	}
+	String htmlEncode(const String text);
+	std::vector<String> split(const String& text, const char splitter);
 }
 
 #endif

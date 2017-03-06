@@ -102,6 +102,12 @@
     <ClCompile Include="SocketsServer.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+    <ClCompile Include="stringHelper.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UltrasonicController.h">
@@ -201,6 +207,9 @@
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="IServer.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
       <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>

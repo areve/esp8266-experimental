@@ -8,7 +8,7 @@
 
 class FaviconView : public AppView {
 public:
-	void handleRequest() override;
+	void handleRequest(IServer* server) override;
 };
 
 #endif

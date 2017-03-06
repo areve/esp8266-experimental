@@ -5,7 +5,7 @@ MultiMotorView::MultiMotorView(MultiMotorController * controller)
 	this->controller = controller;
 }
 
-void MultiMotorView::handleRequest()
+void MultiMotorView::handleRequest(IServer* server)
 {
 	const uint8_t defaultLatchPin = controller == nullptr ? PIN_D5 : controller->latchPin;
 	const uint8_t latchPin = server->getIntArg("latchPin", defaultLatchPin);

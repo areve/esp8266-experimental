@@ -2,8 +2,8 @@
 #define _PATTERNOPTION_h
 
 #include "arduino.h"
+#include "stringHelper.h"
 #include <vector>
-
 
 class PatternOption {
 public:
@@ -20,7 +20,6 @@ public:
 	ulong steps;
 	ulong interval;
 
-	static std::vector<String> split(const String& text);
 	static String serialize(std::vector<PatternOption> patternOptions);
 	static std::vector<PatternOption> deserialize(const String& patternOptions);
 };

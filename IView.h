@@ -7,9 +7,8 @@ class IServer;
 class IView {
 public:
 	virtual ~IView() = default;
-	virtual void handleRequest() {}
-	virtual void handleUpload() {}
-	IServer* server = nullptr;
+	virtual void handleRequest(IServer* server) {}
+	virtual void handleUpload(IServer* server) {}
 };
 
 #endif

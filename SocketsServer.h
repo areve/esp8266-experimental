@@ -4,6 +4,13 @@
 #include "arduino.h"
 #include <WebSocketsServer.h>
 #include "IServer.h"
+#include "Command.h"
+
+class SocketServerHandler {
+public:
+	String uri;
+	IView* view;
+};
 
 class SocketServer : IServer {
 public:
@@ -16,30 +23,39 @@ public:
 	}
 
 	bool isCommand() override {
-		return true;
+		return false;
 	}
 
-	String getArg(String name) override;
-	int getIntArg(const String name, int defaultValue) override;
+	String getArg(const String& name) override;
+	int getIntArg(const String& name, const int& defaultValue) override;
 
-	void replyCommand() override {};
-	void replyError() override {};
-	void replyJson(const String& json) override {};
-	void replyHtml(const String& html) override {};
-	void replyBinary(const char* data, size_t size) override {};
+	void replyCommand() override {
+		const char reply[] = "{}";
+		webSocketServer->sendTXT(clientId, reply, sizeof(reply));
+	};
+
+	void replyError() override {
+		const char reply[] = "{\"error\":true}";
+		webSocketServer->sendTXT(clientId, reply, sizeof(reply));
+	};
+
+	void replyJson(const String& json) override {
+		webSocketServer->sendTXT(clientId, json.c_str(), json.length());
+	};
+
+	void replyHtml(const String& html) override {
+		webSocketServer->sendTXT(clientId, html.c_str(), html.length());
+	};
+
+	void replyBinary(const char* data, size_t size) override {
+		webSocketServer->sendBIN(clientId, (uint8_t*)data, size);
+	}
 
 private:
 	WebSocketsServer* webSocketServer = nullptr;
-	struct RequestArgument {
-		String key;
-		String value;
-	};
-
-	void _parseArguments(String data);
-	int _currentArgCount;
-	RequestArgument* _currentArgs;
-
-	String urlDecode(const String& text);
+	std::vector<SocketServerHandler> handlers;
+	Command *command = nullptr;
+	uint8_t clientId = 0;
 };
 
 

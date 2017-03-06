@@ -1,11 +1,11 @@
 #include "ErrorView.h"
 
-void ErrorView::handleRequest()
+void ErrorView::handleRequest(IServer* server)
 {
-	handleNotFound();
+	handleNotFound(server);
 }
 
-void ErrorView::handleNotFound()
+void ErrorView::handleNotFound(IServer* server)
 {
 	//logger::log(String((webServer->method() == HTTP_GET) ? "GET" : "POST?") + " " + webServer->uri());
 	//

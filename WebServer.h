@@ -20,7 +20,7 @@ public:
 	int requestCount = 0;
 
 	// TODO: ESP8266WebServer::arg appears to already do this!?
-	String getArg(const String name) {
+	String getArg(const String& name) {
 		if (!hasArg(name)) return "";
 		for (uint8_t i = 0; i < args(); i++) {
 			if (name == argName(i)) {
@@ -30,7 +30,7 @@ public:
 		return{};
 	}
 
-	int getIntArg(const String name, int defaultValue) override {
+	int getIntArg(const String& name, const int& defaultValue) override {
 		String value = this->getArg(name);
 		return value.length()
 			? value.toInt()

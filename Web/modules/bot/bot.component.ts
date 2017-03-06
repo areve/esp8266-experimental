@@ -46,11 +46,11 @@ export class BotComponent {
   private botService: BotService
   private ctx: CanvasRenderingContext2D
 
-  constructor ( @Inject(BotService) botService: BotService) {
+  constructor( @Inject(BotService) botService: BotService) {
     this.botService = botService
   }
 
-  ngAfterViewInit () {
+  ngAfterViewInit() {
     this.ctx = this.canvas.nativeElement.getContext('2d')
     this.canvas.nativeElement.height =
       this.canvasHeight =
@@ -61,49 +61,40 @@ export class BotComponent {
 
     this.ctx.strokeStyle = 'none'
     this.update()
-    this.webSocketDemo()
 
-    Observable.interval(5000000).subscribe(() => {
-      this.bot.angle += 0.136
-      this.botService
-        .readUltraSound()
-        .subscribe(({medianDistance, lastDistances}) => {
-          this.ultraSoundDistance = medianDistance
-          this.drawUltraSound()
-        }, console.error)
-    })
+    this.botService._listeners.push(
+      ({medianDistance, lastDistances}) => {
+        console.log('medianDistance: ', medianDistance)
+        this.ultraSoundDistance = medianDistance
+        this.drawUltraSound()
+      })
+
+    // Observable.interval(500).subscribe(() => {
+    //   this.bot.angle += 0.136
+    //   this.botService
+    //     .readUltraSound()
+    //     .subscribe(({medianDistance, lastDistances}) => {
+    //       this.ultraSoundDistance = medianDistance
+    //       this.drawUltraSound()
+    //     }, console.error)
+    //   this.botService
+    //     .requestUltraSound()
+    // })
   }
 
-  webSocketDemo (){
-    console.log(document.location)
-    let connection = new WebSocket('ws://' +
-      document.location.hostname + ':81/', ['arduino'])
-    connection.onopen = function () {
-      connection.send('Message from Browser to ESP8266 yay its Working!! ' + new Date())
-      connection.send('Time: ' + new Date())
-      connection.send('/api/motor?tick=tock&foo=bar')
-    }
-    connection.onerror = function (error) {
-      console.log('WebSocket error: ', error)
-    }
-    connection.onmessage = function (e) {
-      console.log('Server said: ', e.data)
-    }
-  }
-
-  update () {
+  update() {
     this.drawBackground()
     this.drawBot()
   }
 
-  drawUltraSound () {
+  drawUltraSound() {
     let x = this.bot.x + Math.sin(this.bot.angle) * this.ultraSoundDistance
     let y = this.bot.y + Math.cos(this.bot.angle) * this.ultraSoundDistance
 
     this.drawPoint(x, y)
   }
 
-  drawPoint (x: number, y: number) {
+  drawPoint(x: number, y: number) {
     this.ctx.fillStyle = '#000'
     this.ctx.fillRect(
       this.bot.x + x * this.scale - this.dotSize / 2 + this.canvasWidth / 2,
@@ -111,12 +102,12 @@ export class BotComponent {
       this.dotSize, this.dotSize)
   }
 
-  drawBackground () {
+  drawBackground() {
     this.ctx.fillStyle = '#fff'
     this.ctx.fillRect(0, 0, this.canvasWidth, this.canvasHeight)
   }
 
-  drawBot () {
+  drawBot() {
     let x = this.canvasWidth / 2
     let y = this.canvasHeight / 2
     this.ctx.fillStyle = '#009'
@@ -128,40 +119,42 @@ export class BotComponent {
     this.ctx.fill()
   }
 
-  forwards () {
+  forwards() {
     this.botService.forwards()
       .subscribe(console.log, console.error)
     this.bot.y -= 10
   }
 
-  stop () {
+  stop() {
     this.botService.stop()
       .subscribe(console.log, console.error)
   }
 
-  backwards () {
+  backwards() {
     this.botService.backwards()
       .subscribe(console.log, console.error)
     this.bot.y += 10
   }
 
-  right () {
+  right() {
     this.botService.right()
       .subscribe(console.log, console.error)
   }
 
-  left () {
+  left() {
     this.botService.left()
       .subscribe(console.log, console.error)
   }
 
-  startUltraSound () {
+  startUltraSound() {
     this.botService.startUltraSound()
       .subscribe(console.log, console.error)
   }
 
-  readUltraSound () {
-    this.botService.readUltraSound()
-      .subscribe(console.log, console.error)
+  readUltraSound() {
+    this.botService
+      .requestUltraSound()
+    //    this.botService.readUltraSound()
+    //    .subscribe(console.log, console.error)
   }
 }

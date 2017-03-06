@@ -1,23 +1,5 @@
 #include "PatternOption.h"
 
-std::vector<String> PatternOption::split(const String& text)
-{
-	std::vector<String> result;
-
-	uint begin = 0;
-	uint end;
-	while (true)
-	{
-		end = text.indexOf(',', begin);
-		if (end == -1) break;
-		result.push_back(text.substring(begin, end));
-		begin = end + 1;
-	}
-	result.push_back(text.substring(begin, end));
-
-	return result;
-}
-
 String PatternOption::serialize(std::vector<PatternOption> patternOptions)
 {
 	String result;
@@ -35,7 +17,7 @@ String PatternOption::serialize(std::vector<PatternOption> patternOptions)
 std::vector<PatternOption> PatternOption::deserialize(const String& patternOptions)
 {
 	std::vector<PatternOption> result;
-	const std::vector<String> splitPatternOptions = split(patternOptions);
+	const std::vector<String> splitPatternOptions = stringHelper::split(patternOptions, ',');
 	const uint max = splitPatternOptions.size() / 4 * 4;
 	for (uint i = 0; i < max; i += 4)
 	{

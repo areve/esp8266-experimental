@@ -12,8 +12,8 @@ public:
 	virtual bool isJson() {};
 	virtual bool isCommand() {};
 	
-	virtual String getArg(String name) {};
-	virtual int getIntArg(const String name, int defaultValue) {}
+	virtual String getArg(const String& name) {};
+	virtual int getIntArg(const String& name, const int& defaultValue) {}
 	
 	virtual void replyCommand() {}
 	virtual void replyError() {}

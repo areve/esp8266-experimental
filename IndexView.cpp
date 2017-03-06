@@ -1,6 +1,6 @@
 #include "IndexView.h"
 
-void IndexView::handleRequest()
+void IndexView::handleRequest(IServer* server)
 {
 	String html =
 		htmlHeader("Home < Moth") +

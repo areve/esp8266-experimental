@@ -5,7 +5,7 @@ LedMatrixView::LedMatrixView(LedMatrixController* controller)
 	this->controller = controller;
 }
 
-void LedMatrixView::handleRequest()
+void LedMatrixView::handleRequest(IServer* server)
 {
 	String enabled = server->getArg("enabled");
 	if (enabled == "1" && controller == nullptr) {

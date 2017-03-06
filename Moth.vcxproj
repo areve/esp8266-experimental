@@ -63,7 +63,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Arduino\libraries\WebSockets\src;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\libraries\ESP8266WiFi\src;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\libraries\Hash\src;$(ProjectDir)..\..\Arduino\libraries\ArduinoJson;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\libraries\ESP8266WebServer\src;$(ProjectDir)..\..\Arduino\libraries\LedControl;$(ProjectDir)..\..\..\..\..\Program Files (x86)\Arduino\libraries\LiquidCrystal\src;$(ProjectDir)..\..\..\..\..\Program Files (x86)\Arduino\libraries;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\libraries;$(ProjectDir)..\..\Arduino\libraries;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\cores\esp8266;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\cores\esp8266\libb64;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\cores\esp8266\spiffs;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\cores\esp8266\umm_malloc;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\variants\generic;$(ProjectDir)..\esp8266-experimental;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\tools\sdk\include;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\tools\sdk\lwip\include;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\tools\xtensa-lx106-elf-gcc\1.20.0-26-gb404fb9-2\xtensa-lx106-elf\include\c++\4.8.2;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\tools\xtensa-lx106-elf-gcc\1.20.0-26-gb404fb9-2\xtensa-lx106-elf\include\c++\4.8.2\xtensa-lx106-elf;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\tools\xtensa-lx106-elf-gcc\1.20.0-26-gb404fb9-2\xtensa-lx106-elf\include;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\tools\xtensa-lx106-elf-gcc\1.20.0-26-gb404fb9-2\lib\gcc\xtensa-lx106-elf\4.8.2\include;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\tools\sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\libraries\ESP8266mDNS;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\libraries\ESP8266WiFi\src;$(ProjectDir)..\..\Arduino\libraries\WebSockets\src;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\libraries\Hash\src;$(ProjectDir)..\..\Arduino\libraries\ArduinoJson;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\libraries\ESP8266WebServer\src;$(ProjectDir)..\..\Arduino\libraries\LedControl;$(ProjectDir)..\..\..\..\..\Program Files (x86)\Arduino\libraries\LiquidCrystal\src;$(ProjectDir)..\..\..\..\..\Program Files (x86)\Arduino\libraries;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\libraries;$(ProjectDir)..\..\Arduino\libraries;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\cores\esp8266;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\cores\esp8266\libb64;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\cores\esp8266\spiffs;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\cores\esp8266\umm_malloc;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\variants\generic;$(ProjectDir)..\esp8266-experimental;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\tools\sdk\include;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\tools\sdk\lwip\include;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\tools\xtensa-lx106-elf-gcc\1.20.0-26-gb404fb9-2\xtensa-lx106-elf\include\c++\4.8.2;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\tools\xtensa-lx106-elf-gcc\1.20.0-26-gb404fb9-2\xtensa-lx106-elf\include\c++\4.8.2\xtensa-lx106-elf;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\tools\xtensa-lx106-elf-gcc\1.20.0-26-gb404fb9-2\xtensa-lx106-elf\include;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\tools\xtensa-lx106-elf-gcc\1.20.0-26-gb404fb9-2\lib\gcc\xtensa-lx106-elf\4.8.2\include;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\esp8266\hardware\esp8266\2.3.0\tools\sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>C:\Users\andrew\Documents\Projects\esp8266-experimental\__vm\.esp8266-experimental.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <PreprocessorDefinitions>__ESP8266_ESp8266__;__ESP8266_ESP8266__;__ets__;ICACHE_FLASH;F_CPU=160000000L;LWIP_OPEN_SRC;ARDUINO=10800;ARDUINO_ESP8266_ESP01;ARDUINO_ARCH_ESP8266;ESP8266;__cplusplus=201103L;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -84,6 +84,7 @@
     <None Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Command.h" />
     <ClInclude Include="config.h">
       <FileType>CppCode</FileType>
     </ClInclude>
@@ -165,6 +166,7 @@
     <ClInclude Include="__vm\.Moth.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Command.cpp" />
     <ClCompile Include="config.cpp" />
     <ClCompile Include="ConfigView.cpp" />
     <ClCompile Include="Connection.cpp" />
@@ -187,6 +189,7 @@
     <ClCompile Include="SerialParallelController.cpp" />
     <ClCompile Include="StepperController.cpp" />
     <ClCompile Include="StepperView.cpp" />
+    <ClCompile Include="stringHelper.cpp" />
     <ClCompile Include="TextPanel.cpp" />
     <ClCompile Include="UltrasonicController.cpp" />
     <ClCompile Include="UltrasonicView.cpp" />

@@ -14,7 +14,7 @@ String join(const std::deque<ulong>& values) {
 	return value;
 }
 
-void UltrasonicView::handleRequest()
+void UltrasonicView::handleRequest(IServer* server)
 {
 	const uint8_t defaultPinTrigger = controller == nullptr ? PIN_D7 : controller->pinTrigger;
 	const uint8_t pinTrigger = server->getIntArg("pinTrigger", defaultPinTrigger);

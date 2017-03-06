@@ -24,7 +24,7 @@ String FsView::getContentType(String filename) {
 	return "application/octet-stream";
 }
 
-void FsView::handleUpload() {
+void FsView::handleUpload(IServer* server) {
 	HTTPUpload& upload = ((WebServer*)server)->upload();
 	if (upload.status == UPLOAD_FILE_START) {
 		fsController->uploadStart();
@@ -38,7 +38,7 @@ void FsView::handleUpload() {
 	yield();
 }
 
-void FsView::handleRemove(const String remove)
+void FsView::handleRemove(IServer* server, const String remove)
 {
 	logger::debug(String("handleRemove ") + remove);
 	fsController->remove(remove);
@@ -46,7 +46,7 @@ void FsView::handleRemove(const String remove)
 	etag = String(random(0xffffffff));
 }
 
-void FsView::handleRename(const String rename)
+void FsView::handleRename(IServer* server, const String rename)
 {
 	String name = server->getArg("name");
 	fsController->rename(rename, name);
@@ -54,7 +54,7 @@ void FsView::handleRename(const String rename)
 	etag = String(random(0xffffffff));
 }
 
-void FsView::handleUpload(HTTPUpload & upload)
+void FsView::handleUpload(IServer* server, HTTPUpload & upload)
 {
 	String name = server->getArg("name");
 	fsController->uploadSave(name.length() ? name : upload.filename);
@@ -62,7 +62,7 @@ void FsView::handleUpload(HTTPUpload & upload)
 	etag = String(random(0xffffffff));
 }
 
-void FsView::handleRead(const String read)
+void FsView::handleRead(IServer* server, const String read)
 {
 	String fileName = read.substring(read.lastIndexOf("/") + 1);
 	String contentType = getContentType(read);
@@ -84,11 +84,10 @@ void FsView::handleRead(const String read)
 		return;
 	}
 
-	errorView->server = server;
-	this->errorView->handleNotFound();
+	this->errorView->handleNotFound(server);
 }
 
-void FsView::handleList()
+void FsView::handleList(IServer* server)
 {
 	std::vector<FileInfo> fileInfos = fsController->list();
 	String fileList = "<ul>";
@@ -142,26 +141,26 @@ void FsView::handleList()
 }
 
 
-void FsView::handleRequest()
+void FsView::handleRequest(IServer* server)
 {
 	if (server->isCommand()) {
 		String remove = server->getArg("remove");
-		if (remove.length()) return handleRemove(remove);
+		if (remove.length()) return handleRemove(server, remove);
 
 		String rename = server->getArg("rename");
-		if (rename.length()) return handleRename(rename);
+		if (rename.length()) return handleRename(server, rename);
 
 		HTTPUpload& upload = ((WebServer*)server)->upload();
-		if (upload.filename.length()) return handleUpload(upload);
+		if (upload.filename.length()) return handleUpload(server, upload);
 
 		server->replyError();
 		return;
 	}
 
 	String read = server->getArg("read");
-	if (read.length()) return handleRead(read);
+	if (read.length()) return handleRead(server, read);
 
-	if (((WebServer*)server)->uri().startsWith("/api/fs")) return handleList();
+	if (((WebServer*)server)->uri().startsWith("/api/fs")) return handleList(server);
 
-	handleRead(((WebServer*)server)->uri().substring(1));
+	handleRead(server, ((WebServer*)server)->uri().substring(1));
 }

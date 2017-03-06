@@ -6,7 +6,7 @@ PinView::PinView(PinController * controller)
 }
 
 
-void PinView::handleRequest()
+void PinView::handleRequest(IServer* server)
 {
 	String enabled = server->getArg("enabled");
 	if (enabled == "1" && controller == nullptr) {
