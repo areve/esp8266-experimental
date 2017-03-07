@@ -4,6 +4,7 @@
 #include <vector>
 #include "stringHelper.h"
 #include "logger.h"
+#include "ISettings.h"
 
 class CommandArg {
 public:
@@ -11,14 +12,15 @@ public:
 	String value;
 };
 
-class Command {
+class Command : public ISettings {
 public:
-	Command(const String& query);
+	Command(const String& query, const bool& argsOnly = false);
 	String name;
 	String method;
 	std::vector<CommandArg> commandArgs;
-	String arg(const String& name);
-	int intArg(const String& name, const int& defaultValue);
+	String getArg(const String& name) override;
+	int getIntArg(const String& name, const int& defaultValue) override;
+
 private:
 	String urlDecode(const String& text);
 };

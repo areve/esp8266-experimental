@@ -1,28 +1,31 @@
 #include "Command.h"
 
-Command::Command(const String& query)
+Command::Command(const String& query, const bool& argsOnly)
 {
-	const int spacePos = query.indexOf(' ');
-	if (spacePos == -1) {
-		method = "GET";
-		name = query;
-		return;
+	String args;
+	if (argsOnly) {
+		args = query;
+		method = "";
+		name = "";
 	}
+	else {
+		const int spacePos = query.indexOf(' ');
+		if (spacePos == -1) {
+			method = "GET";
+			name = query;
+			return;
+		}
 
-	method = query.substring(0, spacePos);
+		method = query.substring(0, spacePos);
 
-	const int questionPos = query.indexOf('?', spacePos + 1);
-	if (questionPos == -1) {
-		name = query.substring(spacePos + 1);
-		return;
+		const int questionPos = query.indexOf('?', spacePos + 1);
+		if (questionPos == -1) {
+			name = query.substring(spacePos + 1);
+			return;
+		}
+		name = query.substring(spacePos + 1, questionPos);
+		args = query.substring(questionPos + 1);
 	}
-
-	name = query.substring(spacePos + 1, questionPos);
-
-	logger::debug("'" + method + "'");
-	logger::debug("'" + name + "'");
-
-	const String args = query.substring(questionPos + 1);
 
 	const std::vector<String> splitArgs = stringHelper::split(args, '&');
 	for (size_t i = 0; i < splitArgs.size(); i++) {
@@ -40,7 +43,7 @@ Command::Command(const String& query)
 	}
 }
 
-String Command::arg(const String& name)
+String Command::getArg(const String& name)
 {
 	for (size_t i = 0; i < commandArgs.size(); i++) {
 		if (commandArgs[i].name == name)
@@ -50,7 +53,7 @@ String Command::arg(const String& name)
 	return{};
 }
 
-int Command::intArg(const String& name, const int& defaultValue)
+int Command::getIntArg(const String& name, const int& defaultValue)
 {
 	for (size_t i = 0; i < commandArgs.size(); i++) {
 		if (commandArgs[i].name == name)

@@ -68,11 +68,11 @@ void SocketServer::addView(char* uri, IView * view)
 
 String SocketServer::getArg(const String& name)
 {
-	return command->arg(name);
+	return command->getArg(name);
 }
 
 int SocketServer::getIntArg(const String& name, const int& defaultValue)
 {
-	return command->intArg(name, defaultValue);
+	return command->getIntArg(name, defaultValue);
 }
 

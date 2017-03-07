@@ -1,3 +1,4 @@
+#include "ISettings.h"
 #include "stringHelper.h"
 #include <vector>
 

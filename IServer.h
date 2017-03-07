@@ -3,18 +3,16 @@
 
 #include "arduino.h"
 #include "IView.h"
+#include "ISettings.h"
 
-class IServer {
+class IServer : public ISettings {
 public:
 	virtual ~IServer() = default;
 	virtual void addView(char * uri, IView * view) {}
 	
 	virtual bool isJson() {};
 	virtual bool isCommand() {};
-	
-	virtual String getArg(const String& name) {};
-	virtual int getIntArg(const String& name, const int& defaultValue) {}
-	
+		
 	virtual void replyCommand() {}
 	virtual void replyError() {}
 	virtual void replyBinary(const char* data, size_t size) {}

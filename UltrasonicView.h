@@ -7,6 +7,7 @@
 #include "UltrasonicController.h"
 #include "WebServer.h"
 #include "stringHelper.h"
+#include "Command.h"
 
 class ESP8266WebServer;
 
