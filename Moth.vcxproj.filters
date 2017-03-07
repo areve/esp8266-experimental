@@ -212,5 +212,11 @@
     <ClInclude Include="Command.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="ISettingsReader.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="ISettings.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

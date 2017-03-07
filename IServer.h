@@ -3,9 +3,9 @@
 
 #include "arduino.h"
 #include "IView.h"
-#include "ISettings.h"
+#include "ISettingsReader.h"
 
-class IServer : public ISettings {
+class IServer : public ISettingsReader {
 public:
 	virtual ~IServer() = default;
 	virtual void addView(char * uri, IView * view) {}

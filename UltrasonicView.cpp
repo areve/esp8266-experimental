@@ -1,11 +1,8 @@
 #include "UltrasonicView.h"
 
-UltrasonicView::UltrasonicView(UltrasonicController* controller)
+UltrasonicView::UltrasonicView(UltrasonicController& controller)
 {
-	if (controller) return;
-	const String settings = "pinTrigger=13&pinEcho=15&logLevel=0&interval=50000&enabled=0";
-	this->controller = new UltrasonicController();
-	this->controller->updateSettings(settings);
+	this->controller = &controller;
 }
 
 void UltrasonicView::handleRequest(IServer* server)

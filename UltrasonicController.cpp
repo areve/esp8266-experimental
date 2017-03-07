@@ -22,11 +22,6 @@ void UltrasonicController::onEnabled()
 	logger::debug("echoTimeout" + String(echoTimeout));
 }
 
-void UltrasonicController::onDisabled()
-{
-}
-
-
 void quickSort(std::deque<ulong>& arr, int left, int right) {
 	int i = left, j = right;
 	int tmp;

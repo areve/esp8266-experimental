@@ -4,49 +4,26 @@
 #include "arduino.h"
 #include "logger.h"
 #include <deque>
-#include "ISettings.h"
+#include "ISettingsReader.h"
 #include "Command.h"
+#include "ISettings.h"
 
-
-class UltrasonicSettings {
+class UltrasonicSettings : public ISettings {
 public:
 	uint8_t pinTrigger;
 	uint8_t pinEcho;
 	logger::Level logLevel;
 	ulong interval; //uS
-	
-	virtual void onEnabled();
-	virtual void onDisabled();
 
-	void set_enabled(const bool& enabled) {
-		if (this->enabled != enabled) {
-			if (enabled)
-				onEnabled();
-			else
-				onDisabled();
-		}
-		this->enabled = enabled;
+	using ISettings::updateSettings;
+
+	void updateSettings(ISettingsReader* settingsReader) override {
+		pinTrigger = settingsReader->getIntArg("pinTrigger", pinTrigger);
+		pinEcho = settingsReader->getIntArg("pinEcho", pinEcho);
+		logLevel = (logger::Level)settingsReader->getIntArg("logLevel", logLevel);
+		interval = settingsReader->getIntArg("interval", interval);
+		ISettings::updateSettings(settingsReader);
 	}
-
-	bool get_enabled() {
-		return this->enabled;
-	}
-
-	void updateSettings(ISettings* settings) {
-		pinTrigger = settings->getIntArg("pinTrigger", pinTrigger);
-		pinEcho = settings->getIntArg("pinEcho", pinEcho);
-		logLevel = (logger::Level)settings->getIntArg("logLevel", logLevel);
-		interval = settings->getIntArg("interval", interval);
-		set_enabled(settings->getIntArg("enabled", enabled));
-	}
-
-	void updateSettings(const String& serializedSettings) {
-		Command settings(serializedSettings, true);
-		this->updateSettings(&settings);
-	}
-
-private:
-	bool enabled;
 };
 
 class UltrasonicController : public UltrasonicSettings {
@@ -56,7 +33,6 @@ public:
 	std::deque<ulong> lastDistances;
 	ulong medianDistance = 0;
 	void onEnabled() override;
-	void onDisabled() override;
 
 private:
 	ulong now = 0;

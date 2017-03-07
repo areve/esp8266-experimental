@@ -1,4 +1,5 @@
 #include "ISettings.h"
+#include "ISettingsReader.h"
 #include "stringHelper.h"
 #include <vector>
 
@@ -25,6 +26,7 @@
 #include "StepperView.h"
 #include "MultiMotorView.h"
 #include "UltrasonicView.h"
+#include "UltrasonicController.h"
 #include "FaviconView.h"
 
 
@@ -41,11 +43,12 @@ LedMatrixView* ledMatrixView = nullptr;
 
 MultiMotorView* multiMotorView = nullptr;
 FsController* fsController = nullptr;
+UltrasonicView* ultrasonicView = nullptr;
+UltrasonicController ultrasonicController;
 
 IndexView* indexView = nullptr;
 ErrorView* errorView = nullptr;
 ConfigView* configView = nullptr;
-UltrasonicView* ultrasonicView = nullptr;
 FaviconView* faviconView = nullptr;
 FsView* fsView = nullptr;
 
@@ -73,7 +76,10 @@ inline void setupMultiMotorView() {
 }
 
 inline void setupUltrasonicView() {
-	ultrasonicView = new UltrasonicView(nullptr);
+	const String settings = "pinTrigger=13&pinEcho=15&logLevel=0&interval=50000&enabled=0";
+	ultrasonicController.updateSettings(settings);
+	
+	ultrasonicView = new UltrasonicView(ultrasonicController);
 	webServer->addView("/api/us", ultrasonicView);
 	socketServer->addView("/api/us", ultrasonicView);
 }
@@ -142,7 +148,7 @@ void loop() {
 	if (ledMatrixView->controller != nullptr) ledMatrixView->controller->loop();
 	if (stepperView->controller != nullptr) stepperView->controller->loop();
 	if (multiMotorView->controller != nullptr) multiMotorView->controller->loop();
-	if (ultrasonicView->controller != nullptr) ultrasonicView->controller->loop();
+	ultrasonicView->controller->loop();
 
 	socketServer->loop();
 }

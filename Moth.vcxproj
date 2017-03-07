@@ -95,6 +95,8 @@
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClInclude Include="IServer.h" />
+    <ClInclude Include="ISettings.h" />
+    <ClInclude Include="ISettingsReader.h" />
     <ClInclude Include="MultiMotorController.h" />
     <ClInclude Include="MultiMotorView.h" />
     <ClInclude Include="ErrorView.h">

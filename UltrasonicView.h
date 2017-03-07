@@ -13,7 +13,7 @@ class ESP8266WebServer;
 
 class UltrasonicView : public AppView {
 public:
-	UltrasonicView(UltrasonicController* controller);
+	UltrasonicView(UltrasonicController& controller);
 	void handleRequest(IServer* server) override;
 	UltrasonicController* controller = nullptr;
 };

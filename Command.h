@@ -4,7 +4,7 @@
 #include <vector>
 #include "stringHelper.h"
 #include "logger.h"
-#include "ISettings.h"
+#include "ISettingsReader.h"
 
 class CommandArg {
 public:
@@ -12,7 +12,7 @@ public:
 	String value;
 };
 
-class Command : public ISettings {
+class Command : public ISettingsReader {
 public:
 	Command(const String& query, const bool& argsOnly = false);
 	String name;
