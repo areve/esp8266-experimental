@@ -29,3 +29,13 @@ std::vector<String> stringHelper::split(const String & text, const char splitter
 	return result;
 }
 
+String stringHelper::join(const std::deque<ulong>& values)
+{
+	String value;
+	for (byte i = 0; i < values.size(); i++) {
+		if (i > 0) value += ",";
+		value += String(values[i]);
+	}
+	return value;
+}
+

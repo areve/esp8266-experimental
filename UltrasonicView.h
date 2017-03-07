@@ -6,6 +6,7 @@
 #include "AppView.h"
 #include "UltrasonicController.h"
 #include "WebServer.h"
+#include "stringHelper.h"
 
 class ESP8266WebServer;
 

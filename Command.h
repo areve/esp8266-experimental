@@ -3,6 +3,7 @@
 #include "arduino.h"
 #include <vector>
 #include "stringHelper.h"
+#include "logger.h"
 
 class CommandArg {
 public:
@@ -14,6 +15,7 @@ class Command {
 public:
 	Command(const String& query);
 	String name;
+	String method;
 	std::vector<CommandArg> commandArgs;
 	String arg(const String& name);
 	int intArg(const String& name, const int& defaultValue);

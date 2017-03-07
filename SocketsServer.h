@@ -23,7 +23,7 @@ public:
 	}
 
 	bool isCommand() override {
-		return false;
+		return command->method == "POST";
 	}
 
 	String getArg(const String& name) override;

@@ -5,15 +5,6 @@ UltrasonicView::UltrasonicView(UltrasonicController * controller)
 	this->controller = controller;
 }
 
-String join(const std::deque<ulong>& values) {
-	String value;
-	for (byte i = 0; i < values.size(); i++) {
-		if (i > 0) value += ",";
-		value += String(values[i]);
-	}
-	return value;
-}
-
 void UltrasonicView::handleRequest(IServer* server)
 {
 	const uint8_t defaultPinTrigger = controller == nullptr ? PIN_D7 : controller->pinTrigger;
@@ -44,7 +35,7 @@ void UltrasonicView::handleRequest(IServer* server)
 
 	if (server->isCommand()) return server->replyCommand();
 
-	String lastDistances = controller == nullptr ? "" : join(controller->lastDistances);
+	String lastDistances = controller == nullptr ? "" : stringHelper::join(controller->lastDistances);
 	String medianDistance = controller == nullptr ? "" : String(controller->medianDistance);
 
 	if (server->isJson()) {

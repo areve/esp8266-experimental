@@ -2,13 +2,26 @@
 
 Command::Command(const String& query)
 {
-	const int questionPos = query.indexOf('?');
-	if (questionPos == -1) {
+	const int spacePos = query.indexOf(' ');
+	if (spacePos == -1) {
+		method = "GET";
 		name = query;
 		return;
 	}
 
-	name = query.substring(0, questionPos);
+	method = query.substring(0, spacePos);
+
+	const int questionPos = query.indexOf('?', spacePos + 1);
+	if (questionPos == -1) {
+		name = query.substring(spacePos + 1);
+		return;
+	}
+
+	name = query.substring(spacePos + 1, questionPos);
+
+	logger::debug("'" + method + "'");
+	logger::debug("'" + name + "'");
+
 	const String args = query.substring(questionPos + 1);
 
 	const std::vector<String> splitArgs = stringHelper::split(args, '&');

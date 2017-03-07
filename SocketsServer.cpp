@@ -28,6 +28,8 @@ SocketServer::SocketServer(uint16_t port)
 			logger::debug("From " + String(num) + ": " + payloadString);
 			if (command != nullptr) delete command;
 			command = new Command(payloadString);
+			logger::debug("Is " + command->method + ": " + command->name);
+
 			clientId = num;
 			for (size_t i = 0; i < handlers.size(); i++) {
 				if (handlers[i].uri == command->name)

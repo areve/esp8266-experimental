@@ -68,7 +68,7 @@ export class BotService {
 
   requestUltraSound() {
     if (this._connection.readyState === 1)
-      this._connection.send('/api/us')
+      this._connection.send('GET /api/us')
   }
 
   private motor(pattern1: string, pattern2: string) {
