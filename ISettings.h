@@ -2,6 +2,8 @@
 #define _ISETTINGS_h
 
 #include "arduino.h"
+#include "Command.h"
+#include "ISettingsReader.h"
 
 class ISettings {
 public:

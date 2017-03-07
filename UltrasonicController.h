@@ -4,8 +4,6 @@
 #include "arduino.h"
 #include "logger.h"
 #include <deque>
-#include "ISettingsReader.h"
-#include "Command.h"
 #include "ISettings.h"
 
 class UltrasonicSettings : public ISettings {
