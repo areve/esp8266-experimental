@@ -76,8 +76,7 @@ inline void setupMultiMotorView() {
 }
 
 inline void setupUltrasonicView() {
-	const String settings = "pinTrigger=13&pinEcho=15&logLevel=0&interval=50000&enabled=0";
-	ultrasonicController.updateSettings(settings);
+	ultrasonicController.updateSettings(config::ultrasonicSettings);
 	
 	ultrasonicView = new UltrasonicView(ultrasonicController);
 	webServer->addView("/api/us", ultrasonicView);

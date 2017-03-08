@@ -13,7 +13,7 @@ namespace config {
 	extern String wifiSsid;
 	extern String wifiPassphrase;
 	extern String devScriptUrl;
-	extern String defaultMotorConfig;
+	extern String ultrasonicSettings;
 
 	static void _fromJson(JsonObject& json) {
 		if (json.containsKey("machineName"))
@@ -26,8 +26,8 @@ namespace config {
 			wifiPassphrase = json["wifiPassphrase"].as<char*>();
 		if (json.containsKey("devScriptUrl"))
 			devScriptUrl = json["devScriptUrl"].as<char*>();
-		if (json.containsKey("defaultMotorConfig"))
-			defaultMotorConfig = json["defaultMotorConfig"].as<char*>();
+		if (json.containsKey("ultrasonicSettings"))
+			ultrasonicSettings = json["ultrasonicSettings"].as<char*>();
 	}
 
 	static void _toJson(JsonObject& json) {
@@ -36,7 +36,7 @@ namespace config {
 		json["wifiSsid"] = wifiSsid;
 		json["wifiPassphrase"] = wifiPassphrase;
 		json["devScriptUrl"] = devScriptUrl;
-		json["defaultMotorConfig"] = defaultMotorConfig;
+		json["ultrasonicSettings"] = ultrasonicSettings;
 	}
 
 	static void toJson(Print& print) {
