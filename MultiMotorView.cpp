@@ -1,82 +1,45 @@
 #include "MultiMotorView.h"
 
-MultiMotorView::MultiMotorView(MultiMotorController * controller)
+MultiMotorView::MultiMotorView(MultiMotorController& controller)
 {
-	this->controller = controller;
+	this->controller = &controller;
 }
 
 void MultiMotorView::handleRequest(IServer* server)
 {
-	const uint8_t defaultLatchPin = controller == nullptr ? PIN_D5 : controller->latchPin;
-	const uint8_t latchPin = server->getIntArg("latchPin", defaultLatchPin);
-
-	const uint8_t defaultClockPin = controller == nullptr ? PIN_D0 : controller->clockPin;
-	const uint8_t clockPin = server->getIntArg("clockPin", defaultClockPin);
-
-	const uint8_t defaultDataPin = controller == nullptr ? PIN_D6 : controller->dataPin;
-	const uint8_t dataPin = server->getIntArg("dataPin", defaultDataPin);
-
-	const uint8_t defaultMotors = controller == nullptr ? 2 : controller->patternServices.size();
-	const uint8_t motors = server->getIntArg("motors", defaultMotors);
-
-	String enabled = server->getArg("enabled");
-	
-	if (enabled == "1" && controller == nullptr) {
-		controller = new MultiMotorController(latchPin, clockPin, dataPin, motors);
-	}
-	else if (enabled == "0" && controller != nullptr) {
-		delete controller;
-		controller = nullptr;
-	}
-
-	std::vector<ulong> intervals(motors);
-	std::vector<uint8_t> startPatterns(motors);
-	std::vector<uint8_t> endPatterns(motors);
-
-	for (byte i = 0; i < motors; i++) {
-
-		if (controller != nullptr) {
-			const String patternOptionsArg = server->getArg("patternOptions" + String(i));
-			if (patternOptionsArg.length()) 
-				controller->patternServices[i].patternOptions = PatternOption::deserialize(patternOptionsArg);
-			if (server->getArg("resetPosition" + String(i)) == "1")
-				controller->patternServices[i].reset();
-		}
-	}
-
+	controller->updateSettings(server);
 	if (server->isCommand()) return server->replyCommand();
 
-	if (server->isJson()) {
-		server->replyJson("");
-	}
-	else {
-		String html =
-			htmlHeader("MultiMotor < Moth") +
-			"<main>"
-			"<h1>MOTH MultiMotor</h1>"
-			"<p>Allows control of Serial Parallel chips to control multiple stepper motors.</p>"
-			"<form method=\"POST\">" +
-			htmlChoice("enabled", controller != nullptr, { "no", "yes" }) +
-			htmlInputNumber("latchPin", latchPin, 0, 16, "port pin number", controller == nullptr) +
-			htmlInputNumber("clockPin", clockPin, 0, 16, "port pin number", controller == nullptr) +
-			htmlInputNumber("dataPin", dataPin, 0, 16, "port pin number", controller == nullptr) +
-			htmlInputNumber("motors", motors, 1, 100, "number of motors", controller == nullptr);
+	if (server->isJson()) 
+		return server->replyJson("");
 
-		for (byte i = 0; i < motors; i++) {
-			html +=
-				"<fieldset>"
-				"<legend>motor" + String(i) + "</legend>" +
-				htmlInputText("patternOptions" + String(i), controller == nullptr ? "1,8,0,50000" : PatternOption::serialize(controller->patternServices[i].patternOptions), "startPattern,endPattern,steps,interval") +
-				htmlChoice("resetPosition" + String(i), 0, { "no", "yes" }) +
-				htmlReadOnly("position" + String(i), controller == nullptr ? "" : String(controller->patternServices[i].position)) +
-				"</fieldset>";
-		}
+	String html =
+		htmlHeader("MultiMotor < Moth") +
+		"<main>"
+		"<h1>MOTH MultiMotor</h1>"
+		"<p>Allows control of Serial Parallel chips to control multiple stepper motors.</p>"
+		"<form method=\"POST\">" +
+		htmlChoice("enabled", controller->get_enabled(), { "no", "yes" }) +
+		htmlInputNumber("latchPin", controller->latchPin, 0, 16, "port pin number", !controller->get_enabled()) +
+		htmlInputNumber("clockPin", controller->clockPin, 0, 16, "port pin number", !controller->get_enabled()) +
+		htmlInputNumber("dataPin", controller->dataPin, 0, 16, "port pin number", !controller->get_enabled()) +
+		htmlInputNumber("motors", controller->motors, 1, 100, "number of motors", !controller->get_enabled());
 
+	for (byte i = 0; i < controller->motors; i++) {
 		html +=
-			"<button>Save</button>"
-			"</form>"
-			"</main>" +
-			htmlFooter();
-		server->replyHtml(html);
+			"<fieldset>"
+			"<legend>motor" + String(i) + "</legend>" +
+			htmlInputText("patternOptions" + String(i), PatternOption::serialize(controller->patternServices[i].patternOptions), "startPattern,endPattern,steps,interval") +
+			htmlChoice("resetPosition" + String(i), 0, { "no", "yes" }) +
+			htmlReadOnly("position" + String(i), String(controller->patternServices[i].position)) +
+			"</fieldset>";
 	}
+
+	html +=
+		"<button>Save</button>"
+		"</form>"
+		"</main>" +
+		htmlFooter();
+	server->replyHtml(html);
+	
 }

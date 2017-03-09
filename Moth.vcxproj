@@ -86,13 +86,13 @@
   <ItemGroup>
     <ClInclude Include="Command.h" />
     <ClInclude Include="config.h">
-      <FileType>CppCode</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="ConfigView.h">
-      <FileType>CppCode</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="Connection.h">
-      <FileType>CppCode</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="IServer.h" />
     <ClInclude Include="ISettings.h" />
@@ -100,68 +100,68 @@
     <ClInclude Include="MultiMotorController.h" />
     <ClInclude Include="MultiMotorView.h" />
     <ClInclude Include="ErrorView.h">
-      <FileType>CppCode</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="ESP8266_const.h">
       <FileType>CppCode</FileType>
     </ClInclude>
     <ClInclude Include="AppView.h">
-      <FileType>CppCode</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="FaviconView.h" />
     <ClInclude Include="FileInfo.h" />
     <ClInclude Include="FsController.h" />
     <ClInclude Include="FsView.h" />
     <ClInclude Include="IndexView.h">
-      <FileType>CppCode</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="IView.h">
-      <FileType>CppCode</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="LedMatrixController.h">
-      <FileType>CppCode</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="LedMatrixView.h">
-      <FileType>CppCode</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="logger.h">
-      <FileType>CppCode</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="PatternOption.h" />
     <ClInclude Include="PatternService.h" />
     <ClInclude Include="PinController.h">
-      <FileType>CppCode</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="PinView.h">
-      <FileType>CppCode</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="Screen.h">
-      <FileType>CppCode</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="SerialLogger.h">
-      <FileType>CppCode</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="SerialParallelController.h">
-      <FileType>CppCode</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="StepperController.h">
-      <FileType>CppCode</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="StepperView.h">
-      <FileType>CppCode</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="stringHelper.h">
-      <FileType>CppCode</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="TextPanel.h">
-      <FileType>CppCode</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="UltrasonicController.h">
-      <FileType>CppCode</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="UltrasonicView.h" />
     <ClInclude Include="WebServer.h">
-      <FileType>CppCode</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
     <ClInclude Include="SocketsServer.h" />
     <ClInclude Include="__vm\.esp8266-experimental.vsarduino.h" />

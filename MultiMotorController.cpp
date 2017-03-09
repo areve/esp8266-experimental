@@ -1,22 +1,6 @@
 #include "MultiMotorController.h"
 #include "logger.h"
 
-MultiMotorController::MultiMotorController(const int8_t latchPin, const int8_t clockPin, const int8_t dataPin, const byte motors)
-{
-	this->latchPin = latchPin;
-	this->clockPin = clockPin;
-	this->dataPin = dataPin;
-	pinMode(latchPin, OUTPUT);
-	pinMode(dataPin, OUTPUT);
-	pinMode(clockPin, OUTPUT);
-
-	for (byte i = 0; i < motors; i++) {
-		PatternService patternService;
-		patternService.patterns = &motorPatterns;
-		patternServices.push_back(patternService);
-	}
-}
-
 void MultiMotorController::loop()
 {
 	bool updated = false;
@@ -43,3 +27,11 @@ void MultiMotorController::loop()
 		digitalWrite(latchPin, HIGH);
 	}
 }
+
+void MultiMotorController::onEnabled()
+{
+	pinMode(latchPin, OUTPUT);
+	pinMode(dataPin, OUTPUT);
+	pinMode(clockPin, OUTPUT);
+}
+

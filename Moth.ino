@@ -25,6 +25,7 @@
 #include "LedMatrixView.h"
 #include "StepperView.h"
 #include "MultiMotorView.h"
+#include "MultiMotorController.h"
 #include "UltrasonicView.h"
 #include "UltrasonicController.h"
 #include "FaviconView.h"
@@ -42,6 +43,7 @@ StepperView* stepperView = nullptr;
 LedMatrixView* ledMatrixView = nullptr;
 
 MultiMotorView* multiMotorView = nullptr;
+MultiMotorController multiMotorController;
 FsController* fsController = nullptr;
 UltrasonicView* ultrasonicView = nullptr;
 UltrasonicController ultrasonicController;
@@ -71,13 +73,13 @@ inline void setupLedMatrixView() {
 }
 
 inline void setupMultiMotorView() {
-	multiMotorView = new MultiMotorView(nullptr);
+	multiMotorController.updateSettings(config::multiMotorSettings);
+	multiMotorView = new MultiMotorView(multiMotorController);
 	webServer->addView("/api/motor", multiMotorView);
 }
 
 inline void setupUltrasonicView() {
 	ultrasonicController.updateSettings(config::ultrasonicSettings);
-	
 	ultrasonicView = new UltrasonicView(ultrasonicController);
 	webServer->addView("/api/us", ultrasonicView);
 	socketServer->addView("/api/us", ultrasonicView);

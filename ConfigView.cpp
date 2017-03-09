@@ -10,6 +10,8 @@ void ConfigView::handleRequest(IServer* server)
 		config::wifiSsid = server->getArg("wifiSsid");
 		config::wifiPassphrase = server->getArg("wifiPassphrase");
 		config::devScriptUrl = server->getArg("devScriptUrl");
+		config::ultrasonicSettings = server->getArg("ultrasonicSettings");
+		config::multiMotorSettings = server->getArg("multiMotorSettings");
 
 		if (config::save()) {
 			server->replyCommand();
@@ -38,6 +40,8 @@ void ConfigView::handleRequest(IServer* server)
 				htmlInputText("wifiSsid", config::wifiSsid) +
 				htmlInputText("wifiPassphrase", config::wifiPassphrase) +
 				htmlInputText("devScriptUrl", config::devScriptUrl) +
+				htmlInputText("multiMotorSettings", config::multiMotorSettings) +
+				htmlInputText("ultrasonicSettings", config::ultrasonicSettings) +
 				"<button>Save</button>"
 				"</form>" +
 				htmlFooter();
